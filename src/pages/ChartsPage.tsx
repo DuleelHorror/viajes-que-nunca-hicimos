@@ -35,14 +35,14 @@ export function ChartsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <div className="label-stencil mb-1">Sala de gráficas</div>
-        <h1 className="text-3xl">Gráficas</h1>
-        <p className="mt-2 max-w-2xl text-sm text-concrete-400">Todos los países a la vez. Pasa el ratón para ver valores y haz clic en un país para abrir su expediente.</p>
+        <div className="label-stencil mb-1">La sala de mapas y gráficas</div>
+        <h1 className="text-3xl">Todos los países de un vistazo</h1>
+        <p className="mt-2 max-w-2xl text-base text-concrete-300">Pasa el ratón para ver los números y haz clic en un país para abrir su ficha. Aquí es donde se ve quién gana y por qué.</p>
       </div>
 
       <section className="grid gap-4 lg:grid-cols-2">
         <Panel className="p-5">
-          <SectionHeader title="Ranking" kicker="Una métrica, todos los países" as="h3" />
+          <SectionHeader title="Ranking" kicker="Elige una cosa y mira quién manda" as="h3" />
           <div className="mt-3 flex flex-wrap gap-1">
             {(Object.keys(RANK_METRICS) as RankKey[]).map((k) => (
               <Chip key={k} on={rank === k} onClick={() => setRank(k)}>
@@ -54,22 +54,22 @@ export function ChartsPage() {
         </Panel>
 
         <Panel className="p-5">
-          <SectionHeader title="Circo frente a coste" kicker="Burbuja = días ideales" as="h3" />
+          <SectionHeader title="Cuánto circo por euro" kicker="Cuanto más arriba a la izquierda, mejor · burbuja = días que le echaría" as="h3" />
           <ScatterChart
             className="mt-3"
             points={COUNTRIES.map((c) => ({ id: c.id, label: c.summary.name, x: c.cost.value, y: c.circo.value, r: c.days.ideal }))}
-            xLabel="Coste (10 = carísimo)"
+            xLabel="Coste (10 = sangría)"
             yLabel="Circo Score"
             xMax={10}
             yMax={10}
-            quadrants={["barato y circo", "caro pero circo", "barato y flojo", "caro y flojo"]}
+            quadrants={["barato y con mandanga", "caro pero con mandanga", "barato y flojo", "caro y flojo: huye"]}
             rLabel="días"
             onSelect={go}
           />
         </Panel>
 
         <Panel className="p-5">
-          <SectionHeader title="Sin coche frente a transporte" kicker="¿Dónde llego de verdad sin conducir?" as="h3" />
+          <SectionHeader title="¿Dónde llego sin conducir?" kicker="Red de transporte contra lo remotos que están los sitios" as="h3" />
           <ScatterChart
             className="mt-3"
             points={COUNTRIES.map((c) => ({ id: c.id, label: c.summary.name, x: c.transport.value, y: c.noCar.value, r: c.summary.placeStats.total, color: "#d97706" }))}
@@ -79,20 +79,20 @@ export function ChartsPage() {
             yMax={10}
             xMin={2}
             yMin={2}
-            quadrants={["sitios accesibles, red floja", "el paraíso sin coche", "circo logístico", "buena red, sitios remotos"]}
+            quadrants={["sitios a mano, red floja", "el paraíso sin coche", "circo logístico", "buena red, sitios en mitad de la nada"]}
             rLabel="sitios"
             onSelect={go}
           />
         </Panel>
 
         <Panel className="flex flex-col items-center p-5">
-          <SectionHeader title="Radar de los 4 mejores" kicker="Perfil circo superpuesto" as="h3" className="self-stretch" />
+          <SectionHeader title="Los 4 mejores, superpuestos" kicker="De qué va el circo de cada uno" as="h3" className="self-stretch" />
           <RadarChart className="mt-3" axes={CIRCO_SUBS.map((k) => ({ key: k, label: CIRCO_SUB_SHORT[k] }))} series={top4.map((c) => ({ id: c.id, label: c.summary.name, values: CIRCO_SUBS.map((k) => c.subs[k]) }))} size={380} />
         </Panel>
       </section>
 
       <Panel className="p-5">
-        <SectionHeader title="Mejor época, todos a la vez" kicker="Calendario cruzado" as="h3" />
+        <SectionHeader title="¿Cuándo ir a cada sitio?" kicker="El calendario cruzado: verde para ir, rojo para huir" as="h3" />
         <Heatmap
           className="mt-3"
           rows={COUNTRIES.map((c) => ({ id: c.id, label: c.summary.name }))}
@@ -110,11 +110,11 @@ export function ChartsPage() {
 
       <section className="grid gap-4 lg:grid-cols-2">
         <Panel className="p-5">
-          <SectionHeader title="¿Cuántos días?" kicker="Rangos rápida / recomendada / completa" as="h3" />
+          <SectionHeader title="¿Cuántos días pide cada uno?" kicker="Rápido, recomendado y completo, en la misma regla" as="h3" />
           <DumbbellChart className="mt-4" rows={COUNTRIES.map((c) => ({ id: c.id, label: c.summary.name, quick: c.days.quick, recommended: c.days.recommended, complete: c.days.complete, ideal: c.days.ideal }))} onSelect={go} />
         </Panel>
         <Panel className="p-5">
-          <SectionHeader title="Sub-puntuación circo" kicker="Elige una dimensión" as="h3" />
+          <SectionHeader title="Cada ingrediente del circo" kicker="Elige uno y mira quién lo tiene" as="h3" />
           <div className="mt-3 flex flex-wrap gap-1">
             {CIRCO_SUBS.map((k) => (
               <Chip key={k} on={sub === k} onClick={() => setSub(k)}>
@@ -127,7 +127,7 @@ export function ChartsPage() {
       </section>
 
       <Panel className="p-5">
-        <SectionHeader title="Etiquetas" kicker="Cuántos países cumplen cada filtro" as="h3" />
+        <SectionHeader title="Etiquetas" kicker="Cuántos países cumplen cada cosa · clic para filtrar" as="h3" />
         <RankBars className="mt-4" items={TAGS.map((t) => ({ id: t, label: `${TAG_META[t].emoji} ${TAG_META[t].label}`, value: COUNTRIES.filter((c) => c.tags.includes(t)).length }))} max={COUNTRIES.length} format={(v) => fmtInt(v)} color="#0891b2" winnerMark={false} onSelect={(t) => nav(`/paises?tags=${t}`)} />
       </Panel>
     </div>

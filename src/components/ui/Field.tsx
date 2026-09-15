@@ -36,7 +36,7 @@ export function Field({ label, htmlFor, hint, className, children }: FieldProps)
     <label htmlFor={htmlFor} className={cn("block", className)}>
       <span className="label-stencil mb-1 block">{label}</span>
       {children}
-      {hint && <span className="mt-1 block text-[11px] text-concrete-500">{hint}</span>}
+      {hint && <span className="mt-1 block text-xs text-concrete-500">{hint}</span>}
     </label>
   );
 }

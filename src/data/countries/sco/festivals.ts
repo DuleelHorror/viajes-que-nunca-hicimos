@@ -1,7 +1,7 @@
 import type { Festival } from "@/lib/schema";
 import { meta } from "@/lib/schema";
 
-const PROPIO = { label: "Curación propia", kind: "propio" as const };
+const PROPIO = { label: "Lo hemos escrito nosotros", kind: "propio" as const };
 const m = (confidence: "alta" | "media" | "baja" = "media", notes?: string) =>
   meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence, sources: [PROPIO], notes });
 
@@ -17,10 +17,10 @@ export const festivals: Festival[] = [
     durationDays: 1,
     category: "festival",
     whatHappens:
-      "Un millar de hombres disfrazados de vikingos con antorchas desfila por Lerwick y quema un drakkar construido durante meses; después, fiesta en los salones de toda la ciudad hasta el amanecer con sketches y bailes. Amanece a las 9 y anochece a las 15: el fuego lo es todo.",
+      "Un millar de tíos disfrazados de vikingos desfilan con antorchas por Lerwick y le prenden fuego a un drakkar que han tardado meses en construir. Luego, fiesta en los salones de todo el pueblo hasta el amanecer, con sketches y bailes. Amanece a las 9 y anochece a las 15: el fuego lo es todo. Sitio de los que justifican el viaje.",
     scores: { rareza: 9, espectacularidad: 10, facilidadAcceso: 4, nivelTurismo: 6 },
     planTripAround: true,
-    needsBooking: "alojamiento en Lerwick se agota con un año; ferri nocturno desde Aberdeen o vuelo desde Edimburgo/Glasgow",
+    needsBooking: "las camas de Lerwick vuelan con un año de antelación; ferri nocturno desde Aberdeen o vuelo desde Edimburgo o Glasgow",
     links: [{ label: "Up Helly Aa (web oficial)", url: "https://www.uphellyaa.org", kind: "oficial" }],
     meta: m("alta"),
   },
@@ -35,10 +35,10 @@ export const festivals: Festival[] = [
     durationDays: 1,
     category: "folklore",
     whatHappens:
-      "Año nuevo según el calendario juliano: un barril de brea ardiendo se lleva a hombros por el pueblo y se planta en un altar de piedra sobre un antiguo fuerte picto; los vecinos recogen brasas para la suerte del año. Ritual pagano intacto, sin gradas ni entradas.",
+      "El año nuevo según el calendario juliano: un barril de brea ardiendo se lleva a hombros por el pueblo y se planta en un altar de piedra sobre un antiguo fuerte picto. Los vecinos recogen brasas para tener suerte. Ritual pagano intacto, sin gradas, sin entradas y sin guiris.",
     scores: { rareza: 9, espectacularidad: 7, facilidadAcceso: 4, nivelTurismo: 2 },
     planTripAround: false,
-    needsBooking: "tren a Elgin desde Inverness o Aberdeen + bus; dormir en Elgin",
+    needsBooking: "tren a Elgin desde Inverness o Aberdeen y luego bus; dormir en Elgin",
     meta: m("media"),
   },
   {
@@ -52,10 +52,10 @@ export const festivals: Festival[] = [
     durationDays: 1,
     category: "occult",
     whatHappens:
-      "Celebración neopagana con cientos de performers: la Reina de Mayo, el Hombre Verde, tambores, fuego y cuerpos pintados de rojo y blanco recorriendo Calton Hill hasta la madrugada. Sin salir de la ciudad y a 15 minutos a pie de la Royal Mile.",
+      "Fiesta neopagana con cientos de performers: la Reina de Mayo, el Hombre Verde, tambores, fuego y cuerpos pintados de rojo y blanco recorriendo Calton Hill hasta la madrugada. Y sin salir de la ciudad: está a 15 minutos andando de la Royal Mile.",
     scores: { rareza: 8, espectacularidad: 9, facilidadAcceso: 10, nivelTurismo: 6 },
     planTripAround: true,
-    needsBooking: "entrada de pago, online, se agota",
+    needsBooking: "entrada de pago online; se agota",
     links: [{ label: "Beltane Fire Society", url: "https://beltane.org", kind: "oficial" }],
     meta: m("alta"),
   },
@@ -70,7 +70,7 @@ export const festivals: Festival[] = [
     durationDays: 1,
     category: "occult",
     whatHappens:
-      "El reverso de Beltane: el Rey del Verano cae ante el del Invierno con fuego, tambores y máscaras en Calton Hill. Es el Halloween en su origen celta, sin calabazas de plástico.",
+      "El reverso de Beltane: el Rey del Verano cae ante el del Invierno entre fuego, tambores y máscaras en Calton Hill. Es Halloween en su versión original celta, sin calabazas de plástico.",
     scores: { rareza: 8, espectacularidad: 8, facilidadAcceso: 10, nivelTurismo: 5 },
     planTripAround: false,
     needsBooking: "entrada online",
@@ -84,14 +84,14 @@ export const festivals: Festival[] = [
     regionName: "Aberdeenshire",
     coords: [56.9636, -2.2116],
     month: 12,
-    dateApprox: "31 de diciembre, medianoche",
+    dateApprox: "31 de diciembre, a medianoche",
     durationDays: 1,
     category: "folklore",
     whatHappens:
-      "Sesenta vecinos hacen girar bolas de fuego encadenadas sobre sus cabezas desfilando por la calle mayor hasta lanzarlas al puerto a medianoche, para quemar los espíritus del año viejo. Diez mil personas mirando en un pueblo de once mil.",
+      "Sesenta vecinos hacen girar bolas de fuego encadenadas sobre sus cabezas mientras desfilan por la calle mayor, y a medianoche las lanzan al puerto para quemar los espíritus del año viejo. Diez mil personas mirando en un pueblo de once mil.",
     scores: { rareza: 8, espectacularidad: 9, facilidadAcceso: 6, nivelTurismo: 5 },
     planTripAround: false,
-    needsBooking: "tren desde Aberdeen (20 min) o Edimburgo (2 h); vuelta complicada de madrugada",
+    needsBooking: "tren desde Aberdeen (20 min) o Edimburgo (2 h); la vuelta de madrugada es el problema",
     meta: m("media"),
   },
   {
@@ -101,11 +101,11 @@ export const festivals: Festival[] = [
     regionName: "Edimburgo y Lothians",
     coords: [55.9533, -3.1883],
     month: 12,
-    dateApprox: "30 de diciembre al 1 de enero",
+    dateApprox: "del 30 de diciembre al 1 de enero",
     durationDays: 3,
     category: "festival",
     whatHappens:
-      "Procesión de antorchas por la Royal Mile el 30, fiesta callejera masiva con conciertos y fuegos artificiales el 31, chapuzón Loony Dook en el Forth el 1. Gigantesco y turístico, pero la procesión de antorchas con miles de personas merece la pena.",
+      "Procesión de antorchas por la Royal Mile el 30, fiestón callejero con conciertos y fuegos el 31 y chapuzón helado (Loony Dook) el 1. Gigantesco y turístico, pero la procesión de antorchas con miles de personas merece la pena.",
     scores: { rareza: 4, espectacularidad: 8, facilidadAcceso: 10, nivelTurismo: 10 },
     planTripAround: false,
     needsBooking: "entradas para la fiesta callejera y la procesión; alojamiento con meses",

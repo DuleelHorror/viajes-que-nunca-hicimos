@@ -42,16 +42,16 @@ export function DumbbellChart({ rows, max = 21, className, onSelect }: DumbbellC
             <span className="absolute top-1/2 h-1.5 -translate-y-1/2 rounded-sharp bg-neon-cyan/25" style={{ left: pct(r.quick[0]), width: `calc(${pct(r.complete[1])} - ${pct(r.quick[0])})` }} />
             <span className="absolute top-1/2 h-2.5 -translate-y-1/2 rounded-sharp bg-neon-cyan/60" style={{ left: pct(r.recommended[0]), width: `calc(${pct(r.recommended[1])} - ${pct(r.recommended[0])})` }} />
             <span className="absolute top-1/2 h-4 w-1 -translate-x-1/2 -translate-y-1/2 rounded-sharp bg-neon-lime shadow-glow" style={{ left: pct(r.ideal), ["--glow" as string]: "rgba(163,230,53,.7)" }} />
-            <span className="absolute -top-0.5 -translate-x-1/2 text-[10px] font-mono text-neon-lime" style={{ left: pct(r.ideal) }}>
+            <span className="absolute -top-0.5 -translate-x-1/2 text-xs font-mono text-neon-lime" style={{ left: pct(r.ideal) }}>
               {r.ideal}
             </span>
           </div>
         </div>
       ))}
       <ul className="flex flex-wrap gap-x-4 gap-y-1 pt-1">
-        <li className="flex items-center gap-1.5 text-[11px] text-concrete-300"><span className="h-1.5 w-4 rounded-sharp bg-neon-cyan/25" /> rápida → completa</li>
-        <li className="flex items-center gap-1.5 text-[11px] text-concrete-300"><span className="h-2.5 w-4 rounded-sharp bg-neon-cyan/60" /> recomendada</li>
-        <li className="flex items-center gap-1.5 text-[11px] text-concrete-300"><span className="h-3 w-1 rounded-sharp bg-neon-lime" /> ideal para ti</li>
+        <li className="flex items-center gap-1.5 text-xs text-concrete-300"><span className="h-1.5 w-4 rounded-sharp bg-neon-cyan/25" /> rápida → completa</li>
+        <li className="flex items-center gap-1.5 text-xs text-concrete-300"><span className="h-2.5 w-4 rounded-sharp bg-neon-cyan/60" /> recomendada</li>
+        <li className="flex items-center gap-1.5 text-xs text-concrete-300"><span className="h-3 w-1 rounded-sharp bg-neon-lime" /> ideal para ti</li>
       </ul>
     </div>
   );

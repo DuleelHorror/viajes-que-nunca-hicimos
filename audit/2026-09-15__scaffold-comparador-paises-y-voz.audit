@@ -1,0 +1,118 @@
+# Creación del comparador "Centro de control de los viajes que nunca hicimos" y pasada de voz/tipografía
+
+## Fecha
+2026-09-15 18:05 (Europe/Madrid)
+
+## Contexto / origen del cambio
+El usuario pidió transformar la idea de su app de viaje (Cold Days Planner, Tauri, en C:\Going East) en una
+**web estática** para él y sus amigos: un comparador de países como destinos, pensado para viajar muchos días,
+**sin coche**, desde Barcelona, buscando "sitios circo" (historia oscura, restos soviéticos, brutalismo,
+abandonos, catástrofes, folclore, festivales raros). Brief largo con 18 secciones por país, comparador,
+filtros, buscador, Duke Score global, estética oscura con "vibes vaporware" y nombre "Centro de control de
+los viajes que nunca hicimos".
+
+Decisiones tomadas con el usuario antes de empezar (plan aprobado): carpeta y repo nuevos
+(`C:\viajes-que-nunca-hicimos`, `DuleelHorror/viajes-que-nunca-hicimos`, público), GitHub Pages con Actions,
+estética "archivo Guerra Fría + neón vaporwave", sin fotos en v1 (placeholders por categoría).
+
+Peticiones añadidas a mitad de la sesión, textualmente:
+- "los commits que solo salga mi nombre no el de claude"
+- "y mete un apartado de graficas chulas, para comprar paises y demas"
+- Brief de tono: "el tono actual es demasiado técnico, serio, neutro y aburrido. Quiero que la aplicación
+  tenga mucha más personalidad" (español directo, con humor, vocabulario propio: sitio circo, mandanga,
+  "aquí empieza el circo"…), interpretaciones humanas de las puntuaciones, escalera de días, tipografía
+  Inter + Manrope, tamaños 16-18 px, contraste alto, sin mayúsculas constantes ni mono.
+
+## Archivos modificados
+Proyecto nuevo completo en `C:\viajes-que-nunca-hicimos\` (created). Lo relevante:
+
+- `package.json`, `vite.config.ts` (base "./", chunk leaflet), `vitest.config.ts`, `tsconfig*.json`,
+  `tailwind.config.js` (paleta ink/concrete/blood + neon/signal, escala tipográfica, fuentes),
+  `postcss.config.js`, `index.html`, `.gitignore`, `.github/workflows/pages.yml`.
+- `src/lib/schema/{meta,place,festival,route,geo,country,detail,index}.ts` — Zod, fuente de tipos.
+- `src/lib/scoring/{types,weights,subscores,circo,days,duke,tags,placeStats,index}.ts` — motor puro.
+- `src/lib/finder/rank.ts` — buscador de viajes.
+- `src/lib/{constants,format,utils,flags,voice}.ts` — enums/metadatos, formato es-ES, voz de la app.
+- `src/data/registry.ts`, `src/data/candidates.ts`, `src/data/countries/{uz,sco}/*` (7 archivos cada uno).
+- `src/data/__tests__/consistency.test.ts`, `src/lib/scoring/__tests__/scoring.test.ts`.
+- `src/components/{ui,score,charts,country,compare,finder,festivals,layout}/*`, `src/pages/*`, `src/router.tsx`.
+- `scripts/{data-stats,print-scores}.ts`, `README.md`, `CLAUDE.md`.
+- Copiado/adaptado desde `C:\Going East` (que NO se ha tocado): tokens de Tailwind, `globals.css`,
+  primitivas UI, patrones Leaflet (`L.divIcon`, tiles CARTO dark, `invalidateSize`), `createHashRouter`.
+
+## Decisiones de diseño / arquitectura
+- **Datos en dos niveles por país**: `summary.ts` eager y ligero (todo lo que entra en fórmulas/filtros) y
+  `index.ts` lazy con `import()` dinámico (sitios, rutas, geo, prosa). Así el registro puntúa todos los países
+  al arrancar sin cargar 1 MB de texto, y cada ficha es su propio chunk.
+- **Metadatos por sección** (`meta: {sources, lastUpdated, confidence, volatility}`) y no por campo: es la
+  granularidad que la UI muestra (`SourceFooter`) y no triplica el tamaño de los datos. Un test obliga a
+  marcar como volátiles visados, seguridad, vuelos, coste, política, eventos, fx, corredores y festivales.
+- **Motor de puntuación explicable**: todo devuelve `{value, breakdown}` y los pesos viven en un solo
+  `weights.ts`; `/metodologia` y los popovers "¿y esto por qué?" renderizan desde ahí. Duke Score como
+  **suma de puntos con máximos explícitos** (no media ponderada) para que el número sea literalmente la lista
+  del desglose.
+- **Calibración honesta**: con datos realistas Uzbekistán da 71 y Escocia 75; el "91/100" del brief se trató
+  como ejemplo de formato. Se ajustaron los umbrales de veredicto (🔥 ≥ 72, 👍 ≥ 58, 🤔 ≥ 45) porque una suma
+  realista de un país excelente ronda 80-85, y se recalibró la fórmula de días (excursiones y regiones
+  contaban doble: 17/18 → 13/12). Pendiente recalibrar con 8 países.
+- **Gráficas SVG propias** en vez de recharts: solo hacen falta radar, barras, dispersión, heatmap y
+  rangos; control total del look y ~100 KB menos. Paleta de series validada con el validador del skill
+  `dataviz` en modo oscuro (todas las parejas): cian/ámbar/fucsia/rosa; el par cian-fucsia queda en banda de
+  aviso deutan → leyenda obligatoria, etiquetas directas y trazo discontinuo como codificación secundaria.
+- **Banderas como imágenes** (flagcdn, fallback a código ISO): Windows no renderiza los emoji de bandera
+  (salía "uz" en texto en las capturas). Escocia usa `gb-sct`.
+- **Voz de la app en un módulo** (`lib/voice.ts`): frases por tramo para circo, sin coche, transporte,
+  coste, seguridad, idioma, móvil, BCN, estabilidad, temporada, días. Los componentes las consumen; los
+  datos llevan la prosa larga. Así el tono es consistente y se cambia en un sitio.
+- **Tipografía**: Inter (cuerpo) + Manrope (títulos) vía `@fontsource-variable`, sin Google Fonts en
+  runtime; JetBrains Mono solo para cifras. Escala de Tailwind redefinida (xs 13, sm 15, base 17 px).
+  `label-stencil` deja de ser mono/mayúsculas. Paleta `concrete` aclarada para contraste.
+
+## Buenas prácticas aplicadas
+- Zod como única fuente de tipos; validación en runtime solo en DEV y siempre en tests.
+- Tests de deriva: `placeStats` ≡ `computePlaceStats(places)`, referencias de ciudades/sitios/festivales
+  resueltas, noches de cada ruta = días, 12 meses, secciones volátiles marcadas, ids únicos.
+- `npm run build` = `tsc --noEmit && vitest run && vite build`; se ejecutó en verde antes de cada commit.
+- Ids namespaced y estables (`uz-muynak-cementerio-barcos`), sin datos en componentes.
+- Nunca se inventaron URLs de imagen; el esquema exige crédito, licencia y página de origen si hay `url`.
+- Verificación con Playwright de home, ficha, comparador, buscador, festivales, gráficas y móvil (390 px):
+  0 errores de consola tras recarga limpia; los únicos errores vistos fueron transitorios de HMR.
+- Identidad git local `DuleelHorror <261600665+DuleelHorror@users.noreply.github.com>`; commits sin
+  trailer de coautoría, como pidió el usuario.
+- Base relativa (`./`) + HashRouter: sin acoplamiento al nombre del repo y sin 404.html.
+
+## Anti-patrones evitados
+- NO se estiró la escala del Duke para que Uzbekistán diera 91: se prefirió el número explicable.
+- NO se usó recharts ni d3 por tres gráficas.
+- NO se puso `!important` salvo en overrides de Leaflet (`.leaflet-bar`, atribución), que lo requieren.
+- NO se hardcodearon textos de país en componentes; toda la prosa está en `src/data`.
+- NO se tocó `C:\Going East` ni su seed: se copiaron patrones, no se enlazó código.
+- NO se dejó el parámetro `values: Record<K, number>` que forzaba a pasar `meta` a las medias ponderadas:
+  se aceptan claves extra y se leen solo las de `weights`.
+
+## Riesgos y cómo se mitigaron
+- **Datos volátiles sin verificación web** (visados, vuelos directos, tipo de cambio, fechas de Stihia,
+  trolebús Urgench–Khiva): marcados con `confidence: "media"/"baja"` y notas; la UI muestra "sin verificar"
+  y "dato viejo" a los 6 meses. Pendiente pasar WebSearch en la fase de los 8 países.
+- **Un solo repo público con flagcdn como dependencia externa**: fallback al código ISO si falla.
+- **Calibración con 2 países**: documentado en `CLAUDE.md` como pendiente; `scripts/print-scores.ts` y
+  `data:stats` facilitan recalibrar.
+- **Estilos tras el cambio de escala tipográfica**: se sustituyeron todos los tamaños arbitrarios
+  (`text-[10px]`/`[11px]`) por la escala; revisado visualmente en escritorio y móvil.
+
+## Pendiente / siguientes pasos
+- Push a `main` y activar Pages con `build_type=workflow` (se hace a continuación en esta misma sesión).
+- Países restantes de v1: Italia, Austria, Japón, España, Suecia, República Checa; luego los del radar.
+- Verificar con fuentes web visados/ETA, vuelos directos desde BCN y cambio de moneda de cada país.
+- Recalibrar pesos del Duke y fórmula de días con los 8 países cargados.
+- Fotos con licencia verificada para los sitios (campo `image` ya previsto).
+
+## Cómo verificar que funciona
+1. `cd C:\viajes-que-nunca-hicimos && npm install && npm run build` → tsc, 23 tests y bundle en verde.
+2. `npm run dev` → `http://localhost:5173/#/`: home con Inter/Manrope, top 2 países, atajos, festivales.
+3. `#/pais/uz`: cabecera con Duke 71, frases de voz bajo cada KPI, escalera de días (3/5/8/12/15) con
+   "🔥 Para ti: 13", mapa con corredores, 22 sitios, 3 rutas, veredicto.
+4. `#/comparar?ids=uz,sco`: radares con leyenda y tabla con 🏆; `#/buscador` con enero + 10 días + sin coche
+   innegociable → Escocia primera con Up Helly Aa; `#/graficas` con rankings y calendario cruzado.
+5. Viewport 390 px: menú hamburguesa y tarjetas apiladas.
+6. `git log --format='%an <%ae>'` → solo DuleelHorror.

@@ -101,10 +101,10 @@ export function monthName(m: number): string {
 export const MONTH_RATINGS = ["excelente", "bueno", "normal", "malo"] as const;
 export type MonthRatingValue = (typeof MONTH_RATINGS)[number];
 export const MONTH_RATING_META: Record<MonthRatingValue, { label: string; color: string; points: number; badge: string }> = {
-  excelente: { label: "Excelente", color: "#a3e635", points: 3, badge: "border-lime-500/50 bg-lime-500/15 text-lime-200" },
-  bueno: { label: "Bueno", color: "#22d3ee", points: 2, badge: "border-cyan-500/50 bg-cyan-500/15 text-cyan-200" },
-  normal: { label: "Normal", color: "#eab308", points: 1, badge: "border-yellow-500/50 bg-yellow-500/15 text-yellow-200" },
-  malo: { label: "Malo", color: "#ef4444", points: 0, badge: "border-red-500/50 bg-red-500/15 text-red-200" },
+  excelente: { label: "🔥 Muy buena época", color: "#a3e635", points: 3, badge: "border-lime-500/50 bg-lime-500/15 text-lime-200" },
+  bueno: { label: "👍 Buen momento", color: "#22d3ee", points: 2, badge: "border-cyan-500/50 bg-cyan-500/15 text-cyan-200" },
+  normal: { label: "🤔 Se puede", color: "#eab308", points: 1, badge: "border-yellow-500/50 bg-yellow-500/15 text-yellow-200" },
+  malo: { label: "💀 Mal momento", color: "#ef4444", points: 0, badge: "border-red-500/50 bg-red-500/15 text-red-200" },
 };
 
 export const SEASONS = ["primavera", "verano", "otoño", "invierno", "todo el año"] as const;
@@ -114,38 +114,38 @@ export type Season = (typeof SEASONS)[number];
 export const ENTRY_TYPES = ["dni", "pasaporte", "eta", "evisa", "voa", "visado-embajada"] as const;
 export type EntryType = (typeof ENTRY_TYPES)[number];
 export const ENTRY_META: Record<EntryType, { label: string; short: string; color: string; ease: number }> = {
-  dni: { label: "DNI suficiente", short: "DNI", color: "#a3e635", ease: 10 },
-  pasaporte: { label: "Pasaporte, sin visado", short: "Pasaporte", color: "#22d3ee", ease: 8 },
-  eta: { label: "Autorización electrónica (ETA/ESTA)", short: "ETA", color: "#eab308", ease: 6 },
-  evisa: { label: "eVisa online", short: "eVisa", color: "#f97316", ease: 5 },
-  voa: { label: "Visado a la llegada", short: "VoA", color: "#f97316", ease: 4 },
-  "visado-embajada": { label: "Visado en embajada", short: "Visado", color: "#ef4444", ease: 1 },
+  dni: { label: "Con el DNI te vale", short: "DNI", color: "#a3e635", ease: 10 },
+  pasaporte: { label: "Pasaporte y a volar, sin visado", short: "Pasaporte", color: "#22d3ee", ease: 8 },
+  eta: { label: "Autorización online (ETA) antes de volar", short: "ETA", color: "#eab308", ease: 6 },
+  evisa: { label: "eVisa online: trámite rápido", short: "eVisa", color: "#f97316", ease: 5 },
+  voa: { label: "Visado a la llegada: cola y pasta", short: "VoA", color: "#f97316", ease: 4 },
+  "visado-embajada": { label: "Visado en embajada: el rollo completo", short: "Visado", color: "#ef4444", ease: 1 },
 };
 
 // ---------- Veredictos ----------
 export const VERDICTS = ["mucho", "si", "depende", "poco"] as const;
 export type Verdict = (typeof VERDICTS)[number];
-export const VERDICT_META: Record<Verdict, { emoji: string; label: string; color: string; glow: string }> = {
-  mucho: { emoji: "🔥", label: "MUCHO", color: "#a3e635", glow: "glow-lime" },
-  si: { emoji: "👍", label: "SÍ", color: "#22d3ee", glow: "glow-cyan" },
-  depende: { emoji: "🤔", label: "DEPENDE", color: "#fbbf24", glow: "glow-amber" },
-  poco: { emoji: "👎", label: "POCO", color: "#ef4444", glow: "glow-blood" },
+export const VERDICT_META: Record<Verdict, { emoji: string; label: string; phrase: string; color: string; glow: string }> = {
+  mucho: { emoji: "🔥", label: "Mucho", phrase: "Este país es MUY tú.", color: "#a3e635", glow: "glow-lime" },
+  si: { emoji: "👍", label: "Sí", phrase: "Tiene bastante sentido.", color: "#22d3ee", glow: "glow-cyan" },
+  depende: { emoji: "🤔", label: "Depende", phrase: "Hay cosas muy buenas, pero hay que montarlo bien.", color: "#fbbf24", glow: "glow-amber" },
+  poco: { emoji: "👎", label: "Poco", phrase: "Puedes sobrevivir sin venir.", color: "#ef4444", glow: "glow-blood" },
 };
 
 // ---------- Semáforo "sin coche" ----------
 export const NO_CAR_LIGHTS = ["verde", "amarillo", "naranja", "rojo"] as const;
 export type NoCarLight = (typeof NO_CAR_LIGHTS)[number];
 export const LIGHT_META: Record<NoCarLight, { emoji: string; label: string; color: string }> = {
-  verde: { emoji: "🟢", label: "Excelente sin coche", color: "#22c55e" },
-  amarillo: { emoji: "🟡", label: "Posible con algunas limitaciones", color: "#eab308" },
-  naranja: { emoji: "🟠", label: "Complicado", color: "#f97316" },
-  rojo: { emoji: "🔴", label: "Coche prácticamente necesario", color: "#ef4444" },
+  verde: { emoji: "🟢", label: "Modo fácil sin coche", color: "#22c55e" },
+  amarillo: { emoji: "🟡", label: "Se puede, con alguna aventura logística", color: "#eab308" },
+  naranja: { emoji: "🟠", label: "Empieza el circo logístico", color: "#f97316" },
+  rojo: { emoji: "🔴", label: "O conduces o invocas un helicóptero", color: "#ef4444" },
 };
 
 export const LEG_DIFFICULTY_META = {
-  ok: { emoji: "🟢", label: "Sin problema", color: "#22c55e" },
-  aviso: { emoji: "🟡", label: "Aviso: etapa incómoda sin coche", color: "#eab308" },
-  dificil: { emoji: "🔴", label: "Difícil sin coche", color: "#ef4444" },
+  ok: { emoji: "🟢", label: "Sin dramas", color: "#22c55e" },
+  aviso: { emoji: "🟡", label: "Etapa con circo: sin coche toca currárselo", color: "#eab308" },
+  dificil: { emoji: "🔴", label: "Sin coche solo con tour o milagro", color: "#ef4444" },
 } as const;
 
 // ---------- Regiones ----------
@@ -236,20 +236,20 @@ export type Tag = (typeof TAGS)[number];
 export const TAG_META: Record<Tag, { label: string; emoji: string }> = {
   barato: { label: "Barato", emoji: "💸" },
   "buen-transporte": { label: "Buen transporte", emoji: "🚆" },
-  "sin-coche": { label: "Sin coche", emoji: "🚫🚗" },
+  "sin-coche": { label: "Va bien sin coche", emoji: "🚫🚗" },
   seguro: { label: "Seguro", emoji: "🛡️" },
-  sovietico: { label: "Soviético", emoji: "☢️" },
-  brutalista: { label: "Brutalista", emoji: "🧱" },
-  oscuro: { label: "Oscuro", emoji: "☠️" },
-  raro: { label: "Extraño", emoji: "🗿" },
-  festivales: { label: "Festivales", emoji: "🔥" },
+  sovietico: { label: "Reliquias soviéticas", emoji: "☢️" },
+  brutalista: { label: "Brutalismo", emoji: "🧱" },
+  oscuro: { label: "Historia turbia", emoji: "☠️" },
+  raro: { label: "Sitios raros", emoji: "🗿" },
+  festivales: { label: "Festivales locos", emoji: "🔥" },
   naturaleza: { label: "Naturaleza", emoji: "🌲" },
-  invierno: { label: "Invierno", emoji: "🧊" },
-  nieve: { label: "Nieve", emoji: "❄️" },
-  verano: { label: "Verano", emoji: "☀️" },
-  "poco-turismo": { label: "Poco turismo", emoji: "🫥" },
-  "muy-distinto": { label: "Muy distinto de España", emoji: "🌍" },
-  "facil-desde-bcn": { label: "Fácil desde Barcelona", emoji: "✈️" },
+  invierno: { label: "Funciona en invierno", emoji: "🧊" },
+  nieve: { label: "Nieve fiable", emoji: "❄️" },
+  verano: { label: "Funciona en verano", emoji: "☀️" },
+  "poco-turismo": { label: "Poco turista", emoji: "🫥" },
+  "muy-distinto": { label: "Otro planeta", emoji: "🌍" },
+  "facil-desde-bcn": { label: "A tiro de BCN", emoji: "✈️" },
 };
 
 export const DAY_FILTERS = [5, 7, 10, 15] as const;

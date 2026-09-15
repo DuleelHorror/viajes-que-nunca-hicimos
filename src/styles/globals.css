@@ -60,7 +60,7 @@
       transparent 1px,
       transparent 3px
     );
-    opacity: 0.5;
+    opacity: 0.3;
   }
 
   #root {
@@ -95,7 +95,11 @@
   h1,
   h2,
   h3 {
-    @apply font-display font-semibold tracking-tight text-concrete-100;
+    @apply font-display font-bold tracking-tight text-concrete-50;
+  }
+
+  p {
+    @apply leading-relaxed;
   }
 
   .tabular {
@@ -104,8 +108,9 @@
 }
 
 @layer components {
+  /* Etiqueta pequeña de sección/kicker: legible, sin mayúsculas ni mono */
   .label-stencil {
-    @apply font-mono text-[10px] uppercase tracking-[0.22em] text-concrete-400;
+    @apply font-sans text-xs font-semibold tracking-wide text-concrete-400;
   }
 
   .panel {
@@ -146,7 +151,7 @@
 
   /* Chip de filtro / toggle */
   .chip {
-    @apply inline-flex items-center gap-1.5 rounded-sharp border px-2 py-1 text-[11px] font-medium transition-colors select-none;
+    @apply inline-flex items-center gap-1.5 rounded-sharp border px-2.5 py-1 text-xs font-medium transition-colors select-none;
     @apply border-ink-600 bg-ink-850 text-concrete-400 hover:text-concrete-200 hover:border-ink-500;
   }
   .chip-on {

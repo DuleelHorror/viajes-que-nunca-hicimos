@@ -9,12 +9,12 @@ import { Chip, Select } from "@/components/ui/Field";
 import { EmptyState } from "@/components/ui/Misc";
 
 const SORTS = {
-  duke: { label: "Duke Score", fn: (c: (typeof COUNTRIES)[number]) => c.duke.value },
-  circo: { label: "Circo Score", fn: (c: (typeof COUNTRIES)[number]) => c.circo.value },
-  barato: { label: "Más barato", fn: (c: (typeof COUNTRIES)[number]) => 10 - c.cost.value },
+  duke: { label: "Los que más me pegan", fn: (c: (typeof COUNTRIES)[number]) => c.duke.value },
+  circo: { label: "Más circo", fn: (c: (typeof COUNTRIES)[number]) => c.circo.value },
+  barato: { label: "Más baratos", fn: (c: (typeof COUNTRIES)[number]) => 10 - c.cost.value },
   sinCoche: { label: "Mejor sin coche", fn: (c: (typeof COUNTRIES)[number]) => c.noCar.value },
-  dias: { label: "Más días", fn: (c: (typeof COUNTRIES)[number]) => c.days.ideal },
-  bcn: { label: "Más fácil desde BCN", fn: (c: (typeof COUNTRIES)[number]) => c.bcn.value },
+  dias: { label: "Más días de viaje", fn: (c: (typeof COUNTRIES)[number]) => c.days.ideal },
+  bcn: { label: "Más a tiro de BCN", fn: (c: (typeof COUNTRIES)[number]) => c.bcn.value },
 } as const;
 type SortKey = keyof typeof SORTS;
 
@@ -42,11 +42,11 @@ export function CountryListPage() {
 
   return (
     <div className="space-y-6">
-      <SectionHeader title="Países" kicker={`${COUNTRIES.length} expedientes`} as="h1">
-        <Select value={sort} onChange={(e) => update({ sort: e.target.value as SortKey })} className="h-8 w-auto text-xs">
+      <SectionHeader title="Países" kicker={`${COUNTRIES.length} con ficha completa · el resto, en el radar`} as="h1">
+        <Select value={sort} onChange={(e) => update({ sort: e.target.value as SortKey })} className="h-9 w-auto text-sm">
           {(Object.keys(SORTS) as SortKey[]).map((k) => (
             <option key={k} value={k}>
-              Orden: {SORTS[k].label}
+              {SORTS[k].label}
             </option>
           ))}
         </Select>
@@ -54,7 +54,7 @@ export function CountryListPage() {
 
       <Panel className="space-y-3 p-3">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="label-stencil mr-1">Días</span>
+          <span className="label-stencil mr-1">Tengo</span>
           {DAY_FILTERS.map((n) => (
             <Chip key={n} on={dias === n} onClick={() => update({ dias: dias === n ? undefined : n })}>
               ⏱ {n} días
@@ -62,7 +62,7 @@ export function CountryListPage() {
           ))}
         </div>
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="label-stencil mr-1">Filtros</span>
+          <span className="label-stencil mr-1">Quiero</span>
           {TAGS.map((t) => (
             <Chip key={t} on={tags.includes(t)} onClick={() => update({ tags: tags.includes(t) ? tags.filter((x) => x !== t) : [...tags, t] })} title={TAG_META[t].label}>
               <span aria-hidden>{TAG_META[t].emoji}</span> {TAG_META[t].label}
@@ -70,15 +70,15 @@ export function CountryListPage() {
             </Chip>
           ))}
           {(tags.length > 0 || dias) && (
-            <button type="button" className="ml-auto text-xs text-concrete-400 underline hover:text-neon-cyan" onClick={() => update({ tags: [], dias: undefined })}>
-              Limpiar
+            <button type="button" className="ml-auto text-sm text-concrete-400 underline hover:text-neon-cyan" onClick={() => update({ tags: [], dias: undefined })}>
+              Quitar filtros
             </button>
           )}
         </div>
       </Panel>
 
       {list.length === 0 ? (
-        <EmptyState title="Ningún país cumple todos los filtros" description="Quita alguno o cambia la duración. Los filtros se combinan con Y, no con O." />
+        <EmptyState title="Ningún país cumple todo eso a la vez" description="Los filtros se suman, no se eligen. Quita alguno o cambia los días y verás que vuelven a aparecer." />
       ) : (
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {list.map((c) => (

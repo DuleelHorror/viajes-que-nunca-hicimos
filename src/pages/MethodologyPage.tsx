@@ -47,13 +47,12 @@ export function MethodologyPage() {
   return (
     <div className="space-y-8">
       <div>
-        <div className="label-stencil mb-1">Cómo se calcula todo</div>
-        <h1 className="text-3xl">Metodología</h1>
-        <p className="mt-2 max-w-3xl text-sm text-concrete-400">
-          Todas las puntuaciones salen de fórmulas fijas sobre datos curados a mano. Los pesos de esta página son los mismos
-          que usa la app (una única fuente de verdad), así que cualquier "¿por qué?" de una ficha se reduce a estas tablas.
-          Ningún número se ajusta a ojo: si un país sale mal parado, o cambian los datos o cambian los pesos, y ambos quedan
-          registrados.
+        <div className="label-stencil mb-1">Las tripas</div>
+        <h1 className="text-3xl">¿De dónde salen los números?</h1>
+        <p className="mt-2 max-w-3xl text-base text-concrete-200">
+          Ningún número está puesto a ojo para que un país quede bien. Todo sale de fórmulas fijas sobre datos escritos a mano,
+          y los pesos de esta página son literalmente los que usa la app. Si un país sale mal parado, o cambian los datos o
+          cambian los pesos, y las dos cosas quedan por escrito. Si crees que Uzbekistán merece más, aquí está lo que hay que tocar.
         </p>
       </div>
 
@@ -78,7 +77,7 @@ export function MethodologyPage() {
               </li>
             </ul>
             <div className="label-stencil mb-1 mt-3">Veredicto</div>
-            🔥 MUCHO ≥ {DUKE_VERDICT.mucho} · 👍 SÍ ≥ {DUKE_VERDICT.si} · 🤔 DEPENDE ≥ {DUKE_VERDICT.depende} · 👎 POCO por debajo
+            🔥 Este país es MUY tú ≥ {DUKE_VERDICT.mucho} · 👍 Tiene bastante sentido ≥ {DUKE_VERDICT.si} · 🤔 Hay que montarlo bien ≥ {DUKE_VERDICT.depende} · 👎 Puedes sobrevivir sin venir, por debajo
           </div>
         </Panel>
 
@@ -99,14 +98,14 @@ export function MethodologyPage() {
             <div>
               <div className="label-stencil mb-1">Ferrocarril</div>
               <WeightTable rows={Object.entries(RAIL_WEIGHTS)} />
-              <p className="mt-1 text-[11px] text-concrete-500">+0,25 si nocturnos ≥ 7 · +0,25 si alta velocidad ≥ 7</p>
+              <p className="mt-1 text-xs text-concrete-500">+0,25 si nocturnos ≥ 7 · +0,25 si alta velocidad ≥ 7</p>
             </div>
             <div>
               <div className="label-stencil mb-1">Transporte total</div>
               <WeightTable rows={Object.entries(TRANSPORT_WEIGHTS)} />
               <div className="label-stencil mb-1 mt-3">Sin coche</div>
               <WeightTable rows={[["Transporte del país", NO_CAR_WEIGHTS.transport], ["Acceso medio de los sitios", NO_CAR_WEIGHTS.accesoLugares]]} />
-              <p className="mt-1 text-[11px] text-concrete-500">
+              <p className="mt-1 text-xs text-concrete-500">
                 −0,5 si más del 40 % de los sitios dependen de excursión. Semáforo: {LIGHT_META.verde.emoji} ≥ {NO_CAR_LIGHTS.verde} ·{" "}
                 {LIGHT_META.amarillo.emoji} ≥ {NO_CAR_LIGHTS.amarillo} · {LIGHT_META.naranja.emoji} ≥ {NO_CAR_LIGHTS.naranja} · {LIGHT_META.rojo.emoji} resto
               </p>
@@ -176,13 +175,13 @@ export function MethodologyPage() {
       </section>
 
       <Panel className="p-5">
-        <SectionHeader title="Honestidad de los datos" as="h3" />
-        <ul className="mt-3 list-disc space-y-1 pl-4 text-sm text-concrete-300">
-          <li>Cada sección de cada ficha lleva fuente, fecha de actualización, confianza y volatilidad.</li>
-          <li>Visados, seguridad, vuelos, cambio, precios, política, eventos y horarios son volátiles: caducan a los 6 meses y la app lo avisa.</li>
-          <li>Los precios en euros son estimaciones orientativas, no tarifas.</li>
-          <li>Si un valor se fija a mano en vez de calcularse, aparece marcado como "(manual)".</li>
-          <li>No se inventan fotos: solo se enlazan imágenes con licencia y crédito verificados.</li>
+        <SectionHeader title="Para no engañarnos" as="h3" />
+        <ul className="mt-3 list-disc space-y-1.5 pl-4 text-base text-concrete-200">
+          <li>Cada sección de cada ficha dice de dónde sale, cuándo se escribió y cuánto nos fiamos.</li>
+          <li>Visados, seguridad, vuelos, cambio, precios, política, eventos y horarios caducan a los 6 meses y la app te lo canta.</li>
+          <li>Los precios en euros son para hacerse una idea, no tarifas.</li>
+          <li>Si un número está puesto a mano en vez de calculado, lo verás marcado como «(manual)».</li>
+          <li>No hay fotos inventadas: solo entrarán imágenes con licencia y crédito comprobados.</li>
         </ul>
       </Panel>
     </div>

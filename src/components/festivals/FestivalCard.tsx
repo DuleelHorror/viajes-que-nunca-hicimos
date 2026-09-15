@@ -35,23 +35,23 @@ export function FestivalCard({ f, className, showCountry }: FestivalCardProps) {
         </div>
         <CategoryBadge category={f.category} short />
       </div>
-      <p className="mt-2 text-xs leading-relaxed text-concrete-300">{f.whatHappens}</p>
+      <p className="mt-2 text-sm text-concrete-200">{f.whatHappens}</p>
       <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1">
         <ScoreBar label="Rareza" value={f.scores.rareza} size="sm" />
         <ScoreBar label="Espectacularidad" value={f.scores.espectacularidad} size="sm" />
-        <ScoreBar label="Facilidad para llegar" value={f.scores.facilidadAcceso} size="sm" />
-        <ScoreBar label="Turismo (10 = masificado)" value={f.scores.nivelTurismo} size="sm" invert />
+        <ScoreBar label="Fácil de llegar" value={f.scores.facilidadAcceso} size="sm" />
+        <ScoreBar label="Sin guiris (10 = petado)" value={f.scores.nivelTurismo} size="sm" invert />
       </div>
-      <div className="mt-3 flex flex-wrap items-center gap-2 text-[11px]">
+      <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
         {f.planTripAround ? (
-          <span className="rounded-sharp border border-orange-500/50 bg-orange-500/10 px-1.5 py-0.5 font-semibold text-orange-200">🔥 Merece organizar el viaje alrededor</span>
+          <span className="rounded-sharp border border-orange-500/50 bg-orange-500/10 px-1.5 py-0.5 font-semibold text-orange-200">🔥 Monta el viaje alrededor de esto</span>
         ) : (
-          <span className="rounded-sharp border border-ink-700 px-1.5 py-0.5 text-concrete-400">Bonus si coincide</span>
+          <span className="rounded-sharp border border-ink-700 px-1.5 py-0.5 text-concrete-300">Si coincide, bonus</span>
         )}
         {f.needsBooking && <span className="text-amber-300">🎟 {f.needsBooking}</span>}
       </div>
       {f.links && f.links.length > 0 && (
-        <div className="mt-2 flex flex-wrap gap-2 text-[11px]">
+        <div className="mt-2 flex flex-wrap gap-2 text-xs">
           {f.links.map((l) => (
             <a key={l.label} href={l.url} target="_blank" rel="noreferrer" className="text-concrete-400 underline decoration-ink-600 hover:text-neon-cyan">
               {l.label}

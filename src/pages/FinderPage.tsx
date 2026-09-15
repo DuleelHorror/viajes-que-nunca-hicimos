@@ -15,14 +15,14 @@ import { BreakdownTable } from "@/components/score/WhyPopover";
 import { Flag, flagCode } from "@/components/ui/Flag";
 
 const NO_CAR: Array<[NoCarPref, string]> = [
-  ["imprescindible", "Obligatorio"],
-  ["preferible", "Preferible"],
-  ["indiferente", "Indiferente"],
+  ["imprescindible", "Innegociable"],
+  ["preferible", "Mejor sin, pero bueno"],
+  ["indiferente", "Me da igual"],
 ];
 const TEMP: Array<[TempPref, string]> = [
-  ["indiferente", "Indiferente"],
-  ["frio", "Frío / nieve"],
-  ["templado", "Templado"],
+  ["indiferente", "Me da igual"],
+  ["frio", "Frío y nieve"],
+  ["templado", "Templadito"],
   ["calor", "Calor"],
 ];
 
@@ -38,9 +38,9 @@ export function FinderPage() {
 
   return (
     <div className="space-y-6">
-      <SectionHeader title="Buscador de viajes" kicker="Dime cuándo, cuánto y qué buscas" as="h1">
+      <SectionHeader title="¿Dónde me voy?" kicker="Dime cuándo, cuántos días, cuánta pasta y qué te apetece" as="h1">
         <Button variant="ghost" size="sm" onClick={reset}>
-          Reiniciar
+          Empezar de cero
         </Button>
       </SectionHeader>
 
@@ -55,14 +55,14 @@ export function FinderPage() {
               ))}
             </Select>
           </Field>
-          <Field label={`Duración: ${input.days} días`}>
+          <Field label={`Tengo ${input.days} días`}>
             <Range value={input.days} onChange={(v) => patch({ days: v })} min={3} max={21} />
           </Field>
-          <Field label={`Presupuesto: ${input.budgetPerDay} €/día`} hint="alojamiento + comida + transporte local">
+          <Field label={`Me puedo gastar ${input.budgetPerDay} €/día`} hint="cama, comida y moverse por la ciudad; los vuelos aparte">
             <Range value={input.budgetPerDay} onChange={(v) => patch({ budgetPerDay: v })} min={30} max={300} step={5} />
           </Field>
           <div>
-            <div className="label-stencil mb-1">Sin coche</div>
+            <div className="label-stencil mb-1">Ir sin coche es…</div>
             <div className="flex flex-wrap gap-1">
               {NO_CAR.map(([k, l]) => (
                 <Chip key={k} on={input.noCar === k} onClick={() => patch({ noCar: k })}>
@@ -72,7 +72,7 @@ export function FinderPage() {
             </div>
           </div>
           <div>
-            <div className="label-stencil mb-1">Temperatura</div>
+            <div className="label-stencil mb-1">Clima que me apetece</div>
             <div className="flex flex-wrap gap-1">
               {TEMP.map(([k, l]) => (
                 <Chip key={k} on={input.temp === k} onClick={() => patch({ temp: k })}>
@@ -82,7 +82,7 @@ export function FinderPage() {
             </div>
           </div>
           <div>
-            <div className="label-stencil mb-1">Intereses {input.interests.length > 0 && `(${input.interests.length})`}</div>
+            <div className="label-stencil mb-1">Lo que me pone {input.interests.length > 0 && `(${input.interests.length})`}</div>
             <div className="flex flex-wrap gap-1">
               {PLACE_CATEGORIES.map((c) => (
                 <Chip key={c} on={input.interests.includes(c)} onClick={() => toggleInterest(c)} title={CATEGORY_META[c].label}>
@@ -110,31 +110,31 @@ export function FinderPage() {
                       </Link>
                       <VerdictBadge verdict={c.duke.verdict} size="sm" />
                       <span className="label-stencil">Duke {fmtInt(c.duke.value)}</span>
-                      <span className="label-stencil">ideal {c.days.ideal} días</span>
+                      <span className="label-stencil">yo le echaría {c.days.ideal} días</span>
                     </div>
                     {r.excluded ? (
                       <p className="mt-1 text-sm text-red-300">{r.excluded}</p>
                     ) : (
                       <ul className="mt-2 flex flex-wrap gap-1.5">
                         {r.components.map((k) => (
-                          <li key={k.key} className={cn("rounded-sharp border px-1.5 py-0.5 text-[11px]", k.points < 0 ? "border-red-500/40 text-red-200" : k.points >= k.max * 0.8 && k.max > 0 ? "border-neon-lime/40 text-lime-200" : "border-ink-700 text-concrete-300")}>
+                          <li key={k.key} className={cn("rounded-sharp border px-1.5 py-0.5 text-xs", k.points < 0 ? "border-red-500/40 text-red-200" : k.points >= k.max * 0.8 && k.max > 0 ? "border-neon-lime/40 text-lime-200" : "border-ink-700 text-concrete-300")}>
                             {k.label} <span className="tabular font-semibold">{k.points > 0 ? "+" : ""}{fmtScore(k.points)}</span>
                           </li>
                         ))}
                       </ul>
                     )}
                     {r.festivalsThatMonth.length > 0 && (
-                      <div className="mt-2 text-xs text-orange-200">
-                        🔥 Ese mes: {r.festivalsThatMonth.map((f) => `${f.name} (${f.dateApprox})`).join(" · ")}
+                      <div className="mt-2 text-sm text-orange-200">
+                        🔥 Ese mes cae: {r.festivalsThatMonth.map((f) => `${f.name} (${f.dateApprox})`).join(" · ")}
                       </div>
                     )}
-                    <div className="mt-2 text-[11px] text-concrete-500">
+                    <div className="mt-2 text-xs text-concrete-500">
                       {MONTHS_ES[input.month - 1]}: {r.monthRating.tempMin}…{r.monthRating.tempMax} °C · {r.monthRating.reasons[0]}
                     </div>
                   </div>
                   {!r.excluded && (
                     <details className="w-full sm:w-72">
-                      <summary className="cursor-pointer label-stencil hover:text-neon-cyan">Desglose</summary>
+                      <summary className="cursor-pointer label-stencil hover:text-neon-cyan">¿De dónde salen los puntos?</summary>
                       <BreakdownTable breakdown={r.components} total={`${fmtScore(r.total)} / ${maxTotal}`} className="mt-2" />
                     </details>
                   )}

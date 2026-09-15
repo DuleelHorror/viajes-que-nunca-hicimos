@@ -20,7 +20,7 @@ export function AppShell() {
         </Suspense>
       </main>
       <footer className="border-t border-ink-800 py-6 text-center">
-        <div className="label-stencil">Archivo de destinos · datos curados a mano · sin backend</div>
+        <div className="text-sm text-concrete-400">Hecho a mano por gente que prefiere un búnker a una playa · sin backend, sin login, sin folletos</div>
       </footer>
       <ScrollRestoration />
     </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "@fontsource-variable/space-grotesk";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/manrope";
 import "@fontsource-variable/jetbrains-mono";
 import "leaflet/dist/leaflet.css";
 import "@/styles/globals.css";

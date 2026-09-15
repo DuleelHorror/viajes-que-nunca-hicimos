@@ -28,9 +28,9 @@ export function ScoreBar({ value, max = 10, label, invert, hint, className, size
     <div className={cn("min-w-0", className)}>
       {(label || showValue) && (
         <div className="mb-1 flex items-baseline justify-between gap-2">
-          {label && <span className={cn("truncate text-concrete-300", size === "sm" ? "text-[11px]" : "text-xs")}>{label}</span>}
+          {label && <span className={cn("truncate text-concrete-300", size === "sm" ? "text-xs" : "text-xs")}>{label}</span>}
           {showValue && (
-            <span className={cn("tabular shrink-0 font-semibold", size === "sm" ? "text-[11px]" : "text-xs", tone.text)}>
+            <span className={cn("tabular shrink-0 font-semibold", size === "sm" ? "text-xs" : "text-xs", tone.text)}>
               {fmtScore(value)}
               <span className="text-concrete-500">/{max}</span>
             </span>
@@ -40,7 +40,7 @@ export function ScoreBar({ value, max = 10, label, invert, hint, className, size
       <div className={cn("w-full overflow-hidden rounded-sharp bg-ink-800", size === "sm" ? "h-1" : "h-1.5")} role="meter" aria-valuenow={value} aria-valuemin={0} aria-valuemax={max}>
         <div className="h-full rounded-sharp transition-all" style={{ width: `${width}%`, backgroundColor: tone.color, boxShadow: `0 0 8px -1px ${tone.color}` }} />
       </div>
-      {hint && <div className="mt-1 text-[11px] text-concrete-500">{hint}</div>}
+      {hint && <div className="mt-1 text-xs text-concrete-500">{hint}</div>}
     </div>
   );
 }

@@ -20,7 +20,7 @@ export const TIME_NEEDED = ["1-2 h", "media jornada", "jornada", "2 días"] as c
 export const WORTH_DETOUR = ["imprescindible", "si", "si-pasas-cerca"] as const;
 export type WorthDetour = (typeof WORTH_DETOUR)[number];
 export const WORTH_DETOUR_META: Record<WorthDetour, { emoji: string; label: string }> = {
-  imprescindible: { emoji: "🔥", label: "Merece el viaje" },
+  imprescindible: { emoji: "🔥", label: "Justifica el viaje" },
   si: { emoji: "👍", label: "Merece el desvío" },
   "si-pasas-cerca": { emoji: "🤔", label: "Si pasas cerca" },
 };

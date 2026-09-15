@@ -5,13 +5,13 @@ export function Spinner({ className }: { className?: string }) {
   return <Loader2 className={cn("animate-spin text-concrete-400", className)} size={18} />;
 }
 
-export function LoadingScreen({ label = "Cargando expediente…" }: { label?: string }) {
+export function LoadingScreen({ label = "Sacando el expediente del archivo" }: { label?: string }) {
   return (
-    <div className="flex h-full min-h-[40vh] flex-col items-center justify-center gap-3 text-concrete-400">
+    <div className="flex h-full min-h-[40vh] flex-col items-center justify-center gap-3 text-concrete-300">
       <Spinner className="h-6 w-6" />
-      <span className="font-mono text-xs uppercase tracking-[0.2em]">
+      <span className="text-sm">
         {label}
-        <span className="animate-blink">_</span>
+        <span className="animate-blink">…</span>
       </span>
     </div>
   );
@@ -30,17 +30,17 @@ export function EmptyState({
 }) {
   return (
     <div className="flex flex-col items-center justify-center gap-3 rounded-sharp border border-dashed border-ink-600 bg-ink-900/40 px-6 py-14 text-center">
-      {icon && <div className="text-concrete-500">{icon}</div>}
+      {icon && <div className="text-concrete-400">{icon}</div>}
       <div>
-        <h3 className="text-sm font-semibold text-concrete-200">{title}</h3>
-        {description && <p className="mx-auto mt-1 max-w-md text-xs text-concrete-500">{description}</p>}
+        <h3 className="text-lg text-concrete-50">{title}</h3>
+        {description && <p className="mx-auto mt-1 max-w-md text-sm text-concrete-300">{description}</p>}
       </div>
       {action}
     </div>
   );
 }
 
-/** Divisor con etiqueta tipo dossier */
+/** Divisor con etiqueta */
 export function Divider({ label }: { label?: string }) {
   return (
     <div className="flex items-center gap-3">

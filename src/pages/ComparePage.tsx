@@ -26,21 +26,21 @@ interface Metric {
 const METRICS: Metric[] = [
   { key: "duke", label: "Duke Score", get: (c) => c.duke.value, format: (v) => `${fmtInt(v)}/100`, max: 100 },
   { key: "circo", label: "Circo Score", get: (c) => c.circo.value },
-  { key: "cost", label: "Coste (10 = caro)", get: (c) => c.cost.value, lowerIsBetter: true, format: (v, c) => `${fmtScore(v)} · ${fmtEur(c.summary.inputs.cost.daily.normal)}/día` },
+  { key: "cost", label: "Coste (10 = sangría)", get: (c) => c.cost.value, lowerIsBetter: true, format: (v, c) => `${fmtScore(v)} · ${fmtEur(c.summary.inputs.cost.daily.normal)}/día` },
   { key: "safety", label: "Seguridad", get: (c) => c.safety.value },
   { key: "transport", label: "Transporte público", get: (c) => c.transport.value },
-  { key: "noCar", label: "Viajar sin coche", get: (c) => c.noCar.value, format: (v, c) => `${LIGHT_META[c.noCar.light].emoji} ${fmtScore(v)}` },
-  { key: "bcn", label: "Facilidad desde Barcelona", get: (c) => c.bcn.value },
-  { key: "language", label: "Dificultad de idioma", get: (c) => c.language.value, lowerIsBetter: true },
-  { key: "digital", label: "Facilidad digital", get: (c) => c.digital.value },
-  { key: "season", label: "Clima / temporada", get: (c) => c.season.value, format: (v, c) => `${fmtScore(v)} · ${c.summary.months.filter((m) => m.rating === "excelente").length} meses excelentes` },
-  { key: "places", label: "Cantidad de cosas", get: (c) => c.summary.placeStats.total, format: (v) => `${v} sitios`, max: 40 },
-  { key: "festivals", label: "Festivales", get: (c) => c.subs.festivales, format: (v, c) => `${fmtScore(v)} · ${c.summary.festivals.length} en ficha` },
+  { key: "noCar", label: "Moverse sin coche", get: (c) => c.noCar.value, format: (v, c) => `${LIGHT_META[c.noCar.light].emoji} ${fmtScore(v)}` },
+  { key: "bcn", label: "A tiro de Barcelona", get: (c) => c.bcn.value },
+  { key: "language", label: "Idioma (10 = por señas)", get: (c) => c.language.value, lowerIsBetter: true },
+  { key: "digital", label: "Sobrevivir con el móvil", get: (c) => c.digital.value },
+  { key: "season", label: "Meses buenos", get: (c) => c.season.value, format: (v, c) => `${fmtScore(v)} · ${c.summary.months.filter((m) => m.rating === "excelente").length} meses top` },
+  { key: "places", label: "Cantidad de cosas", get: (c) => c.summary.placeStats.total, format: (v) => `${v} sitios circo`, max: 40 },
+  { key: "festivals", label: "Festivales locos", get: (c) => c.subs.festivales, format: (v, c) => `${fmtScore(v)} · ${c.summary.festivals.length} en ficha` },
   { key: "nature", label: "Naturaleza", get: (c) => c.subs.naturaleza },
   { key: "history", label: "Historia", get: (c) => c.subs.historia },
   { key: "weird", label: "Rareza", get: (c) => c.subs.rareza },
-  { key: "adventure", label: "Nivel de aventura", get: (c) => c.subs.aventura },
-  { key: "days", label: "Duración recomendada", get: (c) => c.days.ideal, format: (_, c) => `${c.days.ideal} días (${c.days.recommended.join("-")})`, max: 18 },
+  { key: "adventure", label: "Aventura", get: (c) => c.subs.aventura },
+  { key: "days", label: "Días que le echaría", get: (c) => c.days.ideal, format: (_, c) => `${c.days.ideal} días (${c.days.recommended.join("-")})`, max: 18 },
 ];
 
 export function ComparePage() {
@@ -76,7 +76,7 @@ export function ComparePage() {
 
   return (
     <div className="space-y-6">
-      <SectionHeader title="Comparador" kicker={`Elige entre 2 y ${COMPARE_MAX} países`} as="h1" />
+      <SectionHeader title="Cara a cara" kicker={`Elige entre 2 y ${COMPARE_MAX} países y que gane el mejor`} as="h1" />
       <Panel className="flex flex-wrap items-center gap-1.5 p-3">
         {COUNTRIES.map((c) => (
           <Chip key={c.id} on={ids.includes(c.id)} onClick={() => toggle(c.id)}>
@@ -91,16 +91,16 @@ export function ComparePage() {
       </Panel>
 
       {selected.length < 2 ? (
-        <EmptyState title="Selecciona al menos dos países" description="Marca países arriba o desde sus tarjetas con el botón «Comparar»." />
+        <EmptyState title="Con uno solo no hay pelea" description="Marca al menos dos países aquí arriba o desde sus tarjetas con el botón «Comparar»." />
       ) : (
         <>
           <div className="grid gap-4 lg:grid-cols-[1fr_1fr]">
             <Panel className="flex flex-col items-center p-4">
-              <div className="label-stencil mb-1 self-start">Perfil circo</div>
+              <div className="label-stencil mb-1 self-start">De qué va el circo de cada uno</div>
               <RadarChart axes={CIRCO_SUBS.map((k) => ({ key: k, label: CIRCO_SUB_SHORT[k] }))} series={selected.map((c) => ({ id: c.id, label: c.summary.name, values: CIRCO_SUBS.map((k) => c.subs[k]) }))} size={360} />
             </Panel>
             <Panel className="flex flex-col items-center p-4">
-              <div className="label-stencil mb-1 self-start">Perfil logístico</div>
+              <div className="label-stencil mb-1 self-start">Cuánto cuesta y cuánto se sufre</div>
               <RadarChart
                 axes={[
                   { key: "noCar", label: "Sin coche" },
@@ -145,7 +145,7 @@ export function ComparePage() {
                   <tr key={m.key} className="border-b border-ink-800 last:border-0">
                     <td className="p-3 text-concrete-300">
                       {m.label}
-                      {m.lowerIsBetter && <span className="ml-1 text-[10px] text-concrete-500">(menor gana)</span>}
+                      {m.lowerIsBetter && <span className="ml-1 text-xs text-concrete-500">(menor gana)</span>}
                     </td>
                     {selected.map((c, i) => {
                       const v = m.get(c);

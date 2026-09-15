@@ -8,23 +8,23 @@ export interface SectionDef {
 }
 
 export const COUNTRY_SECTIONS: SectionDef[] = [
-  { id: "resumen", label: "Resumen", emoji: "📋" },
-  { id: "puntuaciones", label: "Puntuaciones", emoji: "🎯" },
+  { id: "resumen", label: "Lo básico", emoji: "📋" },
+  { id: "puntuaciones", label: "Notas", emoji: "🎯" },
   { id: "dias", label: "¿Cuántos días?", emoji: "⏱" },
-  { id: "transporte", label: "Transporte", emoji: "🚆" },
+  { id: "transporte", label: "Moverse", emoji: "🚆" },
   { id: "mapa", label: "Mapa", emoji: "🗺" },
-  { id: "coste", label: "Coste", emoji: "💸" },
+  { id: "coste", label: "Pasta", emoji: "💸" },
   { id: "vuelos", label: "Desde BCN", emoji: "✈️" },
-  { id: "documentacion", label: "Documentación", emoji: "🛂" },
+  { id: "documentacion", label: "Papeles", emoji: "🛂" },
   { id: "seguridad", label: "Seguridad", emoji: "🛡️" },
   { id: "politica", label: "Política", emoji: "🏛" },
-  { id: "digital", label: "Digital", emoji: "📱" },
+  { id: "digital", label: "Móvil", emoji: "📱" },
   { id: "idioma", label: "Idioma", emoji: "🗣" },
-  { id: "epoca", label: "Mejor época", emoji: "📅" },
+  { id: "epoca", label: "¿Cuándo?", emoji: "📅" },
   { id: "eventos", label: "Eventos", emoji: "🔥" },
   { id: "sitios", label: "Sitios circo", emoji: "🎪" },
   { id: "rutas", label: "Rutas", emoji: "🧭" },
-  { id: "pros-contras", label: "Pros / contras", emoji: "⚖️" },
+  { id: "pros-contras", label: "Bueno y malo", emoji: "⚖️" },
   { id: "veredicto", label: "Veredicto", emoji: "🏁" },
 ];
 
@@ -58,8 +58,8 @@ export function SectionNav({ sections = COUNTRY_SECTIONS }: { sections?: Section
                 document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
               }}
               className={cn(
-                "inline-flex items-center gap-1 rounded-sharp border px-2 py-1 text-[11px] font-medium transition-colors",
-                active === s.id ? "border-neon-cyan/60 bg-neon-cyan/10 text-concrete-50" : "border-transparent text-concrete-400 hover:text-concrete-100",
+                "inline-flex items-center gap-1 rounded-sharp border px-2.5 py-1 text-xs font-medium transition-colors",
+                active === s.id ? "border-neon-cyan/60 bg-neon-cyan/10 text-concrete-50" : "border-transparent text-concrete-300 hover:text-concrete-50",
               )}
             >
               {s.emoji && <span aria-hidden>{s.emoji}</span>}

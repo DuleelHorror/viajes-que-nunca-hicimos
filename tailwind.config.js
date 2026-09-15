@@ -3,6 +3,19 @@ export default {
   darkMode: "class",
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
+    // Escala tipográfica ampliada: cuerpo 17 px, secundario 15 px, mínimo 13 px.
+    fontSize: {
+      xs: ["0.8125rem", { lineHeight: "1.25rem" }],
+      sm: ["0.9375rem", { lineHeight: "1.5rem" }],
+      base: ["1.0625rem", { lineHeight: "1.7rem" }],
+      lg: ["1.1875rem", { lineHeight: "1.8rem" }],
+      xl: ["1.375rem", { lineHeight: "1.9rem" }],
+      "2xl": ["1.625rem", { lineHeight: "2.1rem" }],
+      "3xl": ["2rem", { lineHeight: "2.4rem" }],
+      "4xl": ["2.5rem", { lineHeight: "2.9rem" }],
+      "5xl": ["3.25rem", { lineHeight: "1.08" }],
+      "6xl": ["3.75rem", { lineHeight: "1.05" }],
+    },
     extend: {
       colors: {
         // Hormigón / fondo (de más oscuro a más claro)
@@ -17,14 +30,14 @@ export default {
           600: "#3d4247",
           500: "#4f545b",
         },
-        // Cemento / texto neutro
+        // Cemento / texto neutro (aclarado para contraste alto sobre fondo negro)
         concrete: {
-          500: "#5a5f66",
-          400: "#737880",
-          300: "#969ba3",
-          200: "#c0c5cb",
-          100: "#e3e6e9",
-          50: "#f2f3f4",
+          500: "#8a9099",
+          400: "#a3a9b1",
+          300: "#bfc5cc",
+          200: "#d6dae0",
+          100: "#e9ecef",
+          50: "#f6f7f8",
         },
         // Rojo dossier
         blood: {
@@ -63,19 +76,10 @@ export default {
           red: "#ef4444",
         },
       },
+      // Legibilidad primero: Inter para el cuerpo, Manrope para títulos, mono solo para cifras.
       fontFamily: {
-        sans: [
-          "Space Grotesk Variable",
-          "Inter",
-          "Segoe UI",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Roboto",
-          "Helvetica Neue",
-          "Arial",
-          "sans-serif",
-        ],
-        display: ["Space Grotesk Variable", "Segoe UI", "sans-serif"],
+        sans: ["Inter Variable", "Inter", "Segoe UI", "-apple-system", "BlinkMacSystemFont", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
+        display: ["Manrope Variable", "Manrope", "Inter Variable", "Segoe UI", "sans-serif"],
         mono: [
           "JetBrains Mono Variable",
           "IBM Plex Mono",

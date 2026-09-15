@@ -32,7 +32,7 @@ export function FestivalsPage() {
 
   return (
     <div className="space-y-6">
-      <SectionHeader title="Festivales extraños" kicker={`${FESTIVALS.length} celebraciones con fuego, demonios, barcos vikingos o cosas peores`} as="h1" />
+      <SectionHeader title="Festivales raros" kicker={`${FESTIVALS.length} fiestas con fuego, demonios, barcos vikingos o cosas peores`} as="h1" />
       <Panel className="space-y-3 p-3">
         <div className="grid grid-cols-6 gap-1 sm:grid-cols-12">
           {MONTHS_SHORT.map((m, i) => {
@@ -41,7 +41,7 @@ export function FestivalsPage() {
             return (
               <button key={m} type="button" onClick={() => set("mes", on ? undefined : String(i + 1))} className={cn("flex flex-col items-center rounded-sharp border px-1 py-1.5", on ? "border-neon-cyan/60 bg-neon-cyan/10" : "border-ink-700 bg-ink-850 hover:border-ink-500")} aria-pressed={on}>
                 <span className="label-stencil">{m}</span>
-                <span className={cn("tabular text-sm font-semibold", n ? "text-concrete-100" : "text-concrete-600")}>{n}</span>
+                <span className={cn("tabular text-base font-semibold", n ? "text-concrete-50" : "text-concrete-500")}>{n}</span>
               </button>
             );
           })}
@@ -53,12 +53,12 @@ export function FestivalsPage() {
             </Chip>
           ))}
           <Chip on={soloPlan} onClick={() => set("plan", soloPlan ? undefined : "1")}>
-            🔥 Solo los que justifican un viaje
+            🔥 Solo los que justifican el viaje
           </Chip>
         </div>
       </Panel>
       {list.length === 0 ? (
-        <EmptyState title="Nada ese mes con esos filtros" />
+        <EmptyState title="Ese mes no arde nada" description="Prueba otro mes o quita el filtro de categoría. Enero y diciembre son los meses del fuego." />
       ) : (
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {list.map((f) => (

@@ -61,8 +61,8 @@ export function CountryPage() {
       <DaysSection c={c} />
       <TransportSection c={c} d={d} />
       <section className="space-y-4">
-        <SectionHeader id="mapa" title="Mapa de transporte y sitios" kicker="05 · Cómo atravesar el país" />
-        <Suspense fallback={<LoadingScreen label="Cargando mapa" />}>
+        <SectionHeader id="mapa" title="El mapa" kicker="05 · Ciudades, trenes y sitios circo de un vistazo" />
+        <Suspense fallback={<LoadingScreen label="Desplegando el mapa" />}>
           <CountryMap d={d} selectedPlaceId={placeId} onSelectPlace={openPlace} />
         </Suspense>
       </section>

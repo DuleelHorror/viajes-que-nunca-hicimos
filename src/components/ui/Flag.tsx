@@ -22,7 +22,7 @@ export function Flag({ code, name, size = 24, className }: FlagProps) {
   if (failed) {
     return (
       <span
-        className={cn("inline-flex shrink-0 items-center justify-center rounded-sharp border border-ink-600 bg-ink-800 font-mono text-[10px] uppercase text-concrete-300", className)}
+        className={cn("inline-flex shrink-0 items-center justify-center rounded-sharp border border-ink-600 bg-ink-800 font-mono text-xs uppercase text-concrete-300", className)}
         style={{ width: w, height: h }}
         aria-label={name}
       >

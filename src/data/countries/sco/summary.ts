@@ -8,7 +8,7 @@ const GOVUK = { label: "GOV.UK · Electronic Travel Authorisation", url: "https:
 const SCOTRAIL = { label: "ScotRail", url: "https://www.scotrail.co.uk", kind: "oficial" as const };
 const SEAT61 = { label: "The Man in Seat 61 · Scotland", url: "https://www.seat61.com/UK-train-travel.htm", kind: "blog" as const };
 const NUMBEO = { label: "Numbeo · Edimburgo", url: "https://www.numbeo.com/cost-of-living/in/Edinburgh", kind: "blog" as const };
-const PROPIO = { label: "Curación propia", kind: "propio" as const };
+const PROPIO = { label: "Lo hemos escrito nosotros", kind: "propio" as const };
 
 export const summary: CountrySummary = {
   id: "sco",
@@ -18,17 +18,17 @@ export const summary: CountrySummary = {
   region: "europa-norte",
   iso: { alpha2: "GB", subdivision: "GB-SCT" },
   parentState: "Reino Unido",
-  tagline: "Vikingos quemando un barco, búnkeres nucleares bajo granjas y cementerios con poltergeist.",
+  tagline: "Vikingos quemando un barco, un búnker bajo una granja y cementerios con poltergeist.",
   whyMe:
-    "Porque es el país de los festivales de fuego pagano (Up Helly Aa, Beltane, la Clavie, las bolas de fuego de Stonehaven), de un Edimburgo subterráneo lleno de peste, ladrones de cadáveres y ataúdes en miniatura, y de infraestructuras absurdas: un búnker nuclear escondido bajo una granja de Fife, una central eléctrica dentro de una montaña, túneles de combustible con el eco más largo del mundo. Además un seminario brutalista en ruinas, Scapa Flow y los neolíticos de Orkney. Todo con vuelo directo low-cost desde Barcelona, en inglés y con trenes y buses que llegan casi a todo; el precio es el peaje.",
+    "Porque es el país de los festivales de fuego pagano (Up Helly Aa, Beltane, la Clavie, las bolas de fuego de Stonehaven), de un Edimburgo subterráneo con peste, ladrones de cadáveres y ataúdes en miniatura, y de infraestructuras absurdas: un búnker nuclear escondido bajo una granja de Fife, una central eléctrica metida dentro de una montaña y unos túneles de combustible con el eco más largo del mundo. Añade un seminario brutalista en ruinas, Scapa Flow y los neolíticos de Orkney. Todo con vuelo directo low-cost desde Barcelona, en inglés, tarjeta en todas partes y trenes y buses que llegan casi a todo. El peaje es el precio: prepara la cartera.",
   facts: {
     capital: "Edimburgo",
     population: 5_450_000,
     areaKm2: 77_933,
-    languages: ["inglés", "escocés (Scots)", "gaélico escocés (Highlands e islas)"],
+    languages: ["inglés (con acento que cuesta)", "escocés (Scots)", "gaélico (Highlands e islas)"],
     currency: { code: "GBP", name: "libra esterlina", symbol: "£" },
-    religions: "Iglesia de Escocia (presbiteriana) y católicos; mayoría sin práctica religiosa",
-    timezone: "UTC+0 (verano +1): una hora menos que Barcelona",
+    religions: "Iglesia de Escocia (presbiteriana) y católicos; la mayoría, sin práctica. No afecta a nada del viaje",
+    timezone: "UTC+0 (verano +1): una hora menos que en Barcelona",
     plugTypes: ["G"],
     drivingSide: "izquierda",
     meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "alta", sources: [WIKI] }),
@@ -57,14 +57,14 @@ export const summary: CountrySummary = {
       online: 10,
       nocturnos: 6,
       altaVelocidad: 2,
-      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [SCOTRAIL, SEAT61], notes: "Caro sin billete 'advance'; el nocturno (Caledonian Sleeper) solo enlaza con Londres" }),
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [SCOTRAIL, SEAT61], notes: "Caro si no compras 'advance'; el único nocturno (Caledonian Sleeper) va a Londres" }),
     },
-    bus: { cobertura: 8, fiabilidad: 7, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "Citylink, Megabus, Stagecoach: llegan donde no llega el tren" }) },
+    bus: { cobertura: 8, fiabilidad: 7, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "Citylink, Megabus y Stagecoach llegan donde el tren no" }) },
     urban: { media: 7, meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "media", sources: [PROPIO] }) },
     apps: { cobertura: 9, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO] }) },
     cost: {
       daily: { low: 70, normal: 130, comfortable: 220 },
-      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [NUMBEO, PROPIO], notes: "Edimburgo en agosto y fin de año se dispara" }),
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [NUMBEO, PROPIO], notes: "Edimburgo en agosto y en fin de año se dispara" }),
     },
     flights: {
       direct: true,
@@ -73,14 +73,14 @@ export const summary: CountrySummary = {
       lowCostDirect: true,
       oneStopMinHours: 5,
       oneStopDailyOptions: 10,
-      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "BCN–Edimburgo con Ryanair, Vueling y easyJet; Glasgow estacional" }),
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "BCN–Edimburgo con Ryanair, Vueling y easyJet; Glasgow solo de temporada" }),
     },
     docs: {
       entry: "eta",
       maxStayDays: 180,
       passportValidityMonths: 0,
       insuranceMandatory: false,
-      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [GOVUK, MAEC], notes: "Desde abril de 2025 los ciudadanos de la UE necesitan la ETA británica (online, ≈ 16 £, válida 2 años). El DNI no vale: pasaporte." }),
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [GOVUK, MAEC], notes: "Desde abril de 2025 los de la UE necesitan la ETA británica (online, unas 16 £, vale 2 años). El DNI no sirve: pasaporte." }),
     },
     safety: {
       delincuencia: 8.5,
@@ -105,7 +105,7 @@ export const summary: CountrySummary = {
       cobertura: 7,
       wifi: 8,
       bloqueos: [],
-      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "Cobertura móvil irregular en Highlands e islas" }),
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "La cobertura se cae en Highlands e islas" }),
     },
     language: {
       ingles: 9,
@@ -117,18 +117,18 @@ export const summary: CountrySummary = {
     },
   },
   months: [
-    { month: 1, rating: "bueno", tempMin: 1, tempMax: 7, precip: "alta", snow: true, daylightHours: 7.5, crowds: "bajo", prices: "bajo", reasons: ["Up Helly Aa (último martes) y Burning of the Clavie (día 11): el mes del fuego", "Días de 7 horas, tormentas del Atlántico, nieve en las Highlands", "Hoteles baratos fuera de Edimburgo"], weatherAdds: "tormentas, niebla y nieve en Glencoe: la Escocia dramática", transport: "ferris a Shetland y Orkney pueden cancelarse por temporal" },
-    { month: 2, rating: "normal", tempMin: 1, tempMax: 7, precip: "alta", snow: true, daylightHours: 9.5, crowds: "bajo", prices: "bajo", reasons: ["Sigue oscuro y húmedo; sin festivales grandes", "Nieve en las Highlands para fotos"] },
-    { month: 3, rating: "normal", tempMin: 2, tempMax: 9, precip: "media", snow: true, daylightHours: 12, crowds: "bajo", prices: "bajo", reasons: ["Empieza a alargar el día", "Todavía frío; islas ventosas", "Reabren el Secret Bunker y muchos sitios de temporada"] },
-    { month: 4, rating: "bueno", tempMin: 4, tempMax: 12, precip: "media", snow: false, daylightHours: 14, crowds: "medio", prices: "medio", reasons: ["Beltane Fire Festival el 30 en Calton Hill", "Primavera tardía, menos lluvia", "Aún sin midges"] },
-    { month: 5, rating: "excelente", tempMin: 6, tempMax: 15, precip: "baja", snow: false, daylightHours: 16, crowds: "medio", prices: "medio", reasons: ["El mes más seco y con luz hasta las 22 h", "Sin midges hasta junio", "Antes de la temporada alta"], weatherAdds: "luz larga y limpia sobre Orkney y las Highlands" },
-    { month: 6, rating: "excelente", tempMin: 9, tempMax: 17, precip: "baja", snow: false, daylightHours: 17.5, crowds: "alto", prices: "medio", reasons: ["Casi 18 horas de luz; en Shetland no anochece del todo (simmer dim)", "Empiezan los midges en la costa oeste", "Highland Games por todo el país"] },
-    { month: 7, rating: "bueno", tempMin: 11, tempMax: 19, precip: "media", snow: false, daylightHours: 17, crowds: "alto", prices: "alto", reasons: ["Temporada alta y midges", "Todo abierto y con horarios largos"] },
-    { month: 8, rating: "normal", tempMin: 11, tempMax: 19, precip: "media", snow: false, daylightHours: 15, crowds: "alto", prices: "alto", reasons: ["Fringe de Edimburgo: precios disparados y ciudad llena", "Fuera de Edimburgo sigue siendo buen mes"], closures: "el alojamiento en Edimburgo triplica el precio durante el Fringe" },
-    { month: 9, rating: "excelente", tempMin: 9, tempMax: 16, precip: "media", snow: false, daylightHours: 13, crowds: "medio", prices: "medio", reasons: ["Se van los turistas y los midges", "Colores de otoño en las Highlands desde finales de mes", "Bajan los precios"] },
-    { month: 10, rating: "bueno", tempMin: 6, tempMax: 12, precip: "alta", snow: false, daylightHours: 10.5, crowds: "bajo", prices: "bajo", reasons: ["Samhuinn Fire Festival el 31 en Edimburgo", "Otoño en Glencoe y Perthshire", "Vuelven las tormentas"], weatherAdds: "niebla y hojarasca en los cementerios de Edimburgo y Glasgow" },
-    { month: 11, rating: "normal", tempMin: 3, tempMax: 9, precip: "alta", snow: true, daylightHours: 8.5, crowds: "bajo", prices: "bajo", reasons: ["Oscuro, húmedo y barato", "Mercados de Navidad desde mediados de mes"], closures: "Secret Bunker, Staffa y muchos sitios de las islas cerrados hasta marzo" },
-    { month: 12, rating: "bueno", tempMin: 1, tempMax: 7, precip: "alta", snow: true, daylightHours: 7, crowds: "medio", prices: "alto", reasons: ["Hogmanay y las Stonehaven Fireballs el 31", "Ciudades iluminadas; islas con horarios mínimos", "Precios altos en Edimburgo del 28 al 2"], closures: "muchos sitios de Highlands e islas con horario reducido" },
+    { month: 1, rating: "bueno", tempMin: 1, tempMax: 7, precip: "alta", snow: true, daylightHours: 7.5, crowds: "bajo", prices: "bajo", reasons: ["🔥 Up Helly Aa (último martes) y la Clavie (día 11): el mes del fuego.", "🌑 Siete horas de luz, tormentas del Atlántico y nieve en las Highlands.", "💸 Hoteles baratos fuera de Edimburgo."], weatherAdds: "tormentas, niebla y nieve en Glencoe: la Escocia dramática, que es la buena", transport: "los ferris a Shetland y Orkney se cancelan con temporal" },
+    { month: 2, rating: "normal", tempMin: 1, tempMax: 7, precip: "alta", snow: true, daylightHours: 9.5, crowds: "bajo", prices: "bajo", reasons: ["🌧 Sigue oscuro y húmedo y sin festivales gordos.", "📸 Nieve en las Highlands para las fotos."] },
+    { month: 3, rating: "normal", tempMin: 2, tempMax: 9, precip: "media", snow: true, daylightHours: 12, crowds: "bajo", prices: "bajo", reasons: ["🌤 Empieza a alargar el día.", "🥶 Todavía frío; las islas, ventosas.", "🚧 Reabren el Secret Bunker y los sitios de temporada."] },
+    { month: 4, rating: "bueno", tempMin: 4, tempMax: 12, precip: "media", snow: false, daylightHours: 14, crowds: "medio", prices: "medio", reasons: ["🔥 Beltane Fire Festival el 30 en Calton Hill.", "🌱 Primavera tardía, menos lluvia.", "🦟 Aún sin midges."] },
+    { month: 5, rating: "excelente", tempMin: 6, tempMax: 15, precip: "baja", snow: false, daylightHours: 16, crowds: "medio", prices: "medio", reasons: ["🏆 El mes más seco y con luz hasta las 22 h.", "🦟 Sin midges hasta junio.", "👥 Justo antes de la temporada alta."], weatherAdds: "luz larga y limpia sobre Orkney y las Highlands" },
+    { month: 6, rating: "excelente", tempMin: 9, tempMax: 17, precip: "baja", snow: false, daylightHours: 17.5, crowds: "alto", prices: "medio", reasons: ["☀️ Casi 18 horas de luz; en Shetland no llega a hacerse de noche (simmer dim).", "🦟 Empiezan los midges en la costa oeste.", "🏋️ Highland Games por todo el país."] },
+    { month: 7, rating: "bueno", tempMin: 11, tempMax: 19, precip: "media", snow: false, daylightHours: 17, crowds: "alto", prices: "alto", reasons: ["👥 Temporada alta y midges a tope.", "👍 Todo abierto y con horarios largos."] },
+    { month: 8, rating: "normal", tempMin: 11, tempMax: 19, precip: "media", snow: false, daylightHours: 15, crowds: "alto", prices: "alto", reasons: ["💀 Fringe de Edimburgo: precios disparados y ciudad a reventar.", "👍 Fuera de Edimburgo sigue siendo buen mes."], closures: "el alojamiento en Edimburgo triplica el precio durante el Fringe" },
+    { month: 9, rating: "excelente", tempMin: 9, tempMax: 16, precip: "media", snow: false, daylightHours: 13, crowds: "medio", prices: "medio", reasons: ["🏆 Se van los turistas y los midges.", "🍂 Colores de otoño en las Highlands desde finales de mes.", "💸 Bajan los precios."] },
+    { month: 10, rating: "bueno", tempMin: 6, tempMax: 12, precip: "alta", snow: false, daylightHours: 10.5, crowds: "bajo", prices: "bajo", reasons: ["🔥 Samhuinn Fire Festival el 31 en Edimburgo.", "🍂 Otoño en Glencoe y Perthshire.", "🌧 Vuelven las tormentas: buen sitio para probar la impermeabilidad de la mochila."], weatherAdds: "niebla y hojarasca en los cementerios de Edimburgo y Glasgow" },
+    { month: 11, rating: "normal", tempMin: 3, tempMax: 9, precip: "alta", snow: true, daylightHours: 8.5, crowds: "bajo", prices: "bajo", reasons: ["🌧 Oscuro, húmedo y barato.", "🎄 Mercados de Navidad desde mediados de mes."], closures: "Secret Bunker, Staffa y muchos sitios de las islas cierran hasta marzo" },
+    { month: 12, rating: "bueno", tempMin: 1, tempMax: 7, precip: "alta", snow: true, daylightHours: 7, crowds: "medio", prices: "alto", reasons: ["🔥 Hogmanay y las Stonehaven Fireballs el 31.", "✨ Ciudades iluminadas; islas con horarios mínimos.", "💸 Precios altos en Edimburgo del 28 al 2."], closures: "muchos sitios de Highlands e islas con horario reducido" },
   ],
   festivals,
   // Generado con `npm run data:stats -- sco`; el test de deriva lo comprueba.
@@ -141,6 +141,6 @@ export const summary: CountrySummary = {
     regiones: 8,
     spreadKm: 420,
   },
-  fx: { rate: 0.85, asOf: "2026-09-15", meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "Aproximado; comprobar el tipo del día" }) },
+  fx: { rate: 0.85, asOf: "2026-09-15", meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "A ojo; mira el cambio del día" }) },
   map: { center: [57.3, -4.2], zoom: 6 },
 };

@@ -37,13 +37,13 @@ export function MonthStrip({ months, selected, onSelect, className, compact, fes
               style={{ backgroundColor: meta.color, boxShadow: active ? `0 0 8px ${meta.color}` : undefined, opacity: m.rating === "malo" ? 0.7 : 1 }}
             />
             {!compact && (
-              <span className="tabular text-[10px] text-concrete-400">
+              <span className="tabular text-xs text-concrete-400">
                 {m.tempMin}…{m.tempMax}°
               </span>
             )}
             <span className="flex h-2 items-center gap-0.5">
-              {m.snow && <span className="text-[9px]" title="Nieve">❄</span>}
-              {festivalMonths.includes(m.month) && <span className="text-[9px]" title="Festival">🔥</span>}
+              {m.snow && <span className="text-xs" title="Nieve">❄</span>}
+              {festivalMonths.includes(m.month) && <span className="text-xs" title="Festival">🔥</span>}
             </span>
           </button>
         );
@@ -56,7 +56,7 @@ export function MonthLegend({ className }: { className?: string }) {
   return (
     <ul className={cn("flex flex-wrap gap-x-4 gap-y-1", className)}>
       {(Object.keys(MONTH_RATING_META) as Array<keyof typeof MONTH_RATING_META>).map((k) => (
-        <li key={k} className="flex items-center gap-1.5 text-[11px] text-concrete-300">
+        <li key={k} className="flex items-center gap-1.5 text-xs text-concrete-300">
           <span className="h-2.5 w-2.5 rounded-sharp" style={{ backgroundColor: MONTH_RATING_META[k].color }} />
           {MONTH_RATING_META[k].label}
         </li>

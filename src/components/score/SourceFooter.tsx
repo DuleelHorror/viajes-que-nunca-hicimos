@@ -4,9 +4,9 @@ import { fmtDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 const CONF_META = {
-  alta: { label: "confianza alta", cls: "text-neon-lime/80" },
-  media: { label: "confianza media", cls: "text-concrete-400" },
-  baja: { label: "dato no verificado", cls: "text-amber-300" },
+  alta: { label: "nos fiamos", cls: "text-neon-lime/80" },
+  media: { label: "bastante fiable", cls: "text-concrete-400" },
+  baja: { label: "sin verificar, ojo", cls: "text-amber-300" },
 } as const;
 
 /** "Fuente: … · actualizado … · confianza …" + pill "dato antiguo" si caducó. */
@@ -14,7 +14,7 @@ export function SourceFooter({ meta, className }: { meta: SectionMeta; className
   const stale = isStale(meta);
   const conf = CONF_META[meta.confidence];
   return (
-    <div className={cn("mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-ink-800 pt-2 font-mono text-[10px] text-concrete-500", className)}>
+    <div className={cn("mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-ink-800 pt-2 text-xs text-concrete-400", className)}>
       <span>
         {meta.sources.length > 0 ? (
           <>
@@ -33,15 +33,15 @@ export function SourceFooter({ meta, className }: { meta: SectionMeta; className
             ))}
           </>
         ) : (
-          "Fuente: curación propia"
+          "Fuente: lo hemos escrito nosotros"
         )}
       </span>
       <span>· {fmtDate(meta.lastUpdated)}</span>
       <span className={cn("·", conf.cls)}>· {conf.label}</span>
-      <span>· {meta.volatility === "volatil" ? "dato volátil" : "dato estable"}</span>
+      <span>· {meta.volatility === "volatil" ? "esto cambia" : "esto no cambia"}</span>
       {stale && (
         <span className="inline-flex items-center gap-1 rounded-sharp border border-amber-500/50 bg-amber-500/10 px-1.5 py-0.5 text-amber-300">
-          <AlertTriangle size={10} /> dato antiguo: revisar
+          <AlertTriangle size={10} /> dato viejo: comprobar antes de fiarse
         </span>
       )}
       {meta.notes && <span className="basis-full text-concrete-500">{meta.notes}</span>}

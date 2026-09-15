@@ -20,8 +20,8 @@ export function WhyPopover({ title, breakdown, penalties, total, align = "left",
       align={align}
       className={className}
       trigger={
-        <span className="inline-flex items-center gap-1 rounded-sharp border border-ink-600 px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-wider text-concrete-400 hover:border-neon-cyan/50 hover:text-neon-cyan">
-          <HelpCircle size={11} /> ¿por qué?
+        <span className="inline-flex items-center gap-1 rounded-sharp border border-ink-600 px-2 py-0.5 text-xs font-medium text-concrete-300 hover:border-neon-cyan/50 hover:text-neon-cyan">
+          <HelpCircle size={12} /> ¿y esto por qué?
         </span>
       }
     >
@@ -33,13 +33,13 @@ export function WhyPopover({ title, breakdown, penalties, total, align = "left",
 
 export function BreakdownTable({ breakdown, penalties, total, className }: { breakdown: Contribution[]; penalties?: Contribution[]; total?: string; className?: string }) {
   return (
-    <table className={cn("w-full text-[11px]", className)}>
+    <table className={cn("w-full text-xs", className)}>
       <tbody>
         {breakdown.map((c) => (
           <tr key={c.key} className="border-b border-ink-800 last:border-0">
             <td className="py-1 pr-2 text-concrete-300">
               {c.label}
-              {c.note && <div className="text-[10px] text-concrete-500">{c.note}</div>}
+              {c.note && <div className="text-xs text-concrete-500">{c.note}</div>}
             </td>
             <td className="py-1 pr-2 text-right tabular text-concrete-500">
               {c.input != null && (

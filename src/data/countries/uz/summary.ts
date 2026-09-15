@@ -7,7 +7,7 @@ const MAEC = { label: "MAEC · Recomendaciones de viaje", url: "https://www.exte
 const SEAT61 = { label: "The Man in Seat 61 · Uzbekistan", url: "https://www.seat61.com/Uzbekistan.htm", kind: "blog" as const };
 const RAILWAY = { label: "O'zbekiston Temir Yo'llari", url: "https://railway.uz", kind: "oficial" as const };
 const NUMBEO = { label: "Numbeo · Uzbekistán", url: "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Uzbekistan", kind: "blog" as const };
-const PROPIO = { label: "Curación propia", kind: "propio" as const };
+const PROPIO = { label: "Lo hemos escrito nosotros", kind: "propio" as const };
 
 export const summary: CountrySummary = {
   id: "uz",
@@ -16,17 +16,17 @@ export const summary: CountrySummary = {
   flag: "🇺🇿",
   region: "asia-central",
   iso: { alpha2: "UZ" },
-  tagline: "Ruta de la Seda en tren de alta velocidad, metro soviético y un mar que desapareció.",
+  tagline: "Ruta de la Seda en tren rápido, metro soviético de postal y un mar que se largó.",
   whyMe:
-    "Porque junta en un solo país tres cosas que rara vez coinciden: madrasas turquesa que parecen decorados, la herencia soviética más fotogénica de Asia Central (metro de Tashkent, Hotel Uzbekistan, monumentos al terremoto) y el desastre ecológico más surrealista del planeta, el Mar de Aral, con barcos oxidados varados a 150 km del agua. Y todo se recorre en tren: el Afrosiyob une Tashkent, Samarcanda y Bujará en horas, hay nocturnos hasta Khiva y Nukus, y la única etapa incómoda es la marshrutka a Muynak. Barato, seguro, sin visado y con muy poco turismo fuera del eje clásico.",
+    "Porque junta tres cosas que casi nunca coinciden en el mismo país: madrasas turquesa que parecen un decorado, la mandanga soviética más fotogénica de Asia Central (el metro de Tashkent, el Hotel Uzbekistan, el monumento al terremoto) y el desastre ecológico más surrealista del planeta, el Mar de Aral, con barcos oxidados tirados a 150 km del agua. Y para ser Asia Central, juega en modo fácil: el Afrosiyob te planta en Samarcanda, Bujará o Khiva sin alquilar un Lada, hay nocturnos hasta Nukus, y la única etapa cutre es la marshrutka a Muynak. Barato, seguro, sin visado y sin guiris fuera del Registán.",
   facts: {
     capital: "Tashkent",
     population: 36_800_000,
     areaKm2: 448_978,
-    languages: ["uzbeko", "ruso (lengua franca)", "karakalpako (Karakalpakstán)"],
+    languages: ["uzbeko", "ruso (lo habla todo el mundo)", "karakalpako (en Karakalpakstán)"],
     currency: { code: "UZS", name: "sum uzbeko", symbol: "so'm" },
-    religions: "Islam suní mayoritario, minoría ortodoxa rusa; Estado laico, ambiente muy relajado",
-    timezone: "UTC+5 (sin cambio de hora; +3 h respecto a Barcelona en invierno, +4 h en verano)",
+    religions: "Islam suní de mayoría, pero muy relajado; hay cerveza, hay ortodoxos rusos y el Estado es laico",
+    timezone: "UTC+5, sin cambio de hora: 3 h más que en Barcelona en invierno, 4 h en verano",
     plugTypes: ["C", "F"],
     drivingSide: "derecha",
     meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "alta", sources: [WIKI] }),
@@ -43,7 +43,7 @@ export const summary: CountrySummary = {
       festivales: 5,
       aventura: 8,
       fotografia: 9,
-      meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "media", sources: [PROPIO], notes: "Puntuaciones subjetivas para el perfil del viajero" }),
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "media", sources: [PROPIO], notes: "Notas subjetivas para nuestra forma de viajar" }),
     },
     rail: {
       calidad: 7,
@@ -59,24 +59,24 @@ export const summary: CountrySummary = {
     },
     bus: { cobertura: 5, fiabilidad: 5, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO] }) },
     urban: { media: 6, meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "media", sources: [PROPIO] }) },
-    apps: { cobertura: 7, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "Yandex Go cubre todas las ciudades grandes" }) },
+    apps: { cobertura: 7, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "Yandex Go funciona en todas las ciudades grandes" }) },
     cost: {
       daily: { low: 35, normal: 55, comfortable: 100 },
-      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [NUMBEO, PROPIO], notes: "Estimación en euros; la inflación local es alta" }),
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [NUMBEO, PROPIO], notes: "En euros y a ojo; la inflación local va rápida, en euros apenas se nota" }),
     },
     flights: {
       direct: false,
       lowCostDirect: false,
       oneStopMinHours: 9.5,
       oneStopDailyOptions: 3,
-      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "Sin directo BCN–TAS regular. Turkish/Pegasus vía Estambul, Qatar vía Doha. Comprobar rutas estacionales de Uzbekistan Airways." }),
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "No hay directo BCN–Tashkent. Turkish o Pegasus por Estambul, Qatar por Doha. Comprobar si Uzbekistan Airways abre algo de temporada." }),
     },
     docs: {
       entry: "pasaporte",
       maxStayDays: 30,
       passportValidityMonths: 3,
       insuranceMandatory: false,
-      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [MAEC, WIKI], notes: "Exención de visado para españoles hasta 30 días desde 2019; registro en alojamientos obligatorio (lo hace el hotel)" }),
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [MAEC, WIKI], notes: "Sin visado para españoles hasta 30 días desde 2019; el registro de estancia lo hace el hotel" }),
     },
     safety: {
       delincuencia: 8.5,
@@ -90,7 +90,7 @@ export const summary: CountrySummary = {
       solo: 8.5,
       meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [MAEC] }),
     },
-    stability: { score: 6.5, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [MAEC, WIKI], notes: "Régimen presidencialista estable; apertura progresiva desde 2016" }) },
+    stability: { score: 6.5, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [MAEC, WIKI], notes: "Presidencialismo estable con apertura desde 2016" }) },
     digital: {
       googleMaps: 1,
       googleTranslate: 2,
@@ -101,7 +101,7 @@ export const summary: CountrySummary = {
       cobertura: 7,
       wifi: 6,
       bloqueos: [],
-      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "Google Maps funciona pero Yandex Maps tiene mejor detalle; bloqueos puntuales de VoIP en el pasado" }),
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "Google Maps va, pero Yandex Maps tiene más detalle; bloqueos puntuales de VoIP en el pasado" }),
     },
     language: {
       ingles: 3,
@@ -109,22 +109,22 @@ export const summary: CountrySummary = {
       maquinasEnIngles: 5,
       senaleticaBilingue: 4,
       traductorFunciona: 8,
-      meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "media", sources: [PROPIO], notes: "Uzbeko en latino, ruso en cirílico por todas partes; inglés solo en hoteles y jóvenes" }),
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "media", sources: [PROPIO], notes: "Uzbeko en latino, ruso en cirílico por todas partes; inglés solo en hoteles y con veinteañeros" }),
     },
   },
   months: [
-    { month: 1, rating: "normal", tempMin: -3, tempMax: 6, precip: "media", snow: true, daylightHours: 9.5, crowds: "bajo", prices: "bajo", reasons: ["Frío seco y cielos grises; Khiva y Bujará casi vacías", "Nieve ocasional sobre madrasas y cúpulas: fotos irrepetibles", "Muynak y el Aral con viento helado, pero factibles"], weatherAdds: "nieve sobre las cúpulas turquesa y un Registán sin nadie" },
-    { month: 2, rating: "normal", tempMin: -1, tempMax: 9, precip: "media", snow: true, daylightHours: 10.5, crowds: "bajo", prices: "bajo", reasons: ["Sigue el frío, pero empieza a aclarar", "Temporada de kupkari en los pueblos de Samarcanda y Kashkadaria"] },
-    { month: 3, rating: "bueno", tempMin: 4, tempMax: 16, precip: "media", snow: false, daylightHours: 12, crowds: "bajo", prices: "bajo", reasons: ["Navruz el 21 de marzo: la mejor fiesta del año", "Temperaturas suaves, lluvias cortas", "Últimos kupkari de la temporada"] },
-    { month: 4, rating: "excelente", tempMin: 9, tempMax: 22, precip: "media", snow: false, daylightHours: 13.5, crowds: "medio", prices: "medio", reasons: ["Clima ideal en las tres ciudades de la Seda", "El desierto de Corasmia está verde unas semanas", "Justo antes de la temporada alta de mayo"] },
-    { month: 5, rating: "excelente", tempMin: 14, tempMax: 28, precip: "baja", snow: false, daylightHours: 14.5, crowds: "alto", prices: "medio", reasons: ["Calor agradable y tardes largas", "Silk and Spices en Bujará", "Ya pega el sol en Muynak: gorra y agua"] },
-    { month: 6, rating: "bueno", tempMin: 18, tempMax: 33, precip: "baja", snow: false, daylightHours: 15, crowds: "medio", prices: "medio", reasons: ["Empieza el calor fuerte; mañanas y noches perfectas", "Menos gente que en mayo"] },
-    { month: 7, rating: "malo", tempMin: 21, tempMax: 36, precip: "baja", snow: false, daylightHours: 15, crowds: "bajo", prices: "bajo", reasons: ["40 °C habituales en Bujará y Khiva; el desierto es inviable a mediodía", "Muynak es un horno sin sombra"] },
-    { month: 8, rating: "malo", tempMin: 19, tempMax: 35, precip: "baja", snow: false, daylightHours: 14, crowds: "bajo", prices: "bajo", reasons: ["Calor extremo", "Sharq Taronalari en Samarcanda (años impares) compensa solo si vas por él"] },
-    { month: 9, rating: "excelente", tempMin: 13, tempMax: 29, precip: "baja", snow: false, daylightHours: 12.5, crowds: "alto", prices: "medio", reasons: ["Vuelve el clima perfecto", "Uvas, melones y luz dorada", "Temporada alta: reservar el Afrosiyob con antelación"], transport: "Afrosiyob se agota con una semana de antelación" },
-    { month: 10, rating: "excelente", tempMin: 8, tempMax: 22, precip: "baja", snow: false, daylightHours: 11, crowds: "medio", prices: "medio", reasons: ["El mejor mes para el Aral, Muynak y las fortalezas del desierto", "Noches frías en el desierto: saco para la yurta"], weatherAdds: "luz rasante de otoño sobre el antiguo fondo marino de Muynak" },
-    { month: 11, rating: "bueno", tempMin: 3, tempMax: 13, precip: "media", snow: false, daylightHours: 10, crowds: "bajo", prices: "bajo", reasons: ["Cae el turismo y los precios", "Días cortos pero luminosos"] },
-    { month: 12, rating: "normal", tempMin: -1, tempMax: 7, precip: "media", snow: true, daylightHours: 9.5, crowds: "bajo", prices: "bajo", reasons: ["Frío y niebla en Tashkent", "Casi sin turistas"], closures: "Tours 4x4 al Aral suspendidos con nieve o hielo" },
+    { month: 1, rating: "normal", tempMin: -3, tempMax: 6, precip: "media", snow: true, daylightHours: 9.5, crowds: "bajo", prices: "bajo", reasons: ["🥶 Frío seco y cielo gris. Khiva y Bujará vacías.", "📸 Si nieva sobre las cúpulas turquesa, foto de la vida.", "🌬 Muynak y el Aral con viento helado, pero se puede."], weatherAdds: "nieve sobre las cúpulas turquesa y un Registán sin un alma" },
+    { month: 2, rating: "normal", tempMin: -1, tempMax: 9, precip: "media", snow: true, daylightHours: 10.5, crowds: "bajo", prices: "bajo", reasons: ["🥶 Sigue el frío, pero ya se ve el final.", "🐎 Temporada de kupkari en los pueblos: jinetes disputándose una cabra."] },
+    { month: 3, rating: "bueno", tempMin: 4, tempMax: 16, precip: "media", snow: false, daylightHours: 12, crowds: "bajo", prices: "bajo", reasons: ["🎉 Navruz el 21: la fiesta gorda del año.", "🌤 Temperaturas suaves, algún chaparrón corto.", "🐎 Últimos kupkari de la temporada."] },
+    { month: 4, rating: "excelente", tempMin: 9, tempMax: 22, precip: "media", snow: false, daylightHours: 13.5, crowds: "medio", prices: "medio", reasons: ["🏆 Clima ideal en las tres ciudades de la Seda.", "🌱 El desierto de Corasmia se pone verde unas semanas, cosa rara.", "👥 Justo antes de que llegue la masa de mayo."] },
+    { month: 5, rating: "excelente", tempMin: 14, tempMax: 28, precip: "baja", snow: false, daylightHours: 14.5, crowds: "alto", prices: "medio", reasons: ["🔥 Calor agradable y tardes largas.", "🎪 Silk and Spices en Bujará.", "🧢 En Muynak ya pega el sol: gorra y agua."] },
+    { month: 6, rating: "bueno", tempMin: 18, tempMax: 33, precip: "baja", snow: false, daylightHours: 15, crowds: "medio", prices: "medio", reasons: ["☀️ Empieza el calor de verdad; mañanas y noches perfectas.", "👥 Menos gente que en mayo."] },
+    { month: 7, rating: "malo", tempMin: 21, tempMax: 36, precip: "baja", snow: false, daylightHours: 15, crowds: "bajo", prices: "bajo", reasons: ["💀 40 °C en Bujará y Khiva. El desierto a mediodía es una sartén.", "🔥 Muynak sin una sombra. Buena idea solo si llevas bien convertirte en pollo asado."] },
+    { month: 8, rating: "malo", tempMin: 19, tempMax: 35, precip: "baja", snow: false, daylightHours: 14, crowds: "bajo", prices: "bajo", reasons: ["💀 Sigue el horno.", "🎶 Sharq Taronalari en Samarcanda (años impares) compensa solo si vas expresamente."] },
+    { month: 9, rating: "excelente", tempMin: 13, tempMax: 29, precip: "baja", snow: false, daylightHours: 12.5, crowds: "alto", prices: "medio", reasons: ["🏆 Vuelve el clima bueno.", "🍈 Uvas, melones y luz dorada.", "🎫 Temporada alta: el Afrosiyob se agota, reserva."], transport: "el Afrosiyob se llena con una semana de antelación" },
+    { month: 10, rating: "excelente", tempMin: 8, tempMax: 22, precip: "baja", snow: false, daylightHours: 11, crowds: "medio", prices: "medio", reasons: ["🏆 El mejor mes para el Aral, Muynak y las fortalezas.", "🧥 Noches frías en el desierto: saco para la yurta."], weatherAdds: "luz rasante de otoño sobre el antiguo fondo marino de Muynak" },
+    { month: 11, rating: "bueno", tempMin: 3, tempMax: 13, precip: "media", snow: false, daylightHours: 10, crowds: "bajo", prices: "bajo", reasons: ["👍 Se va el turismo y bajan los precios.", "🌤 Días cortos pero luminosos."] },
+    { month: 12, rating: "normal", tempMin: -1, tempMax: 7, precip: "media", snow: true, daylightHours: 9.5, crowds: "bajo", prices: "bajo", reasons: ["🥶 Frío y niebla en Tashkent.", "👤 Casi sin turistas, lo cual mola."], closures: "los tours 4x4 al Aral se suspenden con nieve o hielo" },
   ],
   festivals,
   // Generado con `npm run data:stats -- uz`; el test de deriva lo comprueba.
@@ -137,6 +137,6 @@ export const summary: CountrySummary = {
     regiones: 6,
     spreadKm: 1060,
   },
-  fx: { rate: 14000, asOf: "2026-09-15", meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "Aproximado; comprobar el tipo del día" }) },
+  fx: { rate: 14000, asOf: "2026-09-15", meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "A ojo; mira el cambio del día antes de ir" }) },
   map: { center: [41.4, 63.5], zoom: 5 },
 };
