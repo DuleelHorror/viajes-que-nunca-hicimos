@@ -3,6 +3,31 @@
 Guía para Claude Code (y cualquier dev) que abra este proyecto. Léela entera antes de tocar nada.
 El detalle de cada cambio histórico está en `audit/*.audit`.
 
+## Cómo retomar el desarrollo en otro PC (léelo primero)
+
+Todo el contexto viaja en el repo; no hace falta nada de la sesión original:
+
+1. `docs/BRIEF.md` — qué pidió el usuario (perfil del viajero, 18 secciones, funciones, diseño, países) y qué está hecho.
+2. `docs/TONO.md` — cómo se escribe TODO en la app (voz, humor, vocabulario "sitio circo", ejemplos). Obligatorio antes de escribir un texto.
+3. `docs/PLAN.md` — plan aprobado con arquitectura, fórmulas y fases.
+4. Este archivo — arquitectura real, convenciones y pendientes.
+5. `audit/` — justificación de cada intervención.
+
+Pasos:
+
+```bash
+git clone https://github.com/DuleelHorror/viajes-que-nunca-hicimos.git
+cd viajes-que-nunca-hicimos
+git config user.name "DuleelHorror"
+git config user.email "261600665+DuleelHorror@users.noreply.github.com"   # la identidad local NO viaja con el clon
+npm install
+npm run build      # debe quedar en verde antes de tocar nada
+npm run dev        # http://localhost:5173/#/
+```
+
+Siguiente tarea natural: añadir países (ver "Añadir un país" más abajo) siguiendo `docs/TONO.md`, y
+después verificar en web los datos volátiles y recalibrar pesos con los 8 países.
+
 ---
 
 ## Qué es
@@ -119,6 +144,14 @@ trailers de coautoría de Claude.
 
 ## Pendiente conocido
 
-- Países restantes de v1: Italia, Austria, Japón, España, Suecia, República Checa; después los del radar.
+- Países restantes de v1: Italia, Austria, Japón, España, Suecia, República Checa; después los del radar
+  (`src/data/candidates.ts`). Objetivo por país: 12-22 sitios, 3-6 festivales, 2-3 rutas, todo con la voz de `docs/TONO.md`.
 - Verificar con fuentes web los bloques volátiles (visados, vuelos directos, cambio) antes de fiarse.
-- Recalibrar pesos del Duke y de los días con los 8 países cargados.
+- Recalibrar pesos del Duke y de los días con los 8 países cargados (`npx tsx scripts/print-scores.ts`).
+- Fotos de sitios solo con licencia y crédito verificados (campo `image` de `Place`).
+
+## Estado al cierre de la última sesión (2026-09-15)
+
+- Publicado en https://duleelhorror.github.io/viajes-que-nunca-hicimos/ (Pages por Actions, `build_type=workflow`).
+- Uzbekistán (Duke 71, "Sí", 13 días) y Escocia (Duke 75, "Mucho", 12 días) completos; 23 tests en verde.
+- Voz, tipografía (Inter + Manrope), banderas por imagen, escalera de días y sala de gráficas implementadas.
