@@ -1,0 +1,41 @@
+# Mapa interactivo en la home
+
+## Fecha
+2026-09-16 00:20 (Europe/Madrid)
+
+## Contexto / origen del cambio
+Petición del usuario: "encima de 'Los que más te pegan' mete el mapa y los países que puedes clicar que
+salga de algún color especial, y si clicas que salga una animación guapa y te sale la info de ese país".
+
+## Archivos modificados
+- `src/components/home/ArchiveMap.tsx` (nuevo): mapa SVG, panel de ficha y panel de radar.
+- `src/lib/geo/archiveMap.ts` (nuevo): ISO numérico de cada país y carga de geometrías.
+- `src/data/geo/scotland.json` (nuevo, 764 bytes): Escocia de Natural Earth 1:110m `admin_0_map_units`.
+- `src/pages/HomePage.tsx`: sección "El mapa del archivo" encima de "Los que más te pegan", cargada aparte.
+- `src/styles/globals.css`: `.map-ping` (pulso de radar) y `.map-selected` (latido del relleno).
+- `package.json`: `d3-geo`, `topojson-client`, `world-atlas` (y sus tipos).
+
+## Decisiones de diseño
+- **SVG propio, no teselas.** Para pintar países enteros de un color hacen falta polígonos, y los
+  vectores de OpenFreeMap no los traen (solo líneas de frontera). `world-atlas` da el mundo entero en
+  108 KB; con d3-geo se proyecta y se pinta con la paleta de la app, sin red y sin dependencia externa.
+- **Escocia aparte.** Los atlas la traen dentro del Reino Unido; se recorta del `map_units` de Natural
+  Earth (608 bytes de geometría) y se superpone al Reino Unido, que queda como fondo.
+- **Proyección `geoNaturalEarth1` encuadrada a los países marcados** (ficha + radar), con margen para
+  que el pulso no se recorte en los bordes (Escocia y Japón están en las esquinas).
+- **Solo se pinta el contexto que cae en el encuadre**: el resto del mundo ni se calcula.
+- **La animación**: tres anillos que se expanden desde el centroide (`transform-box: fill-box` para
+  que escale sobre sí mismo), halo `feGaussianBlur` en el país activo y latido de `fill-opacity`; el
+  panel entra con `animate-slide-in-right` y se reinicia por `key` en cada clic. Nada de librerías.
+- **Los del radar también se pinchan**: muestran su "por qué" y sus ganchos, y anuncian que se
+  iluminarán en cian cuando tengan ficha. Así el mapa cuenta el estado del proyecto de un vistazo.
+- Accesible: cada país es `role="button"` con `aria-label` y responde a Enter.
+
+## Verificación
+- Pulsaciones sobre Japón, Georgia y Escocia comprobadas en navegador (Playwright con `dispatchEvent`,
+  porque el centro de la caja de un archipiélago cae en el mar y el clic normal no acierta).
+- `tsc` limpio; una advertencia de React por claves duplicadas (países sin id en el atlas) corregida.
+
+## Pendiente
+- En móvil el panel va debajo del mapa; funciona, pero el mapa a 390 px es pequeño para pinchar
+  Austria o Moldavia. Valorar zoom por región si se echa en falta.

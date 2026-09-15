@@ -163,6 +163,31 @@
   }
 }
 
+/* Mapa de la home: pulso de radar sobre el país elegido y latido de su relleno */
+.map-ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: map-ping 1.5s cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
+}
+@keyframes map-ping {
+  from {
+    transform: scale(0.15);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+.map-selected {
+  animation: map-pulse 1.8s ease-in-out infinite;
+}
+@keyframes map-pulse {
+  50% {
+    fill-opacity: 0.6;
+  }
+}
+
 .route-enter {
   animation: route-fade 0.2s ease-out;
 }

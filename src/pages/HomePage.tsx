@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Flame, Radar, Scale, Search } from "lucide-react";
 import { COUNTRIES, FESTIVALS } from "@/data/registry";
@@ -9,6 +10,9 @@ import { Panel, SectionHeader, Stat } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Flag } from "@/components/ui/Flag";
 import { BRAND } from "@/lib/brand";
+import { LoadingScreen } from "@/components/ui/Misc";
+
+const ArchiveMap = lazy(() => import("@/components/home/ArchiveMap"));
 
 const QUICK: Tag[] = [
   "sin-coche",
@@ -125,6 +129,13 @@ export function HomePage() {
             hint="pendientes de ficha"
           />
         </div>
+      </section>
+
+      <section className="space-y-4">
+        <SectionHeader title="El mapa del archivo" kicker="Pincha un país: los de cian tienen ficha, los de magenta están en el radar" />
+        <Suspense fallback={<LoadingScreen label="Desplegando el mapa" />}>
+          <ArchiveMap />
+        </Suspense>
       </section>
 
       <section className="space-y-4">

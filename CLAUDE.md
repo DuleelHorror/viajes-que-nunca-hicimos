@@ -51,6 +51,11 @@ Primitivas en `components/ui/Disclosure.tsx` (`Clamp` = prosa recortada con "lee
 `<details>` nativo. Regla: lo estructurado a la vista, la prosa recortada, lo secundario plegado con
 contador. Medir la altura de la página antes y después de tocar la maquetación (ver audit del rediseño).
 
+**Mapa de la home** (`components/home/ArchiveMap.tsx`, `lib/geo/archiveMap.ts`): SVG con d3-geo sobre
+`world-atlas` 1:110m (TopoJSON, 108 KB) y Escocia recortada aparte en `data/geo/scotland.json`. Países con
+ficha en cian, radar en magenta punteado; al pinchar, pulso (`.map-ping`) y panel con la ficha resumida.
+Para añadir un país al mapa basta con su ISO numérico en `FICHA_NUMERIC` (o `CANDIDATE_NUMERIC`).
+
 **Logo:** el cráneo del usuario en `public/brand/` (rutas en `lib/brand.ts`, siempre con `BASE_URL`).
 Calavera sola en barra, pie y favicon; completo con el texto rojo solo en la home.
 
@@ -181,4 +186,5 @@ trailers de coautoría de Claude.
 - Italia completa (Duke 76, "Mucho", 16 días): 23 sitios, 6 festivales, 3 rutas. 30 tests en verde.
 - Etiquetas de ciudad del mapa con descarte de solapes (ver `CountryMap.tsx`).
 - Rediseño de la ficha de país (−33 % de alto en escritorio, −36 % en móvil, mismos datos) y logo del cráneo.
+- Mapa interactivo en la home con los 6 países con ficha y los 14 del radar.
 - España y República Checa quedan fuera de la v1 por decisión del usuario: faltan Italia, Austria, Japón y Suecia.
