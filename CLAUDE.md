@@ -41,7 +41,7 @@ Pregunta que responde cada ficha: *¿merece la pena, cuántos días, cuándo, cu
 coche y qué cosas raras hay?*
 
 **Stack:** Vite 5 · React 18 · TypeScript · Tailwind 3 · react-router 6 (**HashRouter**) ·
-react-leaflet 4 + Leaflet (tiles CARTO dark) · zustand · zod · vitest · **gráficas SVG propias** (sin
+react-leaflet 4 + Leaflet · MapLibre GL (base vectorial) · zustand · zod · vitest · **gráficas SVG propias** (sin
 recharts). Sin backend, sin login. UI en **español**.
 
 Estética: "archivo de la Guerra Fría + neón vaporwave": base oscura (cemento, mono) con acentos
@@ -103,7 +103,17 @@ trailers de coautoría de Claude.
 - **Banderas:** imágenes de flagcdn (`components/ui/Flag.tsx`) porque Windows no renderiza emojis de
   bandera; fallback al código ISO. Escocia usa `gb-sct`.
 - **Mapa:** `CountryMap.tsx` es chunk lazy; pins con `L.divIcon` (sin iconos por defecto de Leaflet),
-  corredores como polilíneas entre ciudades, overrides oscuros de Leaflet en `globals.css`.
+  corredores como polilíneas entre ciudades, overrides oscuros de Leaflet en `globals.css`. Al abrir se
+  encuadra solo sobre ciudades + sitios (`maxZoom` 9); el `center`/`zoom` del summary es solo la vista
+  previa a ese ajuste.
+- **Capa base:** `Basemap.tsx` + `lib/mapStyle.ts`. Vectorial (MapLibre GL sobre OpenFreeMap, esquema
+  OpenMapTiles) con estilo oscuro propio; se inyecta en el `tilePane` de Leaflet con
+  `@maplibre/maplibre-gl-leaflet`, así el resto del mapa sigue siendo Leaflet. Sin API key: **no volver a
+  CARTO**, que ahora estampa "API KEY REQUIRED" sobre cada tile. Si no hay WebGL o el estilo no carga en
+  9 s, cae al raster Esri Dark Gray (`RASTER_FALLBACK`). El worker de MapLibre se pasa a mano
+  (`?worker&url` + `setWorkerUrl`) porque Vite no puede resolver el suyo: si se toca eso, el mapa se
+  queda negro **sin ningún error en consola**. Detalle completo en
+  `audit/2026-09-15__mapa-vectorial-sin-api-key.audit`.
 
 ---
 
@@ -144,7 +154,8 @@ trailers de coautoría de Claude.
 
 ## Pendiente conocido
 
-- Países restantes de v1: Italia, Austria, Japón, España, Suecia, República Checa; después los del radar
+- Países restantes de v1: Italia, Austria, Japón y Suecia (el usuario descartó España y República Checa);
+  después los del radar
   (`src/data/candidates.ts`). Objetivo por país: 12-22 sitios, 3-6 festivales, 2-3 rutas, todo con la voz de `docs/TONO.md`.
 - Verificar con fuentes web los bloques volátiles (visados, vuelos directos, cambio) antes de fiarse.
 - Recalibrar pesos del Duke y de los días con los 8 países cargados (`npx tsx scripts/print-scores.ts`).
@@ -155,3 +166,5 @@ trailers de coautoría de Claude.
 - Publicado en https://duleelhorror.github.io/viajes-que-nunca-hicimos/ (Pages por Actions, `build_type=workflow`).
 - Uzbekistán (Duke 71, "Sí", 13 días) y Escocia (Duke 75, "Mucho", 12 días) completos; 23 tests en verde.
 - Voz, tipografía (Inter + Manrope), banderas por imagen, escalera de días y sala de gráficas implementadas.
+- Mapa base rehecho: vectorial propio sin API key, con escala, botón "Encuadrar" y encuadre automático.
+- España y República Checa quedan fuera de la v1 por decisión del usuario: faltan Italia, Austria, Japón y Suecia.

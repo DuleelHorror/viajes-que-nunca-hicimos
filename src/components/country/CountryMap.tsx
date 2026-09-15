@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { MapContainer, Marker, Polyline, Popup, TileLayer, Tooltip, useMap } from "react-leaflet";
+import { MapContainer, Marker, Polyline, Popup, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
 import { CATEGORY_META, MODE_META, type TransportMode } from "@/lib/constants";
 import type { CountryDetail, Place } from "@/lib/schema";
 import { cn } from "@/lib/utils";
+import Basemap from "./Basemap";
 
 const LAYERS = ["ciudades", "aeropuertos", "tren", "rutas", "sitios", "excursiones"] as const;
 type Layer = (typeof LAYERS)[number];
@@ -42,6 +43,18 @@ function MapReady({ onReady }: { onReady: (m: L.Map) => void }) {
   return null;
 }
 
+/** Escala métrica: media app responde a "¿esto está lejos o me lo puedo hacer en el día?". */
+function ScaleBar() {
+  const map = useMap();
+  useEffect(() => {
+    const control = L.control.scale({ imperial: false, position: "bottomleft", maxWidth: 120 }).addTo(map);
+    return () => {
+      control.remove();
+    };
+  }, [map]);
+  return null;
+}
+
 interface CountryMapProps {
   d: CountryDetail;
   selectedPlaceId?: string;
@@ -51,6 +64,7 @@ interface CountryMapProps {
 
 export default function CountryMap({ d, selectedPlaceId, onSelectPlace, className }: CountryMapProps) {
   const [enabled, setEnabled] = useState<Set<Layer>>(new Set(LAYERS));
+  const [ready, setReady] = useState(false);
   const mapRef = useRef<L.Map | null>(null);
   const city = (id: string) => d.cities.find((c) => c.id === id);
 
@@ -73,6 +87,19 @@ export default function CountryMap({ d, selectedPlaceId, onSelectPlace, classNam
     [d],
   );
 
+  /**
+   * Encuadre inicial sobre los datos del país, no sobre el centro/zoom guardado: así ningún país
+   * abre con media pantalla de mar o de país vecino, y no hay que afinar el zoom a mano uno a uno.
+   */
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!ready || !map) return;
+    map.invalidateSize();
+    const points = [...d.cities.map((c) => c.coords), ...d.places.map((p) => p.coords)];
+    if (points.length === 0) return;
+    map.fitBounds(L.latLngBounds(points).pad(0.1), { animate: false, maxZoom: 9 });
+  }, [ready, d]);
+
   useEffect(() => {
     if (!selectedPlaceId || !mapRef.current) return;
     const p = d.places.find((x) => x.id === selectedPlaceId);
@@ -88,6 +115,19 @@ export default function CountryMap({ d, selectedPlaceId, onSelectPlace, classNam
 
   const places = d.places.filter((p) => (p.transport.isExcursion ? enabled.has("excursiones") : enabled.has("sitios")));
 
+  /** Reencuadra sobre lo que está visible ahora mismo, no sobre el país entero. */
+  const fitVisible = () => {
+    const map = mapRef.current;
+    if (!map) return;
+    const points: [number, number][] = [
+      ...(enabled.has("ciudades") ? d.cities.map((c) => c.coords) : []),
+      ...(enabled.has("aeropuertos") ? d.airports.map((a) => a.coords) : []),
+      ...places.map((p) => p.coords),
+    ];
+    if (points.length === 0) return;
+    map.flyToBounds(L.latLngBounds(points).pad(0.12), { duration: 0.6 });
+  };
+
   return (
     <div className={cn("overflow-hidden rounded-sharp border border-ink-700", className)}>
       <div className="flex flex-wrap items-center gap-1.5 border-b border-ink-700 bg-ink-900/70 px-3 py-2">
@@ -97,11 +137,20 @@ export default function CountryMap({ d, selectedPlaceId, onSelectPlace, classNam
             {LAYER_LABEL[l]}
           </button>
         ))}
+        <button type="button" onClick={fitVisible} className="chip ml-auto" title="Ajustar el mapa a lo que está marcado">
+          ⤢ Encuadrar
+        </button>
       </div>
       <div className="h-[420px] sm:h-[520px]">
         <MapContainer center={d.summary.map.center} zoom={d.summary.map.zoom} scrollWheelZoom={false} style={{ height: "100%", width: "100%", background: "#0a0a0b" }}>
-          <MapReady onReady={(m) => (mapRef.current = m)} />
-          <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>' url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
+          <MapReady
+            onReady={(m) => {
+              mapRef.current = m;
+              setReady(true);
+            }}
+          />
+          <Basemap />
+          <ScaleBar />
 
           {enabled.has("tren") &&
             railLines.map((r) => (

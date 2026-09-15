@@ -12,6 +12,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
+  // MapLibre carga su worker como módulo ES; sin esto Vite lo empaqueta como IIFE y revienta.
+  worker: { format: "es" },
   build: {
     target: "es2020",
     outDir: "dist",

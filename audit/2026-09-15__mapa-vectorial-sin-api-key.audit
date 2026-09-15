@@ -1,0 +1,82 @@
+# Mapa base vectorial propio (fuera la marca de agua "API KEY REQUIRED")
+
+## Fecha
+2026-09-15 19:55 (Europe/Madrid)
+
+## Contexto / origen del cambio
+Petición del usuario al retomar el proyecto: "pon un mapa que se vea bien y no salga el tag de api key
+requiere" y, a continuación, "no me seas cutre".
+
+Diagnóstico: la capa base era `https://{s}.basemaps.cartocdn.com/dark_all/...`. CARTO pasó a exigir API
+key para ese endpoint y ahora sirve los tiles con "API KEY REQUIRED" estampado en diagonal sobre cada
+uno. Se comprobó descargando un tile suelto (`.../dark_all/6/34/23@2x.png`, 200 OK, marca de agua
+incluida): no era un problema de la app.
+
+## Archivos modificados
+- `src/lib/mapStyle.ts` (nuevo): estilo MapLibre oscuro escrito a medida sobre vectores de OpenFreeMap
+  (esquema OpenMapTiles, sin clave ni cuotas), con los tokens de `tailwind.config.js`. Incluye
+  `RASTER_FALLBACK` (Esri Dark Gray, tampoco pide clave) y la atribución OSM/OpenFreeMap.
+- `src/components/country/Basemap.tsx` (nuevo): añade la capa GL al mapa Leaflet existente vía
+  `@maplibre/maplibre-gl-leaflet`; si no hay WebGL, si el bundle no carga o si el estilo no termina en
+  9 s, cae al raster de Esri.
+- `src/components/country/CountryMap.tsx`: usa `<Basemap />` en vez del `<TileLayer>` de CARTO; añade
+  escala métrica, botón "⤢ Encuadrar" y encuadre automático sobre los datos del país al abrir.
+- `src/styles/globals.css`: estilo oscuro para el control de escala de Leaflet.
+- `vite.config.ts`: `worker: { format: "es" }`.
+- `package.json`: `maplibre-gl` y `@maplibre/maplibre-gl-leaflet`.
+
+## Decisiones de diseño / arquitectura
+- **Vectorial, no raster.** Se probó Esri Dark Gray como sustituto directo: funciona y no lleva marca de
+  agua, pero son teselas de 256 px que se ven blandas en retina y con una paleta ajena. Los vectores se
+  redibujan nítidos a cualquier zoom y permiten pintar el mapa con NUESTROS colores. El raster se queda
+  solo como red de seguridad.
+- **Se conserva Leaflet.** El puente `maplibre-gl-leaflet` mete el lienzo GL en el `tilePane`, así que
+  pines `divIcon`, polilíneas de corredores, popups, tooltips y el conmutador de capas siguen intactos:
+  cero reescritura de la lógica del mapa.
+- **La base es muda a propósito.** Grises fríos y contraste bajo; el viario está apagado (aquí no se
+  conduce) y el ferrocarril aparece pronto (z8) y con traviesas, porque es el transporte del proyecto.
+  Cian y magenta quedan reservados a nuestros datos.
+- **Etiquetas en español** (`name:es` → `name:latin` → `name`) y claramente secundarias frente a las
+  nuestras, que van en mono y en caja.
+- **Sin etiquetas de región.** Al encuadrar un país el zoom cae en z6-7, justo donde OpenMapTiles suelta
+  todos los `state`: el mapa se llenaba de "PROVINCIA DE ..." repetido. Se eliminó la capa entera.
+- **Encuadre automático** sobre ciudades + sitios (con tope `maxZoom: 9`) en lugar de fiarse del
+  `center`/`zoom` guardado: Escocia abría con media pantalla de Noruega y Uzbekistán con Irán.
+  El `map` del summary sigue siendo la vista inicial antes del ajuste.
+
+## Buenas prácticas aplicadas
+- Se verificó el fallo en el origen (tile descargado y mirado) antes de tocar código.
+- Comprobación visual real con navegador (Edge headless vía playwright-core) en `#/pais/uz` y
+  `#/pais/sco`, en dev y **también en `vite preview`** sobre el bundle de producción.
+- Fallback explícito en vez de confiar en que WebGL y un tercero siempre respondan.
+- `npm run build` (tsc + 23 tests + vite) en verde.
+
+## Anti-patrones evitados
+- NO se metió una API key de nadie en un repo público para "arreglarlo rápido".
+- NO se dejó el mapa dependiendo de que un CDN de terceros esté siempre vivo: hay camino alternativo.
+- NO se reescribió el mapa entero a MapLibre: se cambió solo la capa base.
+
+## Riesgos y cómo se mitigaron
+- **El worker de MapLibre.** MapLibre resuelve su worker con `new URL(..., import.meta.url)`, que Vite no
+  puede reescribir: en dev apuntaba a `.vite/deps/maplibre-gl-worker.mjs` (ERR_FAILED, mapa en negro sin
+  ningún error en consola) y en el build ni siquiera se habría emitido. Se importa con `?worker&url` y se
+  fija con `setWorkerUrl()`, con `worker.format: "es"` para que salga como módulo. Verificado en el build:
+  `dist/assets/maplibre-gl-worker-*.js` existe y el mapa pinta en `vite preview`.
+- **Dependencia de openfreemap.org** (gratis, sin clave, pero es un tercero): si cae o tarda más de 9 s,
+  entra el raster de Esri.
+- **Peso:** MapLibre son ~1 MB (287 kB gzip) en su propio chunk, cargado solo al abrir el mapa de una
+  ficha de país. El mapa ya era `import()` diferido.
+
+## Pendiente / siguientes pasos
+- Las etiquetas permanentes de nuestras ciudades se pisan entre ellas en zooms bajos (Khiva/Urgench,
+  Glasgow/Edimburgo). Es anterior a este cambio; se arreglará cuando haya más países y más solape.
+- Valorar resaltar el país de la ficha (oscurecer lo de fuera) cuando haya contornos por país.
+
+## Cómo verificar que funciona
+1. `npm run dev` → `#/pais/uz`: el mapa muestra fronteras, Caspio, restos del Aral y ciudades en español,
+   SIN ninguna marca de agua, y abre encuadrado sobre Uzbekistán.
+2. Botones de capas y "⤢ Encuadrar": el mapa se ajusta a lo que está marcado; escala métrica abajo a la
+   izquierda; atribución "OpenStreetMap · OpenFreeMap" abajo a la derecha.
+3. `npm run build && npm run preview` → `#/pais/sco`: mismo resultado con el bundle de producción
+   (comprueba que el worker se emitió).
+4. `grep -rn "cartocdn" src` no devuelve nada.

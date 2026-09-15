@@ -24,7 +24,7 @@ Supuesto sobre el "91/100" del brief: se toma como ejemplo de formato. El númer
 
 ## Stack
 
-Vite 5 · React 18.3 · TypeScript 5 · Tailwind 3 · react-router 6 (**HashRouter**, `createHashRouter`) · react-leaflet 4 + Leaflet 1.9 (tiles CARTO dark, sin API key) · zustand · zod · lucide-react · vitest (tests de consistencia de datos) · fuentes vía `@fontsource-variable/space-grotesk` + `@fontsource-variable/jetbrains-mono` (sin Google Fonts en runtime). Node 22 en el PC.
+Vite 5 · React 18.3 · TypeScript 5 · Tailwind 3 · react-router 6 (**HashRouter**, `createHashRouter`) · react-leaflet 4 + Leaflet 1.9 (base vectorial MapLibre, ver `audit/2026-09-15__mapa-vectorial-sin-api-key.audit`) · zustand · zod · lucide-react · vitest (tests de consistencia de datos) · fuentes vía `@fontsource-variable/space-grotesk` + `@fontsource-variable/jetbrains-mono` (sin Google Fonts en runtime). Node 22 en el PC.
 
 ## Reutilización desde `C:\Going East` (copiar, no enlazar)
 
@@ -34,7 +34,7 @@ Verificado libre de Tauri/SQLite:
 - `src/styles/globals.css` (scrollbars, `.panel`, `.label-stencil`, `.marker-left`, `.tabular`, `.route-enter`, fondo degradado) → añadir overrides Leaflet (popup/controles oscuros, hoy no existen), `.scanlines`, `.grid-horizon`, `.glow-*`.
 - `src/components/ui/{Button,Badge(base),Card(Panel/SectionHeader/Stat),Field,Misc,Modal}.tsx`, `src/store/useUiStore.ts`. `Stat` es la base del tile de puntuación; `Modal` es la base del `Drawer`.
 - `src/lib/utils.ts` (solo `cn`), `src/lib/format.ts` (cambiar moneda por defecto a EUR), `src/lib/dates.ts` (sin `tripDayNumber`/`dateForTripDay`).
-- Patrones de `src/features/map/MapPage.tsx`: tiles `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png`, `L.divIcon` HTML inline (evita el fix de iconos por defecto), `MapReady` + `invalidateSize`, `fitBounds(bounds.pad(0.2))`, `Polyline` con `dashArray` para corredores ferroviarios, toggles de capas.
+- Patrones de `src/features/map/MapPage.tsx`: `L.divIcon` HTML inline (evita el fix de iconos por defecto), `MapReady` + `invalidateSize`, `fitBounds(bounds.pad(0.2))`, `Polyline` con `dashArray` para corredores ferroviarios, toggles de capas.
 - `AppShell.tsx` (sin bootstrap de `useTripStore`), patrón `NAV[]` + `NavLink` de `Sidebar.tsx`. **Construir drawer móvil** (la app actual no tiene nada responsive).
 - `index.html`, `postcss.config.js`, `tsconfig.json` (alias `@/`), `main.tsx`/`App.tsx`/`router.tsx`.
 - `vite.config.ts`: quitar `clearScreen`, `server.port 1420/strictPort`, `build.target es2021`; añadir `base: "./"` (relativo: funciona en Pages con HashRouter sin acoplar el nombre del repo) y `manualChunks` para leaflet.
@@ -131,7 +131,7 @@ Scripts: `dev`, `build: tsc --noEmit && vitest run && vite build`, `test`, `prev
 4. **Lista + filtros + Home**.
 5. **Comparador** (tabla + radar + barras).
 6. **Buscador + explorador de festivales** (funciones puras sobre el registro).
-7. **Resto de países v1**: Italia, Austria, Japón, España, Suecia, Chequia. Verificación con `WebSearch` de los bloques volátiles de los 8 (visado/ETA para españoles, vuelos directos desde BCN, tipo de cambio) y recalibrado de pesos.
+7. **Resto de países v1**: Italia, Austria, Japón y Suecia (España y Chequia descartadas por el usuario el 2026-09-15). Verificación con `WebSearch` de los bloques volátiles de los 8 (visado/ETA para españoles, vuelos directos desde BCN, tipo de cambio) y recalibrado de pesos.
 8. **Pulido**: metodología, pills de datos antiguos, estilos de impresión "dossier", README, `CLAUDE.md` del proyecto, `.audit` por fase (regla del usuario), memoria.
 
 Objetivo de contenido v1 por país: 12-20 sitios circo (mín. 5 tier 1), 3-6 festivales, 2-3 rutas propuestas, 5-8 ciudades con transporte urbano, 3-6 corredores ferroviarios, 12 meses valorados con razones. Uzbekistán con Tashkent, Samarcanda, Bujará, Khiva, Nukus, Muynak, Mar de Aral (cementerio de barcos), Museo Savitsky, metro de Tashkent, tren Afrosiyob, y la etapa Nukus→Muynak marcada como "aviso" sin coche.

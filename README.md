@@ -18,7 +18,7 @@ Cada país responde a una sola pregunta: *¿merece la pena ir, cuántos días, c
 
 ## Stack
 
-Vite 5 · React 18 · TypeScript · Tailwind 3 · react-router 6 (HashRouter) · react-leaflet + Leaflet (tiles CARTO dark) · zustand · zod · vitest · gráficas SVG propias. Sin backend, sin login: todo estático en GitHub Pages.
+Vite 5 · React 18 · TypeScript · Tailwind 3 · react-router 6 (HashRouter) · react-leaflet + Leaflet con base vectorial MapLibre (estilo oscuro propio sobre OpenFreeMap, sin API key) · zustand · zod · vitest · gráficas SVG propias. Sin backend, sin login: todo estático en GitHub Pages.
 
 ## Desarrollo
 
