@@ -131,7 +131,7 @@ Scripts: `dev`, `build: tsc --noEmit && vitest run && vite build`, `test`, `prev
 4. **Lista + filtros + Home**.
 5. **Comparador** (tabla + radar + barras).
 6. **Buscador + explorador de festivales** (funciones puras sobre el registro).
-7. **Resto de países v1**: Italia, Austria, Japón y Suecia (España y Chequia descartadas por el usuario el 2026-09-15). Verificación con `WebSearch` de los bloques volátiles de los 8 (visado/ETA para españoles, vuelos directos desde BCN, tipo de cambio) y recalibrado de pesos.
+7. **Resto de países v1**: Italia ✅, Austria, Japón y Suecia (España y Chequia descartadas por el usuario el 2026-09-15). Verificación con `WebSearch` de los bloques volátiles de los 8 (visado/ETA para españoles, vuelos directos desde BCN, tipo de cambio) y recalibrado de pesos.
 8. **Pulido**: metodología, pills de datos antiguos, estilos de impresión "dossier", README, `CLAUDE.md` del proyecto, `.audit` por fase (regla del usuario), memoria.
 
 Objetivo de contenido v1 por país: 12-20 sitios circo (mín. 5 tier 1), 3-6 festivales, 2-3 rutas propuestas, 5-8 ciudades con transporte urbano, 3-6 corredores ferroviarios, 12 meses valorados con razones. Uzbekistán con Tashkent, Samarcanda, Bujará, Khiva, Nukus, Muynak, Mar de Aral (cementerio de barcos), Museo Savitsky, metro de Tashkent, tren Afrosiyob, y la etapa Nukus→Muynak marcada como "aviso" sin coche.

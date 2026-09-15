@@ -43,6 +43,19 @@ function MapReady({ onReady }: { onReady: (m: L.Map) => void }) {
   return null;
 }
 
+function ZoomWatch({ onZoom }: { onZoom: (z: number) => void }) {
+  const map = useMap();
+  useEffect(() => {
+    const update = () => onZoom(map.getZoom());
+    update();
+    map.on("zoomend", update);
+    return () => {
+      map.off("zoomend", update);
+    };
+  }, [map, onZoom]);
+  return null;
+}
+
 /** Escala métrica: media app responde a "¿esto está lejos o me lo puedo hacer en el día?". */
 function ScaleBar() {
   const map = useMap();
@@ -65,6 +78,7 @@ interface CountryMapProps {
 export default function CountryMap({ d, selectedPlaceId, onSelectPlace, className }: CountryMapProps) {
   const [enabled, setEnabled] = useState<Set<Layer>>(new Set(LAYERS));
   const [ready, setReady] = useState(false);
+  const [zoom, setZoom] = useState(d.summary.map.zoom);
   const mapRef = useRef<L.Map | null>(null);
   const city = (id: string) => d.cities.find((c) => c.id === id);
 
@@ -115,6 +129,33 @@ export default function CountryMap({ d, selectedPlaceId, onSelectPlace, classNam
 
   const places = d.places.filter((p) => (p.transport.isExcursion ? enabled.has("excursiones") : enabled.has("sitios")));
 
+  /**
+   * Qué ciudades llevan el nombre siempre visible. Leaflet no descarta etiquetas que se pisan, así
+   * que lo hacemos a mano: se proyectan a píxeles en el zoom actual y se van colocando de mayor a
+   * menor importancia (capital primero); la que chocaría con una ya puesta se queda solo en hover.
+   * Depende del zoom, no del encuadre: al mover el mapa no bailan.
+   */
+  const labelledCities = useMemo(() => {
+    const map = mapRef.current;
+    const visible = new Set<string>();
+    if (!map) return visible;
+    const boxes: [number, number, number, number][] = [];
+    const byImportance = [...d.cities].sort(
+      (a, b) => Number(b.isCapital ?? false) - Number(a.isCapital ?? false) || (b.population ?? 0) - (a.population ?? 0),
+    );
+    for (const c of byImportance) {
+      const p = map.project(c.coords, zoom);
+      // Ancho aproximado de la etiqueta: mono 10 px en mayúsculas con espaciado ≈ 7 px por carácter.
+      const x1 = p.x + 8;
+      const box: [number, number, number, number] = [x1, p.y - 9, x1 + c.name.length * 7 + 14, p.y + 9];
+      const choca = boxes.some((q) => box[0] < q[2] + 4 && q[0] < box[2] + 4 && box[1] < q[3] + 4 && q[1] < box[3] + 4);
+      if (choca) continue;
+      boxes.push(box);
+      visible.add(c.id);
+    }
+    return visible;
+  }, [d.cities, zoom, ready]);
+
   /** Reencuadra sobre lo que está visible ahora mismo, no sobre el país entero. */
   const fitVisible = () => {
     const map = mapRef.current;
@@ -151,6 +192,7 @@ export default function CountryMap({ d, selectedPlaceId, onSelectPlace, classNam
           />
           <Basemap />
           <ScaleBar />
+          <ZoomWatch onZoom={setZoom} />
 
           {enabled.has("tren") &&
             railLines.map((r) => (
@@ -173,7 +215,7 @@ export default function CountryMap({ d, selectedPlaceId, onSelectPlace, classNam
           {enabled.has("ciudades") &&
             d.cities.map((c) => (
               <Marker key={c.id} position={c.coords} icon={pin("#c0c5cb", c.isCapital ? "capital" : "city", false)}>
-                <Tooltip permanent direction="right" offset={[8, 0]} className="vq-label">
+                <Tooltip key={labelledCities.has(c.id) ? "fijo" : "hover"} permanent={labelledCities.has(c.id)} direction="right" offset={[8, 0]} className="vq-label">
                   {c.name}
                 </Tooltip>
                 <Popup>

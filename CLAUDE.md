@@ -154,7 +154,7 @@ trailers de coautoría de Claude.
 
 ## Pendiente conocido
 
-- Países restantes de v1: Italia, Austria, Japón y Suecia (el usuario descartó España y República Checa);
+- Países restantes de v1: Austria, Japón y Suecia (el usuario descartó España y República Checa);
   después los del radar
   (`src/data/candidates.ts`). Objetivo por país: 12-22 sitios, 3-6 festivales, 2-3 rutas, todo con la voz de `docs/TONO.md`.
 - Verificar con fuentes web los bloques volátiles (visados, vuelos directos, cambio) antes de fiarse.
@@ -164,7 +164,9 @@ trailers de coautoría de Claude.
 ## Estado al cierre de la última sesión (2026-09-15)
 
 - Publicado en https://duleelhorror.github.io/viajes-que-nunca-hicimos/ (Pages por Actions, `build_type=workflow`).
-- Uzbekistán (Duke 71, "Sí", 13 días) y Escocia (Duke 75, "Mucho", 12 días) completos; 23 tests en verde.
+- Uzbekistán (Duke 71, "Sí", 13 días), Escocia (Duke 75, "Mucho", 12 días) e Italia (Duke 76, "Mucho", 16 días).
 - Voz, tipografía (Inter + Manrope), banderas por imagen, escalera de días y sala de gráficas implementadas.
 - Mapa base rehecho: vectorial propio sin API key, con escala, botón "Encuadrar" y encuadre automático.
+- Italia completa (Duke 76, "Mucho", 16 días): 23 sitios, 6 festivales, 3 rutas. 30 tests en verde.
+- Etiquetas de ciudad del mapa con descarte de solapes (ver `CountryMap.tsx`).
 - España y República Checa quedan fuera de la v1 por decisión del usuario: faltan Italia, Austria, Japón y Suecia.

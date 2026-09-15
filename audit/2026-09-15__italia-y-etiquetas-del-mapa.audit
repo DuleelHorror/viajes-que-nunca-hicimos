@@ -1,0 +1,76 @@
+# Italia completa y etiquetas de ciudad sin solapes
+
+## Fecha
+2026-09-15 20:30 (Europe/Madrid)
+
+## Contexto / origen del cambio
+El usuario retoma el proyecto ("busca, te pones al día y seguimos con el desarrollo"), descarta dos
+países de la v1 ("no pongas España ni República Checa") y pide seguir. La tarea natural documentada en
+`CLAUDE.md` era añadir países: se añade **Italia**, el primero de los cuatro que quedan.
+
+## Archivos modificados
+- `src/data/countries/it/` (nuevo): `summary.ts`, `places.ts` (23 sitios), `festivals.ts` (6),
+  `geo.ts` (10 ciudades, 10 aeropuertos, 7 corredores, 5 rutas no ferroviarias), `routes.ts` (3
+  itinerarios), `sections.ts` (las 10 secciones de prosa), `index.ts`.
+- `src/data/registry.ts`, `src/data/__tests__/consistency.test.ts`, `scripts/print-scores.ts`: alta de
+  Italia. En el test se importa como `ita` porque `it` choca con el `it()` de vitest.
+- `src/components/country/CountryMap.tsx`: colocación de etiquetas de ciudad sin solapes.
+- `src/components/country/CountryHeader.tsx`: "y 1 mes más" en singular (decía "y 1 meses más").
+- `CLAUDE.md`, `docs/BRIEF.md`, `docs/PLAN.md`: España y Chequia fuera; Italia marcada como hecha.
+
+## Decisiones de diseño / arquitectura
+- **Criterio de selección de sitios**: nada de "top 10 de Google". Entran Bomarzo, Civita di
+  Bagnoregio, el Cretto de Burri sobre Gibellina, las Fontanelle de Nápoles, las catacumbas de
+  Palermo, el Vajont, Craco, Consonno y la Risiera de San Sabba. Se descarta Pompeya a favor de
+  **Herculano** (mejor conservado, menos gente) y se deja fuera Venecia por irrelevante para el perfil.
+- **Reparto por tier**: 10 tier 1, 9 tier 2, 4 tier 3. El `placeStats` no se escribe a mano: sale de
+  `npm run data:stats -- it` y el test de deriva lo comprueba.
+- **Honestidad del acceso sin coche**: Gibellina (2/10), Craco (3/10) y Consonno (4/10) se puntúan bajo
+  y se dicen con todas las letras en `hardWithoutCar`. Gibellina es el punto donde el viaje se pelea
+  con la norma de no conducir, y así se escribe en el veredicto en vez de disimularlo.
+- **Confianza baja donde toca**: el Cretto, Craco y Consonno quedan con `confidence: "baja"` porque los
+  horarios de bus y los accesos informales no se han verificado sobre el terreno.
+- **Veredicto alineado con la fórmula**: la escalera de días calcula 16 y el texto decía 12. Se reescribió
+  el veredicto en vez de forzar los inputs: manda el motor, no la prosa.
+- **Etiquetas del mapa**: Leaflet no descarta tooltips que se pisan y con 10 ciudades se volvió ilegible
+  (Milán/Turín/Génova, Bari/Matera). Se proyectan las ciudades a píxeles en el zoom actual y se colocan
+  de mayor a menor importancia (capital primero, luego población); la que chocaría se queda en hover.
+  Depende solo del zoom, así que al mover el mapa las etiquetas no bailan.
+
+## Verificación en fuentes
+- Bari–Matera: la FAL es una compañía privada y la línea se corta por obras con frecuencia (en verano de
+  2026, más de dos meses con bus sustitutivo entre Bari y Gravina). Se refleja en el corredor y en las
+  advertencias de la ruta de 15 días.
+- Traghettamento de Messina: sigue existiendo el embarque de vagones en el ferry; están entrando trenes
+  trimodales HTR.412 que embarcan por sí solos. El "tren que se sube a un barco" es real, no folclore.
+- Jardín de los Tarots: 1 de abril a 15 de octubre, solo tardes y con reserva online. Va en el mes a mes.
+- Bomarzo sin coche: tren a Orte y bus de Cotral (≈ 30 min), con pocos servicios, más 25 min a pie.
+
+## Buenas prácticas aplicadas
+- Se leyeron los esquemas Zod y `subscores.ts` ANTES de escribir los `inputs`, para no meter números
+  con una semántica inventada (los `Level3` van de 0 a 2, `precio` es 10 = barato, idioma 10 = difícil).
+- Voz de `docs/TONO.md` en todos los textos nuevos, incluidos avisos y contras.
+- Comprobación visual de la ficha y del mapa de los tres países en navegador real.
+- `npm run build` (tsc + 30 tests + vite) en verde.
+
+## Anti-patrones evitados
+- NO se tocaron los pesos del Duke para que Italia "quedara bien": se autoría honesta y sale lo que sale.
+- NO se inventaron URLs de imágenes: ningún sitio lleva `image`, como manda la regla del proyecto.
+- NO se rellenaron los 12 meses con texto de relleno: julio y agosto se marcan como malos y se explica.
+
+## Resultado
+Italia: **Duke 76/100 ("Mucho")**, circo 8,6, 16 días ideales, sin coche 7,3 🟡, coste 4,7/10.
+Queda por delante de Escocia (75) y Uzbekistán (71), lo cual es discutible y se revisará al recalibrar.
+
+## Pendiente / siguientes pasos
+- Faltan Austria, Japón y Suecia para cerrar la v1 y poder recalibrar pesos.
+- Con solo 3 países, que Italia sea la primera del ranking hay que mirarlo con lupa: el peso del circo
+  (35 puntos) premia mucho tener muchos sitios, y Italia tiene 23.
+- Verificar sobre el terreno (o con fuentes mejores) los accesos marcados con confianza baja.
+
+## Cómo verificar que funciona
+1. `npm run dev` → `#/pais/it`: 18 secciones completas, 23 sitios, 3 rutas, 6 festivales.
+2. `#/comparar?ids=it,uz,sco`: los tres países en el radar y la tabla con 🏆.
+3. `#/festivales?mes=2`: aparece la Batalla de las Naranjas de Ivrea.
+4. `npx tsx scripts/print-scores.ts`: imprime los tres países.
+5. En el mapa de Italia, ninguna etiqueta de ciudad se pisa con otra; al acercar aparecen las que faltan.

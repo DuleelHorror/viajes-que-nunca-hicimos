@@ -1,0 +1,118 @@
+import type { Festival } from "@/lib/schema";
+import { meta } from "@/lib/schema";
+
+const PROPIO = { label: "Lo hemos escrito nosotros", kind: "propio" as const };
+const WIKI = (url: string) => ({ label: "Wikipedia", url, kind: "wiki" as const });
+const f = (notes?: string, confidence: "alta" | "media" | "baja" = "media") =>
+  meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence, sources: [PROPIO], notes });
+
+export const festivals: Festival[] = [
+  {
+    id: "it-mamoiada-mamuthones",
+    name: "Mamuthones de Mamoiada",
+    city: "Mamoiada",
+    regionName: "Cerdeña",
+    coords: [40.2117, 9.2694],
+    month: 1,
+    dateApprox: "17 de enero (San Antonio Abad) y los domingos de carnaval",
+    durationDays: 1,
+    category: "folklore",
+    whatHappens:
+      "Doce hombres se enfundan pieles de oveja negras, una máscara de madera de rasgos deformes y treinta kilos de cencerros a la espalda, y avanzan por el pueblo en dos filas dando saltos sincronizados para que todo suene a la vez. Alrededor, los Issohadores, de rojo, lanzan una cuerda para atrapar a quien pillan. Se hace desde antes de que nadie recuerde por qué, alrededor de hogueras de San Antonio. No es una recreación para turistas: no hay escenario ni entrada.",
+    scores: { rareza: 10, espectacularidad: 9, facilidadAcceso: 3, nivelTurismo: 4 },
+    planTripAround: true,
+    needsBooking: "Dormir en Nuoro y reservar con meses: en el pueblo casi no hay camas",
+    links: [WIKI("https://es.wikipedia.org/wiki/Mamuthones")],
+    meta: f("Sin coche, Mamoiada es complicado: vuelo a Olbia o Cagliari, tren o bus a Nuoro y bus local"),
+  },
+  {
+    id: "it-ivrea-battaglia-arance",
+    name: "Batalla de las Naranjas de Ivrea",
+    city: "Ivrea",
+    regionName: "Piamonte",
+    coords: [45.4675, 7.8756],
+    month: 2,
+    dateApprox: "domingo, lunes y martes de carnaval (finales de febrero o principios de marzo)",
+    durationDays: 3,
+    category: "festival",
+    whatHappens:
+      "Nueve equipos a pie se enfrentan a los carros tirados por caballos lanzándose naranjas a la cara durante tres días. Son cientos de toneladas de fruta, la gente acaba con la cara reventada y las calles quedan cubiertas de pulpa. Representa una revuelta medieval contra un tirano; en la práctica es una batalla campal municipal con reglas. Si te pones gorro rojo eres espectador y no te tiran; si no, tú sabrás.",
+    scores: { rareza: 10, espectacularidad: 10, facilidadAcceso: 8, nivelTurismo: 6 },
+    planTripAround: true,
+    needsBooking: "Alojamiento en Turín (50 min en tren) y gorro frigio rojo para no comerte una naranja",
+    links: [WIKI("https://es.wikipedia.org/wiki/Batalla_de_las_Naranjas")],
+    meta: f("Las fechas se mueven con el carnaval; confírmalas cada año"),
+  },
+  {
+    id: "it-cocullo-serpari",
+    name: "Festa dei Serpari de Cocullo",
+    city: "Cocullo",
+    regionName: "Abruzos",
+    coords: [42.0303, 13.7889],
+    month: 5,
+    dateApprox: "1 de mayo",
+    durationDays: 1,
+    category: "folklore",
+    whatHappens:
+      "Sacan en procesión la estatua de San Domenico cubierta de serpientes vivas. Los serpari las capturan por la zona semanas antes, las cuidan y las van colocando encima del santo hasta que la figura desaparece bajo un nudo de culebras que se mueven. Detrás va el pueblo entero. Es un rito precristiano reciclado, con la diosa Angizia detrás, y terminado el día las serpientes se sueltan donde se cogieron.",
+    scores: { rareza: 10, espectacularidad: 8, facilidadAcceso: 6, nivelTurismo: 6 },
+    planTripAround: true,
+    needsBooking: "Ese día ponen trenes especiales desde Sulmona; el pueblo tiene apenas 200 habitantes, así que duerme en Sulmona",
+    links: [WIKI("https://it.wikipedia.org/wiki/Festa_dei_serpari")],
+    meta: f("El servicio ferroviario especial depende del año; comprobar en Trenitalia"),
+  },
+  {
+    id: "it-gubbio-corsa-ceri",
+    name: "Corsa dei Ceri de Gubbio",
+    city: "Gubbio",
+    regionName: "Umbría",
+    coords: [43.3506, 12.5767],
+    month: 5,
+    dateApprox: "15 de mayo",
+    durationDays: 1,
+    category: "folklore",
+    whatHappens:
+      "Tres estructuras de madera de cuatro metros y varios cientos de kilos, cada una coronada por un santo, se cargan a hombros y se suben corriendo por las calles empinadas de Gubbio hasta la basílica del monte, a 300 metros de desnivel. Los porteadores se relevan a la carrera sin parar el ceri. Lleva haciéndose desde 1160 y el pueblo se divide en tres bandos de por vida. No se puede ganar: el orden de llegada está fijado. Corren igual.",
+    scores: { rareza: 8, espectacularidad: 10, facilidadAcceso: 5, nivelTurismo: 7 },
+    planTripAround: true,
+    needsBooking: "Gubbio no tiene tren: bus desde Perugia o Fossato di Vico. Dormir allí exige reservar con mucha antelación",
+    links: [WIKI("https://es.wikipedia.org/wiki/Carrera_de_los_Ceri")],
+    meta: f(),
+  },
+  {
+    id: "it-siena-palio",
+    name: "Palio de Siena",
+    city: "Siena",
+    regionName: "Toscana",
+    coords: [43.3182, 11.3318],
+    month: 7,
+    dateApprox: "2 de julio y 16 de agosto",
+    durationDays: 1,
+    category: "festival",
+    whatHappens:
+      "Diez jinetes a pelo dan tres vueltas a la plaza del Campo, con la arena echada encima de los adoquines y colchones en las esquinas. Dura noventa segundos, se puede ganar sin jinete encima y las alianzas y sobornos entre barrios forman parte del juego. El centro de la plaza es gratis pero hay que entrar cuatro horas antes y no se sale. Una ciudad entera que lleva un año entero preparándose para minuto y medio.",
+    scores: { rareza: 7, espectacularidad: 10, facilidadAcceso: 8, nivelTurismo: 9 },
+    planTripAround: true,
+    needsBooking: "Gratis de pie en el centro de la plaza si llegas pronto; los balcones cuestan cientos de euros. Hotel reservado con meses",
+    links: [WIKI("https://es.wikipedia.org/wiki/Palio_de_Siena")],
+    meta: f("Si llueve se aplaza; hay una prueba cada tarde los días previos"),
+  },
+  {
+    id: "it-krampus-alto-adige",
+    name: "Krampuslauf del Alto Adigio",
+    city: "Dobbiaco, Brunico y Vipiteno",
+    regionName: "Trentino-Alto Adigio",
+    coords: [46.7356, 12.2214],
+    month: 12,
+    dateApprox: "5 y 6 de diciembre",
+    durationDays: 2,
+    category: "folklore",
+    whatHappens:
+      "La víspera de San Nicolás, decenas de tipos disfrazados de demonio alpino (piel, cuernos de cabra reales, máscaras talladas y cencerros) bajan por las calles nevadas del valle repartiendo escobazos a quien se ponga a tiro, mientras San Nicolás va detrás repartiendo dulces a los niños. En algunos pueblos es simpático; en otros es bastante bestia y conviene no ponerse en primera fila con la cámara.",
+    scores: { rareza: 9, espectacularidad: 9, facilidadAcceso: 6, nivelTurismo: 5 },
+    planTripAround: true,
+    needsBooking: "Tren hasta Fortezza y regional al valle Pusteria; hoteles llenos por la temporada de esquí",
+    links: [WIKI("https://es.wikipedia.org/wiki/Krampus")],
+    meta: f("Cada pueblo tiene su recorrido y su hora; se anuncian con pocas semanas"),
+  },
+];

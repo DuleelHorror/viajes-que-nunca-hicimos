@@ -1,0 +1,143 @@
+import type { CountrySummary } from "@/lib/schema";
+import { meta } from "@/lib/schema";
+import { festivals } from "./festivals";
+
+const WIKI = { label: "Wikipedia", url: "https://es.wikipedia.org/wiki/Italia", kind: "wiki" as const };
+const MAEC = { label: "MAEC · Recomendaciones de viaje", url: "https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Recomendaciones-de-viaje.aspx", kind: "oficial" as const };
+const SEAT61 = { label: "The Man in Seat 61 · Italy", url: "https://www.seat61.com/Italy.htm", kind: "blog" as const };
+const TRENITALIA = { label: "Trenitalia", url: "https://www.trenitalia.com", kind: "oficial" as const };
+const NUMBEO = { label: "Numbeo · Italia", url: "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Italy", kind: "blog" as const };
+const PROPIO = { label: "Lo hemos escrito nosotros", kind: "propio" as const };
+
+export const summary: CountrySummary = {
+  id: "it",
+  name: "Italia",
+  nameLocal: "Italia",
+  flag: "🇮🇹",
+  region: "europa-sur",
+  iso: { alpha2: "IT" },
+  tagline: "Un bosque de monstruos, ocho mil momias vestidas y un pueblo bajo hormigón blanco.",
+  whyMe:
+    "Porque es el país con más mandanga rara por kilómetro cuadrado de Europa y encima se recorre entero sin tocar un volante: alta velocidad cada quince minutos y ciudades que se andan. No vas por el Coliseo, vas por el Bosque Sacro de Bomarzo, por las ocho mil momias de los Capuchinos de Palermo, por el culto napolitano a las calaveras adoptadas y por el Cretto de Burri, doce hectáreas de hormigón blanco vertidas encima de un pueblo que mató un terremoto. Y luego está el calendario: naranjas a la cara en Ivrea, un santo cubierto de serpientes vivas en Cocullo, demonios alpinos con cencerros en diciembre. Lo malo: no es barato, en agosto es insoportable y culturalmente es casi España.",
+  facts: {
+    capital: "Roma",
+    population: 58_900_000,
+    areaKm2: 302_073,
+    languages: ["italiano", "alemán (en el Alto Adigio)", "sardo, friulano y un montón de lenguas regionales"],
+    currency: { code: "EUR", name: "euro", symbol: "€" },
+    religions: "Fondo católico muy presente en lo cultural, Estado laico y práctica en caída libre",
+    timezone: "UTC+1, verano UTC+2: la misma hora que en Barcelona",
+    plugTypes: ["C", "F", "L"],
+    drivingSide: "derecha",
+    meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "alta", sources: [WIKI] }),
+  },
+  traits: { sovietico: false, brutalista: true, nieveFiable: false, distanciaCultural: 2, turismoMasivo: 9 },
+  inputs: {
+    circo: {
+      rareza: 8,
+      historia: 10,
+      oscuridad: 7,
+      arquitectura: 9,
+      naturaleza: 7,
+      folclore: 9,
+      festivales: 10,
+      aventura: 5,
+      fotografia: 9,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "media", sources: [PROPIO], notes: "Notas subjetivas para nuestra forma de viajar" }),
+    },
+    rail: {
+      calidad: 9,
+      cobertura: 8,
+      frecuencia: 9,
+      puntualidad: 6,
+      precio: 5,
+      facilidadBilletes: 9,
+      online: 9,
+      nocturnos: 6,
+      altaVelocidad: 10,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [SEAT61, TRENITALIA], notes: "La alta velocidad es excelente; el regional baja mucho la media en puntualidad" }),
+    },
+    bus: { cobertura: 6, fiabilidad: 5, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "Los regionales llegan a todas partes, pero con tres servicios al día y domingos en blanco" }) },
+    urban: { media: 6, meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "media", sources: [PROPIO], notes: "Milán y Turín son excelentes; Roma y Palermo tiran la media abajo" }) },
+    apps: { cobertura: 9, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO] }) },
+    cost: {
+      daily: { low: 60, normal: 95, comfortable: 175 },
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [NUMBEO, PROPIO], notes: "El norte cuesta claramente más que el sur; Matera y Venecia son caso aparte" }),
+    },
+    flights: {
+      direct: true,
+      directHours: 2,
+      directWeekly: 60,
+      lowCostDirect: true,
+      oneStopMinHours: 4,
+      oneStopDailyOptions: 10,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "Directos desde BCN a Roma, Milán, Nápoles, Palermo, Bari, Turín y más" }),
+    },
+    docs: {
+      entry: "dni",
+      maxStayDays: 90,
+      insuranceMandatory: false,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [MAEC], notes: "Schengen y libre circulación UE: en la práctica no hay límite de estancia" }),
+    },
+    safety: {
+      delincuencia: 8,
+      robos: 5,
+      timos: 6,
+      zonasConflicto: 9,
+      terrorismo: 7.5,
+      transporte: 7,
+      camaraEnCalle: 7,
+      noche: 8,
+      solo: 9,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [MAEC, PROPIO], notes: "Los carteristas del metro de Roma y de la Circumvesuviana bajan la nota más que ninguna otra cosa" }),
+    },
+    stability: { score: 7, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [MAEC, WIKI], notes: "Cambian de gobierno a menudo y no afecta a nada; las huelgas de transporte sí" }) },
+    digital: {
+      googleMaps: 2,
+      googleTranslate: 2,
+      tarjetas: 9,
+      contactless: 9,
+      efectivoNecesario: 4,
+      esim: 2,
+      cobertura: 9,
+      wifi: 8,
+      bloqueos: [],
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "Roaming UE: tu tarifa española funciona tal cual" }),
+    },
+    language: {
+      ingles: 5,
+      alfabetoDistinto: false,
+      maquinasEnIngles: 9,
+      senaleticaBilingue: 7,
+      traductorFunciona: 9,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "alta", sources: [PROPIO], notes: "El inglés es flojo, pero hablando español despacio te entienden: es media dificultad menos" }),
+    },
+  },
+  months: [
+    { month: 1, rating: "normal", tempMin: 2, tempMax: 12, precip: "media", snow: true, daylightHours: 9.5, crowds: "bajo", prices: "bajo", reasons: ["🥶 Frío y niebla en el norte; Roma y el sur, llevaderos.", "👍 Museos vacíos y precios de risa.", "👹 Mamuthones en Mamoiada el 17."], weatherAdds: "niebla en Staglieno y en el Monumentale, que es como hay que verlos" },
+    { month: 2, rating: "normal", tempMin: 3, tempMax: 13, precip: "media", snow: true, daylightHours: 10.5, crowds: "bajo", prices: "bajo", reasons: ["🍊 Carnaval: batalla de naranjas en Ivrea.", "🥶 Sigue haciendo frío arriba.", "💶 Sigue siendo temporada barata."] },
+    { month: 3, rating: "bueno", tempMin: 6, tempMax: 17, precip: "media", snow: false, daylightHours: 12, crowds: "bajo", prices: "medio", reasons: ["🌤 Empieza a apetecer el sur.", "👌 Herculano y Ostia a temperatura de andar."] },
+    { month: 4, rating: "excelente", tempMin: 9, tempMax: 20, precip: "media", snow: false, daylightHours: 13.5, crowds: "medio", prices: "medio", reasons: ["🏆 Clima ideal de Roma para abajo.", "🎴 Abre el Jardín de los Tarots (1 de abril).", "⚠️ Semana Santa llena el país entero."] },
+    { month: 5, rating: "excelente", tempMin: 13, tempMax: 25, precip: "baja", snow: false, daylightHours: 14.5, crowds: "medio", prices: "medio", reasons: ["🏆 El mejor mes junto con septiembre.", "🐍 Serpari de Cocullo el 1 y Ceri de Gubbio el 15.", "🥾 Perfecto para el Vesubio y para Gibellina."] },
+    { month: 6, rating: "bueno", tempMin: 17, tempMax: 29, precip: "baja", snow: false, daylightHours: 15, crowds: "alto", prices: "alto", reasons: ["☀️ Ya pega, sobre todo en el sur.", "💸 Los vuelos empiezan a ponerse tontos."] },
+    { month: 7, rating: "malo", tempMin: 20, tempMax: 33, precip: "baja", snow: false, daylightHours: 15, crowds: "alto", prices: "alto", reasons: ["💀 40 °C en Roma y Sicilia; las ruinas al sol son una sartén.", "👥 Turismo a plena potencia.", "🐎 Palio de Siena el 2, si te va el sufrimiento con multitud."] },
+    { month: 8, rating: "malo", tempMin: 20, tempMax: 33, precip: "baja", snow: false, daylightHours: 14, crowds: "alto", prices: "alto", reasons: ["🚧 Ferragosto: media Italia cierra y la otra media está en la playa.", "💀 Calor del demonio y precios de temporada alta.", "🙅 El peor mes para este viaje sin discusión."], closures: "muchos museos pequeños, talleres y trattorias cierran dos semanas" },
+    { month: 9, rating: "excelente", tempMin: 16, tempMax: 28, precip: "media", snow: false, daylightHours: 12.5, crowds: "medio", prices: "medio", reasons: ["🏆 El mes redondo: buen tiempo y se va la masa.", "🍇 Vendimia y comida de temporada.", "📸 Luz buenísima a partir de media tarde."] },
+    { month: 10, rating: "excelente", tempMin: 12, tempMax: 22, precip: "media", snow: false, daylightHours: 11, crowds: "bajo", prices: "medio", reasons: ["🏆 Ciudades vacías y temperatura de pasear.", "🎴 El Jardín de los Tarots cierra el 15: no lo dejes para el final.", "🌫 Niebla de otoño en el norte."], weatherAdds: "el Vajont y el norte con niebla baja tienen otro nivel" },
+    { month: 11, rating: "bueno", tempMin: 8, tempMax: 17, precip: "alta", snow: false, daylightHours: 10, crowds: "bajo", prices: "bajo", reasons: ["☔ Llueve y hay acqua alta en Venecia.", "👍 A cambio: nadie, y precios de invierno."] },
+    { month: 12, rating: "normal", tempMin: 3, tempMax: 12, precip: "media", snow: true, daylightHours: 9, crowds: "medio", prices: "medio", reasons: ["👹 Krampus por el Alto Adigio los días 5 y 6.", "🎄 Mercados de Navidad y belenes napolitanos.", "🥶 Frío serio en el norte, días cortísimos."] },
+  ],
+  festivals,
+  // Generado con `npm run data:stats -- it`; el test de deriva lo comprueba.
+  placeStats: {
+    total: 23,
+    byTier: { 1: 10, 2: 9, 3: 4 },
+    byCategory: { weird: 4, abandoned: 4, infrastructure: 3, dark: 4, brutalism: 1, disaster: 3, nature: 1, historical: 1, industrial: 2 },
+    accesoSinCocheMedio: 7.2,
+    excursiones: 9,
+    regiones: 10,
+    spreadKm: 1200,
+  },
+  fx: { rate: 1, asOf: "2026-09-15", meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "Euro: por una vez, cero matemáticas" }) },
+  map: { center: [42.2, 12.6], zoom: 5 },
+};

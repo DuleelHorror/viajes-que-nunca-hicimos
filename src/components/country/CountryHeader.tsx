@@ -49,7 +49,7 @@ export function CountryHeader({ c }: { c: ScoredCountry }) {
           <dl className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
             <Kpi k="Yo me quedaría" v={`${c.days.ideal} días`} hint={`entre ${c.days.recommended[0]} y ${c.days.recommended[1]} va bien`} />
             <Kpi k="Nivel de circo" v={`${fmtScore(c.circo.value)} / 10`} hint={circoVoice(c.circo.value)} />
-            <Kpi k="Cuándo ir" v={best.length ? best.slice(0, 3).join(", ") : "mira el mes a mes"} hint={best.length > 3 ? `y ${best.length - 3} meses más` : undefined} />
+            <Kpi k="Cuándo ir" v={best.length ? best.slice(0, 3).join(", ") : "mira el mes a mes"} hint={best.length > 3 ? `y ${best.length - 3} ${best.length - 3 === 1 ? "mes más" : "meses más"}` : undefined} />
             <Kpi k="Nivel de precios" v={`${fmtScore(c.cost.value)} / 10`} hint={costVoice(c.cost.value)} />
             <Kpi k="Sin coche" v={`${fmtScore(c.noCar.value)} / 10`} hint={noCarVoice(c.noCar.value)} color={light.color} />
           </dl>

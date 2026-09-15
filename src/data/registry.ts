@@ -10,8 +10,9 @@ import { scoreCountry, type ScoredCountry } from "@/lib/scoring";
 import { flagCode } from "@/lib/flags";
 import { summary as uz } from "./countries/uz/summary";
 import { summary as sco } from "./countries/sco/summary";
+import { summary as it } from "./countries/it/summary";
 
-const RAW: CountrySummary[] = [uz, sco];
+const RAW: CountrySummary[] = [uz, sco, it];
 
 const DEV = import.meta.env.DEV;
 
@@ -39,6 +40,7 @@ export const FESTIVALS: FestivalWithCountry[] = COUNTRIES.flatMap((c) =>
 const loaders: Record<string, () => Promise<{ default: CountryDetail }>> = {
   uz: () => import("./countries/uz"),
   sco: () => import("./countries/sco"),
+  it: () => import("./countries/it"),
 };
 
 const cache = new Map<string, Promise<CountryDetail>>();
