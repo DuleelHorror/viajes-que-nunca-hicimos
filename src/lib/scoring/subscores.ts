@@ -149,7 +149,7 @@ export function costScore(cost: ScoreInputs["cost"]): ScoreResult & { manual: bo
     value: computed,
     manual: false,
     breakdown: [
-      row("daily", `Presupuesto diario "normal": ${cost.daily.normal} €`, computed, 10, { input: cost.daily.normal, note: "Curva 40 €→1 · 70→3 · 100→5 · 140→7 · 200→9 · 260→10" }),
+      row("daily", "Calculado sobre el coste diario de referencia del país (ver metodología)", computed, 10),
     ],
   };
 }

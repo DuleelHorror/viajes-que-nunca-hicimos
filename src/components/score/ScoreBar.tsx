@@ -28,7 +28,7 @@ export function ScoreBar({ value, max = 10, label, invert, hint, className, size
     <div className={cn("min-w-0", className)}>
       {(label || showValue) && (
         <div className="mb-1 flex items-baseline justify-between gap-2">
-          {label && <span className={cn("truncate text-concrete-300", size === "sm" ? "text-xs" : "text-xs")}>{label}</span>}
+          {label && <span className={cn("min-w-0 leading-snug text-concrete-300", size === "sm" ? "text-xs" : "text-sm")}>{label}</span>}
           {showValue && (
             <span className={cn("tabular shrink-0 font-semibold", size === "sm" ? "text-xs" : "text-xs", tone.text)}>
               {fmtScore(value)}

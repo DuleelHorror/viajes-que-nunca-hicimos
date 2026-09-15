@@ -1,0 +1,58 @@
+# Repaso responsive y retirada del precio por día
+
+## Fecha
+2026-09-15 18:25 (Europe/Madrid)
+
+## Contexto / origen del cambio
+Petición del usuario tras ver la web publicada: "repasa el responsive que está regular, algunas cosas se
+pisan o no se entienden, luego quita el precio por día, que eso asusta a mis amigos con los que voy a
+compartir la app".
+
+## Archivos modificados
+- `src/lib/finder/rank.ts` (modified): el presupuesto pasa de €/día a tres niveles (`bajo|medio|alto`)
+  con equivalencia interna en euros (`BUDGET_EUR`) que no se muestra; explicaciones sin cifras.
+- `src/store/useFinderStore.ts`: clave de persistencia `vq_finder_v2` para descartar estados antiguos.
+- `src/pages/FinderPage.tsx`: chips Apretando / Normal / A gusto en lugar del deslizador de €/día.
+- `src/components/country/CountryHeader.tsx`, `sections/Verdict.tsx`, `pages/ComparePage.tsx`,
+  `pages/ChartsPage.tsx`, `sections/Logistics.tsx` (CostSection), `lib/scoring/subscores.ts`: fuera todo
+  "€/día" y las tres tarjetas de presupuesto diario; en su lugar "Nivel de precios N/10" + frase de voz.
+- Responsive: `components/ui/Card.tsx` (SectionHeader apila en móvil), `score/MetricRow.tsx` (frase y
+  botón debajo de la barra, etiquetas sin truncar), `score/ScoreBar.tsx`, `sections/Overview.tsx`
+  (escalera de días sin partir "N días"), `sections/Logistics.tsx` (lista de ciudades en vez de tabla de
+  4 columnas; fila del semáforo con salto), `sections/Context.tsx` y `sections/Time.tsx` (cabeceras),
+  `charts/MonthStrip.tsx` (4 columnas en móvil), `charts/RadarChart.tsx` (margen lateral para etiquetas),
+  `charts/ScatterChart.tsx` + `lib/useElementWidth.ts` (SVG al ancho real: texto legible en móvil),
+  `charts/Heatmap.tsx` (celdas con ancho mínimo y aviso de deslizar), `charts/RankBars.tsx` (etiquetas a
+  dos líneas), `components/ui/Popover.tsx` (se alinea solo para no salirse de la pantalla),
+  `pages/ComparePage.tsx` (tabla fija con columna estrecha y aviso), `layout/AppShell.tsx` (pie con margen).
+
+## Decisiones de diseño / arquitectura
+- Se conserva el coste diario en los datos (`inputs.cost.daily`) porque alimenta la fórmula del coste y
+  del buscador; solo desaparece de la interfaz. La metodología sigue explicando la curva genérica.
+- El buscador mantiene la misma lógica de puntuación (ratio presupuesto/coste), solo cambia la entrada.
+- Las dispersiones miden el contenedor con ResizeObserver en vez de escalar el viewBox: en móvil el
+  texto se quedaba a 5 px.
+- Se mantiene la tabla de precios sueltos (hotel, comida, café): son datos útiles y no un total diario.
+
+## Buenas prácticas aplicadas
+- Diagnóstico con medición real (`scrollWidth` y elementos que sobresalen) antes de tocar CSS: no había
+  desbordamiento de página; el problema era el pie sin `px-4` y componentes que truncaban.
+- Capturas por sección en 390 px antes y después; comprobación en escritorio tras los cambios.
+- `npm run build` (tsc + 23 tests + vite) en verde antes del commit.
+
+## Anti-patrones evitados
+- NO se ocultó información con `display:none` en móvil: se reorganizó (lista en vez de tabla, apilado).
+- NO se eliminaron datos del modelo ni se rompió el esquema Zod para quitar el precio.
+
+## Riesgos y cómo se mitigaron
+- Estado del buscador guardado en navegadores antiguos con `budgetPerDay`: se cambia la clave de
+  localStorage, así que arranca con los valores por defecto.
+
+## Pendiente / siguientes pasos
+- Nada bloqueante. Al añadir países, revisar el móvil de cada ficha nueva con el mismo método.
+
+## Cómo verificar que funciona
+1. `npm run dev`, viewport 390 px, `#/pais/uz`: secciones "Notas", "Moverse" y "¿Cuándo?" sin texto cortado.
+2. `#/graficas` en móvil: dispersiones legibles, rankings a dos líneas, calendario con aviso de deslizar.
+3. `#/buscador`: chips Apretando / Normal / A gusto; ninguna cifra en euros por día en toda la app
+   (`grep -rn "€/día" src` solo devuelve la página de metodología).

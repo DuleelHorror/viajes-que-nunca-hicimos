@@ -17,7 +17,7 @@ const LEVEL = {
 
 function ScoreHead({ label, value, breakdown, invert, voice }: { label: string; value: number; breakdown?: ScoredCountry["safety"]["breakdown"]; invert?: boolean; voice?: string }) {
   return (
-    <div className="flex flex-col items-end gap-0.5">
+    <div className="flex flex-col items-start gap-0.5 sm:items-end">
       <div className="flex items-center gap-2">
         <span className="label-stencil">{label}</span>
         <span className={cn("tabular text-2xl font-bold", invert ? "text-concrete-50" : "text-neon-cyan glow-cyan")}>{fmtScore(value)}</span>

@@ -9,11 +9,16 @@ import { round } from "@/lib/utils";
 
 export type NoCarPref = "imprescindible" | "preferible" | "indiferente";
 export type TempPref = "frio" | "templado" | "calor" | "indiferente";
+export type BudgetLevel = "bajo" | "medio" | "alto";
+
+/** Los niveles se traducen a un €/día interno para compararlos con el coste del país; la UI no enseña euros. */
+export const BUDGET_EUR: Record<BudgetLevel, number> = { bajo: 60, medio: 100, alto: 170 };
+export const BUDGET_LABEL: Record<BudgetLevel, string> = { bajo: "Apretando", medio: "Normal", alto: "A gusto" };
 
 export interface FinderInput {
   month: number;
   days: number;
-  budgetPerDay: number;
+  budget: BudgetLevel;
   noCar: NoCarPref;
   temp: TempPref;
   interests: PlaceCategory[];
@@ -22,7 +27,7 @@ export interface FinderInput {
 export const FINDER_DEFAULTS: FinderInput = {
   month: 1,
   days: 10,
-  budgetPerDay: 90,
+  budget: "medio",
   noCar: "imprescindible",
   temp: "indiferente",
   interests: [],
@@ -132,23 +137,25 @@ export function rankOne(c: ScoredCountry, input: FinderInput): FinderResult {
   }
   comps.push({ key: "days", label: daysLabel, points: daysPts, max: FINDER_MAX.days });
 
-  // Presupuesto
+  // Presupuesto (niveles; el €/día es interno y no se muestra)
   const daily = s.inputs.cost.daily;
-  const r = input.budgetPerDay / daily.normal;
+  const budgetEur = BUDGET_EUR[input.budget];
+  const bl = BUDGET_LABEL[input.budget].toLowerCase();
+  const r = budgetEur / daily.normal;
   let budgetPts: number;
   let budgetLabel: string;
   if (r >= 1.2) {
     budgetPts = 15;
-    budgetLabel = `${input.budgetPerDay} €/día holgado (normal ${daily.normal} €)`;
+    budgetLabel = `Presupuesto ${bl}: vas sobrado`;
   } else if (r >= 1) {
     budgetPts = round(12 + ((r - 1) / 0.2) * 3, 1);
-    budgetLabel = `${input.budgetPerDay} €/día ajustado (normal ${daily.normal} €)`;
-  } else if (input.budgetPerDay >= daily.low) {
-    budgetPts = round(6 + ((input.budgetPerDay - daily.low) / (daily.normal - daily.low)) * 6, 1);
-    budgetLabel = `${input.budgetPerDay} €/día en modo low cost (${daily.low}-${daily.normal} €)`;
+    budgetLabel = `Presupuesto ${bl}: encaja`;
+  } else if (budgetEur >= daily.low) {
+    budgetPts = round(6 + ((budgetEur - daily.low) / (daily.normal - daily.low)) * 6, 1);
+    budgetLabel = `Presupuesto ${bl}: justo, toca modo low cost`;
   } else {
     budgetPts = 0;
-    budgetLabel = `${input.budgetPerDay} €/día no llega (mínimo ${daily.low} €)`;
+    budgetLabel = `Presupuesto ${bl}: no llega, es un país caro para eso`;
   }
   comps.push({ key: "budget", label: budgetLabel, points: budgetPts, max: FINDER_MAX.budget });
 

@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { COUNTRIES } from "@/data/registry";
 import { CIRCO_SUB_SHORT, CIRCO_SUBS, LIGHT_META, SERIES_COLORS, SERIES_TEXT, monthName } from "@/lib/constants";
 import type { ScoredCountry } from "@/lib/scoring";
-import { fmtEur, fmtInt, fmtScore } from "@/lib/format";
+import { fmtInt, fmtScore } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { COMPARE_MAX, useCompareStore } from "@/store/useCompareStore";
 import { Panel, SectionHeader } from "@/components/ui/Card";
@@ -26,7 +26,7 @@ interface Metric {
 const METRICS: Metric[] = [
   { key: "duke", label: "Duke Score", get: (c) => c.duke.value, format: (v) => `${fmtInt(v)}/100`, max: 100 },
   { key: "circo", label: "Circo Score", get: (c) => c.circo.value },
-  { key: "cost", label: "Coste (10 = sangría)", get: (c) => c.cost.value, lowerIsBetter: true, format: (v, c) => `${fmtScore(v)} · ${fmtEur(c.summary.inputs.cost.daily.normal)}/día` },
+  { key: "cost", label: "Nivel de precios (10 = sangría)", get: (c) => c.cost.value, lowerIsBetter: true },
   { key: "safety", label: "Seguridad", get: (c) => c.safety.value },
   { key: "transport", label: "Transporte público", get: (c) => c.transport.value },
   { key: "noCar", label: "Moverse sin coche", get: (c) => c.noCar.value, format: (v, c) => `${LIGHT_META[c.noCar.light].emoji} ${fmtScore(v)}` },
@@ -118,13 +118,14 @@ export function ComparePage() {
             </Panel>
           </div>
 
+          <div className="text-xs text-concrete-400 sm:hidden">→ Desliza la tabla hacia los lados para ver todos los países.</div>
           <Panel className="overflow-x-auto p-0">
-            <table className="w-full min-w-[640px] text-sm">
+            <table className="w-full min-w-[640px] table-fixed text-sm">
               <thead>
                 <tr className="border-b border-ink-700">
-                  <th className="p-3 text-left label-stencil font-normal">Métrica</th>
+                  <th className="w-36 p-2 text-left label-stencil font-normal sm:w-48 sm:p-3">Métrica</th>
                   {selected.map((c, i) => (
-                    <th key={c.id} className="p-3 text-left">
+                    <th key={c.id} className="p-2 text-left sm:p-3">
                       <Link to={`/pais/${c.id}`} className="flex items-center gap-2 hover:underline">
                         <span className="h-2.5 w-2.5 rounded-sharp" style={{ backgroundColor: SERIES_COLORS[i] }} />
                         <Flag code={flagCode(c.summary)} name={c.summary.name} size={16} />
@@ -143,7 +144,7 @@ export function ComparePage() {
               <tbody>
                 {METRICS.map((m) => (
                   <tr key={m.key} className="border-b border-ink-800 last:border-0">
-                    <td className="p-3 text-concrete-300">
+                    <td className="p-2 text-concrete-300 sm:p-3">
                       {m.label}
                       {m.lowerIsBetter && <span className="ml-1 text-xs text-concrete-500">(menor gana)</span>}
                     </td>
@@ -152,7 +153,7 @@ export function ComparePage() {
                       const win = winners[m.key]?.includes(c.id);
                       const max = m.max ?? 10;
                       return (
-                        <td key={c.id} className={cn("p-3 align-top", win && "bg-neon-lime/5")}>
+                        <td key={c.id} className={cn("p-2 align-top sm:p-3", win && "bg-neon-lime/5")}>
                           <div className="flex items-center gap-2">
                             <span className={cn("tabular font-semibold", win ? "text-neon-lime glow-lime" : "text-concrete-100")}>{m.format ? m.format(v, c) : fmtScore(v)}</span>
                             {win && <span aria-label="ganador">🏆</span>}

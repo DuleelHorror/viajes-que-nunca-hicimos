@@ -15,7 +15,7 @@ interface MonthStripProps {
 /** 12 celdas coloreadas por valoración, temperatura debajo; clic para ver detalle. */
 export function MonthStrip({ months, selected, onSelect, className, compact, festivalMonths = [] }: MonthStripProps) {
   return (
-    <div className={cn("grid grid-cols-6 gap-1 sm:grid-cols-12", className)}>
+    <div className={cn("grid grid-cols-4 gap-1 sm:grid-cols-6 lg:grid-cols-12", className)}>
       {months.map((m) => {
         const meta = MONTH_RATING_META[m.rating];
         const active = selected === m.month;
@@ -37,7 +37,7 @@ export function MonthStrip({ months, selected, onSelect, className, compact, fes
               style={{ backgroundColor: meta.color, boxShadow: active ? `0 0 8px ${meta.color}` : undefined, opacity: m.rating === "malo" ? 0.7 : 1 }}
             />
             {!compact && (
-              <span className="tabular text-xs text-concrete-400">
+              <span className="tabular whitespace-nowrap text-xs text-concrete-400">
                 {m.tempMin}…{m.tempMax}°
               </span>
             )}

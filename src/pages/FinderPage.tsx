@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { COUNTRIES } from "@/data/registry";
 import { CATEGORY_META, MONTHS_ES, PLACE_CATEGORIES, type PlaceCategory } from "@/lib/constants";
-import { FINDER_MAX, rankCountries, type NoCarPref, type TempPref } from "@/lib/finder/rank";
+import { BUDGET_LABEL, FINDER_MAX, rankCountries, type BudgetLevel, type NoCarPref, type TempPref } from "@/lib/finder/rank";
 import { fmtInt, fmtScore } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { useFinderStore } from "@/store/useFinderStore";
@@ -58,9 +58,17 @@ export function FinderPage() {
           <Field label={`Tengo ${input.days} días`}>
             <Range value={input.days} onChange={(v) => patch({ days: v })} min={3} max={21} />
           </Field>
-          <Field label={`Me puedo gastar ${input.budgetPerDay} €/día`} hint="cama, comida y moverse por la ciudad; los vuelos aparte">
-            <Range value={input.budgetPerDay} onChange={(v) => patch({ budgetPerDay: v })} min={30} max={300} step={5} />
-          </Field>
+          <div>
+            <div className="label-stencil mb-1">Presupuesto</div>
+            <div className="flex flex-wrap gap-1">
+              {(Object.keys(BUDGET_LABEL) as BudgetLevel[]).map((k) => (
+                <Chip key={k} on={input.budget === k} onClick={() => patch({ budget: k })}>
+                  {BUDGET_LABEL[k]}
+                </Chip>
+              ))}
+            </div>
+            <div className="mt-1 text-xs text-concrete-400">Apretando = hostal y comida de calle · Normal = sin mirar cada céntimo · A gusto = hotel decente y cenas</div>
+          </div>
           <div>
             <div className="label-stencil mb-1">Ir sin coche es…</div>
             <div className="flex flex-wrap gap-1">

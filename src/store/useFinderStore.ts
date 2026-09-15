@@ -15,6 +15,6 @@ export const useFinderStore = create<FinderState>()(
       patch: (p) => set((s) => ({ input: { ...s.input, ...p } })),
       reset: () => set({ input: FINDER_DEFAULTS }),
     }),
-    { name: "vq_finder_v1" },
+    { name: "vq_finder_v2" },
   ),
 );

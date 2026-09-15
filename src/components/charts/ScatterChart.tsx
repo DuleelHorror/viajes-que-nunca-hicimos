@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { fmtScore } from "@/lib/format";
+import { useElementWidth } from "@/lib/useElementWidth";
 
 export interface ScatterPoint {
   id: string;
@@ -40,8 +41,8 @@ export function ScatterChart({
   yMax,
   xMin = 0,
   yMin = 0,
-  width = 640,
-  height = 400,
+  width: widthProp = 640,
+  height: heightProp,
   className,
   onSelect,
   formatX = fmtScore,
@@ -50,6 +51,10 @@ export function ScatterChart({
   rLabel,
 }: ScatterChartProps) {
   const [hover, setHover] = useState<string | null>(null);
+  // El SVG se dibuja al ancho real del contenedor: así el texto no se encoge en móvil.
+  const [wrapRef, measured] = useElementWidth<HTMLDivElement>();
+  const width = measured > 0 ? Math.round(measured) : widthProp;
+  const height = heightProp ?? Math.round(width * (width < 520 ? 0.95 : 0.625));
   const pad = { l: 44, r: 16, t: 16, b: 40 };
   const w = width - pad.l - pad.r;
   const h = height - pad.t - pad.b;
@@ -60,8 +65,8 @@ export function ScatterChart({
   const ticks = 4;
 
   return (
-    <div className={cn("w-full", className)}>
-      <svg viewBox={`0 0 ${width} ${height}`} className="h-auto w-full" role="img" aria-label={`${yLabel} frente a ${xLabel}`}>
+    <div ref={wrapRef} className={cn("w-full", className)}>
+      <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height} className="h-auto w-full" role="img" aria-label={`${yLabel} frente a ${xLabel}`}>
         {Array.from({ length: ticks + 1 }, (_, i) => {
           const xv = xMin + ((xMax - xMin) * i) / ticks;
           const yv = yMin + ((yMax - yMin) * i) / ticks;

@@ -19,7 +19,7 @@ export function AppShell() {
           <Outlet />
         </Suspense>
       </main>
-      <footer className="border-t border-ink-800 py-6 text-center">
+      <footer className="border-t border-ink-800 px-4 py-6 text-center">
         <div className="text-sm text-concrete-400">Hecho a mano por gente que prefiere un búnker a una playa · sin backend, sin login, sin folletos</div>
       </footer>
       <ScrollRestoration />

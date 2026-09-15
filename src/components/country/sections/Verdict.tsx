@@ -1,8 +1,8 @@
 import { LIGHT_META, VERDICT_META, monthName } from "@/lib/constants";
 import type { CountryDetail } from "@/lib/schema";
 import type { ScoredCountry } from "@/lib/scoring";
-import { fmtEur, fmtInt, fmtScore } from "@/lib/format";
-import { logisticsVoice, noCarVoice } from "@/lib/voice";
+import { fmtInt, fmtScore } from "@/lib/format";
+import { costVoice, logisticsVoice, noCarVoice } from "@/lib/voice";
 import { Panel, SectionHeader } from "@/components/ui/Card";
 import { VerdictBadge } from "@/components/score/VerdictBadge";
 import { ScoreRing } from "@/components/score/ScoreRing";
@@ -69,7 +69,7 @@ export function VerdictSection({ c, d }: { c: ScoredCountry; d: CountryDetail })
             <dl className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
               <V k="Yo me quedaría" v={`${c.days.recommended[0]}-${c.days.recommended[1]} días`} hint={`el punto dulce está en ${c.days.ideal}`} />
               <V k="Mejor mes" v={best[0] ?? "mira el mes a mes"} hint={best.slice(1, 3).join(", ")} />
-              <V k="Presupuesto" v={`${fmtEur(c.summary.inputs.cost.daily.normal)}/día`} hint={`coste ${fmtScore(c.cost.value)}/10`} />
+              <V k="Nivel de precios" v={`${fmtScore(c.cost.value)} / 10`} hint={costVoice(c.cost.value)} />
               <V k="Circo logístico" v={`${fmtScore(logistica)} / 10`} hint={logisticsVoice(logistica)} />
               <V k="Nivel de circo" v={`${fmtScore(c.circo.value)} / 10`} />
               <V k="Sin coche" v={`${light.emoji} ${fmtScore(c.noCar.value)}`} hint={noCarVoice(c.noCar.value)} />

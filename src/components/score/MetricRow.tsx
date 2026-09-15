@@ -13,12 +13,17 @@ interface MetricRowProps {
   className?: string;
 }
 
-/** Fila: etiqueta · barra · valor · (¿por qué?) */
+/** Fila: etiqueta · barra · valor, y debajo la frase de voz con el "¿y esto por qué?" a la derecha. */
 export function MetricRow({ label, value, max = 10, invert, breakdown, hint, className }: MetricRowProps) {
   return (
-    <div className={cn("flex items-end gap-3", className)}>
-      <ScoreBar label={label} value={value} max={max} invert={invert} hint={hint} className="flex-1" />
-      {breakdown && breakdown.length > 0 && <WhyPopover title={label} breakdown={breakdown} align="right" className="mb-0.5" />}
+    <div className={cn("min-w-0", className)}>
+      <ScoreBar label={label} value={value} max={max} invert={invert} />
+      {(hint || (breakdown && breakdown.length > 0)) && (
+        <div className="mt-1 flex items-start justify-between gap-3">
+          {hint ? <div className="min-w-0 flex-1 text-xs leading-snug text-concrete-400">{hint}</div> : <span />}
+          {breakdown && breakdown.length > 0 && <WhyPopover title={label} breakdown={breakdown} align="right" className="shrink-0" />}
+        </div>
+      )}
     </div>
   );
 }

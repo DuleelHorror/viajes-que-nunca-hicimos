@@ -20,12 +20,12 @@ interface SectionHeaderProps {
 export function SectionHeader({ title, kicker, children, className, id, as = "h2" }: SectionHeaderProps) {
   const H = as;
   return (
-    <div id={id} className={cn("flex items-end justify-between gap-3 scroll-mt-20", className)}>
-      <div className="marker-left">
+    <div id={id} className={cn("flex flex-col gap-3 scroll-mt-28 sm:flex-row sm:items-end sm:justify-between", className)}>
+      <div className="marker-left min-w-0">
         {kicker && <div className="label-stencil mb-1">{kicker}</div>}
-        <H className={cn(as === "h1" ? "text-2xl" : as === "h3" ? "text-base" : "text-lg", "font-semibold text-concrete-100")}>{title}</H>
+        <H className={cn(as === "h1" ? "text-3xl" : as === "h3" ? "text-lg" : "text-2xl", "font-bold text-concrete-50")}>{title}</H>
       </div>
-      {children && <div className="flex items-center gap-2">{children}</div>}
+      {children && <div className="flex flex-wrap items-center gap-2 sm:justify-end">{children}</div>}
     </div>
   );
 }

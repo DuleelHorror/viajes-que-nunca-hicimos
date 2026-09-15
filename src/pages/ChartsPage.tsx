@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { COUNTRIES } from "@/data/registry";
 import { CIRCO_SUB_LABEL, CIRCO_SUB_SHORT, CIRCO_SUBS, MONTH_RATING_META, MONTHS_SHORT, TAG_META, TAGS, type CircoSub } from "@/lib/constants";
-import { fmtEur, fmtInt, fmtScore } from "@/lib/format";
+import { fmtInt, fmtScore } from "@/lib/format";
 import { Panel, SectionHeader } from "@/components/ui/Card";
 import { Chip } from "@/components/ui/Field";
 import { RankBars } from "@/components/charts/RankBars";
@@ -20,7 +20,6 @@ const RANK_METRICS = {
   safety: { label: "Seguridad", max: 10, get: (c: (typeof COUNTRIES)[number]) => c.safety.value, fmt: fmtScore, color: "#0891b2" },
   bcn: { label: "Facilidad desde BCN", max: 10, get: (c: (typeof COUNTRIES)[number]) => c.bcn.value, fmt: fmtScore, color: "#0891b2" },
   places: { label: "Sitios circo en ficha", max: 40, get: (c: (typeof COUNTRIES)[number]) => c.summary.placeStats.total, fmt: (v: number) => fmtInt(v), color: "#d97706" },
-  daily: { label: "Presupuesto normal €/día", max: 250, get: (c: (typeof COUNTRIES)[number]) => c.summary.inputs.cost.daily.normal, fmt: (v: number) => fmtEur(v), color: "#d97706" },
 } as const;
 type RankKey = keyof typeof RANK_METRICS;
 
@@ -79,7 +78,7 @@ export function ChartsPage() {
             yMax={10}
             xMin={2}
             yMin={2}
-            quadrants={["sitios a mano, red floja", "el paraíso sin coche", "circo logístico", "buena red, sitios en mitad de la nada"]}
+            quadrants={["sitios a mano, red floja", "el paraíso sin coche", "circo logístico", "buena red, sitios remotos"]}
             rLabel="sitios"
             onSelect={go}
           />

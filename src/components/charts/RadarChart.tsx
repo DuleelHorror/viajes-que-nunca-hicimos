@@ -29,7 +29,10 @@ interface RadarChartProps {
  */
 export function RadarChart({ axes, series, max = 10, size = 340, className, legend = true }: RadarChartProps) {
   const [hover, setHover] = useState<{ s: number; a: number } | null>(null);
-  const cx = size / 2;
+  // Margen horizontal extra para que las etiquetas de los ejes laterales no se recorten
+  const pad = 48;
+  const width = size + pad * 2;
+  const cx = width / 2;
   const cy = size / 2;
   const r = size * 0.33;
   const n = axes.length;
@@ -42,7 +45,7 @@ export function RadarChart({ axes, series, max = 10, size = 340, className, lege
 
   return (
     <div className={cn("flex flex-col items-center", className)}>
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img" aria-label="Radar de puntuaciones" className="max-w-full">
+      <svg width={width} height={size} viewBox={`0 0 ${width} ${size}`} role="img" aria-label="Radar de puntuaciones" className="h-auto max-w-full">
         <defs>
           <filter id="radar-glow" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="2" result="b" />
@@ -115,7 +118,7 @@ export function RadarChart({ axes, series, max = 10, size = 340, className, lege
           const [x, y] = pt(hover.a, s.values[hover.a]);
           const label = `${s.label} · ${axes[hover.a].label}: ${fmtScore(s.values[hover.a])}`;
           const w = label.length * 6.2 + 16;
-          const tx = Math.min(Math.max(x - w / 2, 4), size - w - 4);
+          const tx = Math.min(Math.max(x - w / 2, 4), width - w - 4);
           const ty = y - 34 < 4 ? y + 14 : y - 34;
           return (
             <g pointerEvents="none">

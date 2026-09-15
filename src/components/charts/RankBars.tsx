@@ -35,14 +35,14 @@ export function RankBars({ items, max, format = fmtScore, className, color = "#0
         return (
           <li
             key={it.id}
-            className={cn("group grid grid-cols-[1.5rem_8rem_1fr_3.5rem] items-center gap-2 rounded-sharp px-1 py-0.5 text-xs", onSelect && "cursor-pointer", active && "bg-ink-800/60")}
+            className={cn("group grid grid-cols-[1.25rem_minmax(0,9rem)_1fr_3rem] items-center gap-2 rounded-sharp px-1 py-0.5 text-xs sm:grid-cols-[1.5rem_11rem_1fr_3.5rem]", onSelect && "cursor-pointer", active && "bg-ink-800/60")}
             onMouseEnter={() => setHover(it.id)}
             onMouseLeave={() => setHover(null)}
             onClick={() => onSelect?.(it.id)}
             title={`${it.label}: ${format(it.value)}`}
           >
             <span className="tabular text-concrete-500">{i === 0 && winnerMark ? "🏆" : `${i + 1}.`}</span>
-            <span className="truncate text-concrete-200">
+            <span className="line-clamp-2 leading-tight text-concrete-200">
               {it.label}
               {it.sub && <span className="ml-1 text-concrete-500">{it.sub}</span>}
             </span>

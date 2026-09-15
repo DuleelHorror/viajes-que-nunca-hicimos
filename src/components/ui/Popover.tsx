@@ -12,7 +12,18 @@ interface PopoverProps {
 /** Popover mínimo: clic en el trigger abre; clic fuera o ESC cierra. */
 export function Popover({ trigger, children, align = "left", className, panelClassName }: PopoverProps) {
   const [open, setOpen] = useState(false);
+  const [side, setSide] = useState<"left" | "right">(align);
   const ref = useRef<HTMLDivElement>(null);
+
+  // En móvil el panel (320 px) se saldría de la pantalla: se alinea según dónde quede el disparador.
+  useEffect(() => {
+    if (!open || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const panelW = Math.min(320, window.innerWidth * 0.9);
+    if (rect.left + panelW > window.innerWidth - 8) setSide("right");
+    else if (rect.right - panelW < 8) setSide("left");
+    else setSide(align);
+  }, [open, align]);
 
   useEffect(() => {
     if (!open) return;
@@ -39,7 +50,7 @@ export function Popover({ trigger, children, align = "left", className, panelCla
         <div
           className={cn(
             "absolute z-40 mt-2 w-80 max-w-[90vw] panel rounded-sharp p-3 shadow-panel animate-scale-in",
-            align === "right" ? "right-0" : "left-0",
+            side === "right" ? "right-0" : "left-0",
             panelClassName,
           )}
         >

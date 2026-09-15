@@ -103,16 +103,16 @@ export function DaysSection({ c }: { c: ScoredCountry }) {
         <Panel className="p-5">
           <ol className="space-y-2">
             {ladder.map((step) => (
-              <li key={step.n} className={cn("flex items-center gap-4 rounded-sharp border px-4 py-2.5", TONE_CLS[step.tone])}>
-                <span className="w-16 shrink-0 text-xl font-bold tabular">{step.n} días</span>
-                <span className="text-lg" aria-hidden>
+              <li key={step.n} className={cn("flex items-center gap-3 rounded-sharp border px-3 py-2.5 sm:gap-4 sm:px-4", TONE_CLS[step.tone])}>
+                <span className="w-[4.5rem] shrink-0 whitespace-nowrap text-lg font-bold tabular sm:w-20 sm:text-xl">{step.n} días</span>
+                <span className="shrink-0 text-lg" aria-hidden>
                   {step.emoji}
                 </span>
-                <span className="text-base">{step.text}</span>
+                <span className="min-w-0 text-sm sm:text-base">{step.text}</span>
               </li>
             ))}
           </ol>
-          <div className="mt-4 grid grid-cols-3 gap-3 text-sm text-concrete-300">
+          <div className="mt-4 grid gap-3 text-sm text-concrete-300 sm:grid-cols-3">
             <div>
               <div className="label-stencil">Rápido</div>
               {d.quick[0]}-{d.quick[1]} días · capital y lo gordo

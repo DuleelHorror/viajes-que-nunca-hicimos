@@ -4,7 +4,7 @@ import { COST_CONCEPT_LABEL, RAIL_KIND_LABEL, type CountryDetail } from "@/lib/s
 import type { ScoredCountry } from "@/lib/scoring";
 import { fmtEur, fmtFx, fmtHours, fmtScore } from "@/lib/format";
 import { bcnVoice, costVoice, noCarVoice, transportVoice } from "@/lib/voice";
-import { Panel, SectionHeader, Stat } from "@/components/ui/Card";
+import { Panel, SectionHeader } from "@/components/ui/Card";
 import { Badge, ModeBadge } from "@/components/ui/Badge";
 import { ScoreBar } from "@/components/score/ScoreBar";
 import { MetricRow } from "@/components/score/MetricRow";
@@ -18,7 +18,7 @@ export function cityName(d: CountryDetail, id: string): string {
 
 function ScoreHead({ label, value, breakdown, voice }: { label: string; value: number; breakdown?: ScoredCountry["transport"]["breakdown"]; voice?: string }) {
   return (
-    <div className="flex flex-col items-end gap-0.5">
+    <div className="flex flex-col items-start gap-0.5 sm:items-end">
       <div className="flex items-center gap-2">
         <span className="label-stencil">{label}</span>
         <span className="tabular text-2xl font-bold text-neon-cyan glow-cyan">{fmtScore(value)}</span>
@@ -111,30 +111,28 @@ export function TransportSection({ c, d }: { c: ScoredCountry; d: CountryDetail 
 
         <Panel className="p-5">
           <div className="label-stencil mb-2">🏙 Dentro de cada ciudad</div>
-          <table className="w-full text-sm">
-            <tbody>
-              {d.cities.map((ct) => (
-                <tr key={ct.id} className="border-t border-ink-800">
-                  <td className="py-2 pr-2 font-semibold text-concrete-50">{ct.name}</td>
-                  <td className="py-2 pr-2">
-                    <span className="flex flex-wrap gap-1">
-                      {ct.urban.modes.map((m) => (
-                        <span key={m} title={MODE_META[m].label}>
-                          {MODE_META[m].emoji}
-                        </span>
-                      ))}
-                    </span>
-                  </td>
-                  <td className="py-2 pr-2 tabular text-concrete-100">{fmtScore(ct.urban.score)}</td>
-                  <td className="py-2 text-concrete-300">
-                    {ct.urban.ticket}
-                    {ct.urban.app && ` · ${ct.urban.app}`}
-                    {ct.urban.note && ` · ${ct.urban.note}`}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <ul className="divide-y divide-ink-800">
+            {d.cities.map((ct) => (
+              <li key={ct.id} className="py-2">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <span className="text-base font-semibold text-concrete-50">{ct.name}</span>
+                  <span className="flex gap-1 text-sm">
+                    {ct.urban.modes.map((m) => (
+                      <span key={m} title={MODE_META[m].label}>
+                        {MODE_META[m].emoji}
+                      </span>
+                    ))}
+                  </span>
+                  <span className="tabular text-sm text-concrete-100">{fmtScore(ct.urban.score)}/10</span>
+                </div>
+                <div className="text-sm text-concrete-300">
+                  {ct.urban.ticket}
+                  {ct.urban.app && ` · ${ct.urban.app}`}
+                  {ct.urban.note && ` · ${ct.urban.note}`}
+                </div>
+              </li>
+            ))}
+          </ul>
         </Panel>
       </div>
 
@@ -142,11 +140,11 @@ export function TransportSection({ c, d }: { c: ScoredCountry; d: CountryDetail 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <div className="label-stencil text-neon-cyan/90">¿Se puede sin coche?</div>
-            <div className="mt-1 flex items-center gap-3">
+            <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
               <span className="font-display text-4xl font-bold tabular text-concrete-50">{fmtScore(c.noCar.value)}</span>
               <span className="text-concrete-400">/ 10</span>
-              <span className="text-base font-medium text-concrete-100">{noCarVoice(c.noCar.value)}</span>
               <WhyPopover title="Moverse sin coche" breakdown={c.noCar.breakdown} />
+              <span className="basis-full text-base font-medium text-concrete-100 sm:basis-auto">{noCarVoice(c.noCar.value)}</span>
             </div>
           </div>
           <TrafficLight light={c.noCar.light} />
@@ -169,7 +167,6 @@ export function TransportSection({ c, d }: { c: ScoredCountry; d: CountryDetail 
 }
 
 export function CostSection({ c, d }: { c: ScoredCountry; d: CountryDetail }) {
-  const cost = c.summary.inputs.cost;
   const cur = c.summary.facts.currency;
   return (
     <section className="space-y-4">
@@ -198,11 +195,10 @@ export function CostSection({ c, d }: { c: ScoredCountry; d: CountryDetail }) {
           <SourceFooter meta={d.cost.meta} />
         </Panel>
         <div className="space-y-4">
-          <div className="grid grid-cols-3 gap-3">
-            <Stat label="Apretando" value={`${fmtEur(cost.daily.low)}`} hint="por día, hostal y comida de calle" accent="lime" />
-            <Stat label="Normal" value={`${fmtEur(cost.daily.normal)}`} hint="por día, sin mirar cada céntimo" accent="cyan" />
-            <Stat label="A gusto" value={`${fmtEur(cost.daily.comfortable)}`} hint="por día, hotel decente y cenas" accent="magenta" />
-          </div>
+          <Panel className="panel-neon p-5">
+            <div className="label-stencil text-neon-cyan/90">En una frase</div>
+            <p className="mt-1 text-base text-concrete-50">{costVoice(c.cost.value)}</p>
+          </Panel>
           {d.cost.tips.length > 0 && (
             <Panel className="p-5">
               <div className="label-stencil mb-2">Trucos de bolsillo</div>
