@@ -1,0 +1,143 @@
+import type { CountrySummary } from "@/lib/schema";
+import { meta } from "@/lib/schema";
+import { festivals } from "./festivals";
+
+const WIKI = { label: "Wikipedia", url: "https://es.wikipedia.org/wiki/Austria", kind: "wiki" as const };
+const MAEC = { label: "MAEC · Recomendaciones de viaje", url: "https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Recomendaciones-de-viaje.aspx", kind: "oficial" as const };
+const SEAT61 = { label: "The Man in Seat 61 · Austria", url: "https://www.seat61.com/Austria.htm", kind: "blog" as const };
+const OEBB = { label: "ÖBB", url: "https://www.oebb.at", kind: "oficial" as const };
+const NUMBEO = { label: "Numbeo · Austria", url: "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Austria", kind: "blog" as const };
+const PROPIO = { label: "Lo hemos escrito nosotros", kind: "propio" as const };
+
+export const summary: CountrySummary = {
+  id: "at",
+  name: "Austria",
+  nameLocal: "Österreich",
+  flag: "🇦🇹",
+  region: "europa-central",
+  iso: { alpha2: "AT" },
+  tagline: "Un manicomio del XVIII, búnkeres en los parques, cráneos pintados y un balneario fantasma.",
+  whyMe:
+    "Porque es el país donde no conducir no te cuesta ni un sitio: el mejor ferrocarril de Europa te deja en la puerta de todo, incluido un pueblo de 700 habitantes con ferry esperando al tren. Y porque debajo del Schnitzel y el Mozart hay una Austria muy oscura: la Torre de los Locos con sus vitrinas de fetos, seis torres antiaéreas nazis imposibles de demoler en mitad de Viena, un cementerio con tres millones de muertos y museo funerario, Mauthausen con memorial español, un lago subterráneo donde presos fabricaban cazas, los 600 cráneos pintados a mano de Hallstatt y un balneario imperial abandonado dentro de una garganta. En invierno, además, salen los Krampus y los Perchten de verdad. Lo malo: es caro, es ordenado y la mitad de las cosas cierra en la otra mitad del año.",
+  facts: {
+    capital: "Viena",
+    population: 9_150_000,
+    areaKm2: 83_871,
+    languages: ["alemán (con acento que ni los alemanes entienden)", "esloveno, croata y húngaro en las fronteras"],
+    currency: { code: "EUR", name: "euro", symbol: "€" },
+    religions: "Católico de fondo, con los demonios paganos del invierno perfectamente integrados en el calendario",
+    timezone: "UTC+1, verano UTC+2: la misma hora que en Barcelona",
+    plugTypes: ["C", "F"],
+    drivingSide: "derecha",
+    meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "alta", sources: [WIKI] }),
+  },
+  traits: { sovietico: false, brutalista: true, nieveFiable: true, distanciaCultural: 4, turismoMasivo: 6 },
+  inputs: {
+    circo: {
+      rareza: 7,
+      historia: 9,
+      oscuridad: 8,
+      arquitectura: 8,
+      naturaleza: 8,
+      folclore: 8,
+      festivales: 7,
+      aventura: 5,
+      fotografia: 7,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "media", sources: [PROPIO], notes: "Notas subjetivas para nuestra forma de viajar" }),
+    },
+    rail: {
+      calidad: 10,
+      cobertura: 9,
+      frecuencia: 9,
+      puntualidad: 8,
+      precio: 5,
+      facilidadBilletes: 9,
+      online: 10,
+      nocturnos: 9,
+      altaVelocidad: 7,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [SEAT61, OEBB], notes: "Railjet a 230 km/h, no es alta velocidad de verdad, pero no hace falta" }),
+    },
+    bus: { cobertura: 8, fiabilidad: 9, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "Postbus llega a cada valle con horario integrado con el tren" }) },
+    urban: { media: 8, meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "alta", sources: [PROPIO], notes: "Viena es un 10; los pueblos pequeños bajan la media" }) },
+    apps: { cobertura: 9, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO] }) },
+    cost: {
+      daily: { low: 70, normal: 110, comfortable: 190 },
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [NUMBEO, PROPIO], notes: "En los Alpes en temporada de esquí, súmale un 30-50 %" }),
+    },
+    flights: {
+      direct: true,
+      directHours: 2.4,
+      directWeekly: 35,
+      lowCostDirect: true,
+      oneStopMinHours: 5,
+      oneStopDailyOptions: 10,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "Cinco directos al día a Viena; Salzburgo e Innsbruck solo en temporada" }),
+    },
+    docs: {
+      entry: "dni",
+      maxStayDays: 90,
+      insuranceMandatory: false,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [MAEC], notes: "Schengen y libre circulación UE" }),
+    },
+    safety: {
+      delincuencia: 9,
+      robos: 8,
+      timos: 9,
+      zonasConflicto: 10,
+      terrorismo: 8,
+      transporte: 9,
+      camaraEnCalle: 9,
+      noche: 9,
+      solo: 9.5,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [MAEC, PROPIO] }),
+    },
+    stability: { score: 8.5, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [MAEC, WIKI], notes: "Coaliciones que cambian; nada que se note en la calle" }) },
+    digital: {
+      googleMaps: 2,
+      googleTranslate: 2,
+      tarjetas: 7,
+      contactless: 7,
+      efectivoNecesario: 6,
+      esim: 2,
+      cobertura: 9,
+      wifi: 8,
+      bloqueos: [],
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "El país rico que más ama el efectivo: «Nur Bargeld» en cafés y tabernas" }),
+    },
+    language: {
+      ingles: 8,
+      alfabetoDistinto: false,
+      maquinasEnIngles: 10,
+      senaleticaBilingue: 8,
+      traductorFunciona: 10,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "alta", sources: [PROPIO], notes: "Inglés muy bueno en ciudades; dialecto cerrado en los valles, pero se sobrevive" }),
+    },
+  },
+  months: [
+    { month: 1, rating: "normal", tempMin: -3, tempMax: 3, precip: "media", snow: true, daylightHours: 9, crowds: "medio", prices: "alto", reasons: ["👹 Perchten y Glöckler los días 5 y 6: la mejor razón para venir en enero.", "🥶 Frío serio y días cortos.", "⛷ Temporada alta de esquí en los Alpes: precios de esquiador."], weatherAdds: "Viena nevada y el Zentralfriedhof con niebla y cuervos" },
+    { month: 2, rating: "normal", tempMin: -2, tempMax: 5, precip: "media", snow: true, daylightHours: 10, crowds: "medio", prices: "alto", reasons: ["🎭 Carnavales de máscaras en el Tirol (Imst cada cuatro años).", "💃 Temporada de bailes en Viena.", "🥶 Sigue el invierno."] },
+    { month: 3, rating: "normal", tempMin: 1, tempMax: 10, precip: "media", snow: true, daylightHours: 12, crowds: "bajo", prices: "medio", reasons: ["🌫 Deshielo y gris, sobre todo en los valles.", "👍 Viena vacía y barata; los museos raros, para ti."] },
+    { month: 4, rating: "bueno", tempMin: 5, tempMax: 16, precip: "media", snow: false, daylightHours: 13.5, crowds: "bajo", prices: "medio", reasons: ["🌤 Empieza la primavera en Viena y Graz.", "🚧 En la montaña aún hay nieve y cierres: los Alpes, mejor en mayo."] },
+    { month: 5, rating: "excelente", tempMin: 9, tempMax: 21, precip: "media", snow: false, daylightHours: 15, crowds: "medio", prices: "medio", reasons: ["🏆 Abren la cueva de hielo, las alcantarillas y el túnel de Ebensee.", "🌿 Todo verde, todo abierto y todavía sin masas."] },
+    { month: 6, rating: "excelente", tempMin: 13, tempMax: 24, precip: "media", snow: false, daylightHours: 16, crowds: "medio", prices: "medio", reasons: ["🏆 Días de 16 horas y temperatura de andar.", "⛈ Tormentas de tarde en los Alpes: la cueva, por la mañana."] },
+    { month: 7, rating: "bueno", tempMin: 15, tempMax: 27, precip: "media", snow: false, daylightHours: 15.5, crowds: "alto", prices: "alto", reasons: ["☀️ Calor moderado en Viena; fresco arriba.", "👥 Salzburgo con el festival y Hallstatt a reventar."] },
+    { month: 8, rating: "bueno", tempMin: 15, tempMax: 27, precip: "media", snow: false, daylightHours: 14.5, crowds: "alto", prices: "alto", reasons: ["👥 El mes más lleno; madruga en Hallstatt o no vayas.", "🧊 La cueva de hielo a 0 °C es el mejor sitio del país en agosto."] },
+    { month: 9, rating: "excelente", tempMin: 11, tempMax: 21, precip: "media", snow: false, daylightHours: 12.5, crowds: "medio", prices: "medio", reasons: ["🏆 El mes redondo: luz, todo abierto, se va la gente.", "🐄 Almabtrieb: vacas con coronas de flores bajando de los pastos."] },
+    { month: 10, rating: "bueno", tempMin: 6, tempMax: 15, precip: "media", snow: false, daylightHours: 11, crowds: "bajo", prices: "bajo", reasons: ["🍂 Otoño de postal en el Salzkammergut.", "🚧 A finales cierran la cueva, las alcantarillas y Ebensee."], weatherAdds: "niebla del Danubio en los memoriales y en el cementerio" },
+    { month: 11, rating: "normal", tempMin: 2, tempMax: 8, precip: "media", snow: true, daylightHours: 9.5, crowds: "bajo", prices: "bajo", reasons: ["🌫 El mes más gris; a cambio, nadie.", "🎄 A finales, mercados de Navidad y primeros Krampus."] },
+    { month: 12, rating: "bueno", tempMin: -2, tempMax: 4, precip: "media", snow: true, daylightHours: 8.5, crowds: "medio", prices: "alto", reasons: ["👹 Krampuslauf los días 5 y 6 por Salzburgo y los valles.", "🎄 Mercados de Navidad sin la ñoñería alemana.", "🥶 Frío de verdad y días de ocho horas."], weatherAdds: "los Krampus entre nieve son otra cosa" },
+  ],
+  festivals,
+  // Generado con `npm run data:stats -- at`; el test de deriva lo comprueba.
+  placeStats: {
+    total: 22,
+    byTier: { 1: 7, 2: 10, 3: 5 },
+    byCategory: { dark: 6, war: 5, infrastructure: 2, brutalism: 3, industrial: 1, nature: 1, historical: 1, abandoned: 1, weird: 2 },
+    accesoSinCocheMedio: 8.4,
+    excursiones: 7,
+    regiones: 8,
+    spreadKm: 280,
+  },
+  fx: { rate: 1, asOf: "2026-09-15", meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "Euro" }) },
+  map: { center: [47.6, 13.8], zoom: 7 },
+};

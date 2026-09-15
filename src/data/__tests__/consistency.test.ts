@@ -4,8 +4,9 @@ import { computePlaceStats, scoreCountry } from "@/lib/scoring";
 import uz from "../countries/uz";
 import sco from "../countries/sco";
 import ita from "../countries/it";
+import at from "../countries/at";
 
-const ALL: CountryDetail[] = [uz, sco, ita];
+const ALL: CountryDetail[] = [uz, sco, ita, at];
 
 const VOLATILE_SECTIONS = ["docs", "safety", "flights", "cost", "politics", "events"] as const;
 

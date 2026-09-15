@@ -11,8 +11,9 @@ import { flagCode } from "@/lib/flags";
 import { summary as uz } from "./countries/uz/summary";
 import { summary as sco } from "./countries/sco/summary";
 import { summary as it } from "./countries/it/summary";
+import { summary as at } from "./countries/at/summary";
 
-const RAW: CountrySummary[] = [uz, sco, it];
+const RAW: CountrySummary[] = [uz, sco, it, at];
 
 const DEV = import.meta.env.DEV;
 
@@ -41,6 +42,7 @@ const loaders: Record<string, () => Promise<{ default: CountryDetail }>> = {
   uz: () => import("./countries/uz"),
   sco: () => import("./countries/sco"),
   it: () => import("./countries/it"),
+  at: () => import("./countries/at"),
 };
 
 const cache = new Map<string, Promise<CountryDetail>>();
