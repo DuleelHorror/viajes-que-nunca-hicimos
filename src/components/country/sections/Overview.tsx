@@ -5,9 +5,10 @@ import { fmtArea, fmtFx, fmtPopulation, fmtScore } from "@/lib/format";
 import { bcnVoice, circoVoice, costVoice, daysLadder, daysVoice, digitalVoice, languageVoice, noCarVoice, safetyVoice, stabilityVoice, transportVoice } from "@/lib/voice";
 import { cn } from "@/lib/utils";
 import { KV, Panel, SectionHeader } from "@/components/ui/Card";
+import { Clamp } from "@/components/ui/Disclosure";
 import { ScoreRing } from "@/components/score/ScoreRing";
 import { ScoreBar } from "@/components/score/ScoreBar";
-import { MetricRow } from "@/components/score/MetricRow";
+import { ScoreTile } from "@/components/score/ScoreTile";
 import { WhyPopover } from "@/components/score/WhyPopover";
 import { SourceFooter } from "@/components/score/SourceFooter";
 import { RadarChart } from "@/components/charts/RadarChart";
@@ -18,8 +19,8 @@ export function SummarySection({ c, d }: { c: ScoredCountry; d: CountryDetail })
   return (
     <section className="space-y-4">
       <SectionHeader id="resumen" title="Lo básico" kicker="01 · Para situarnos" />
-      <div className="grid gap-4 lg:grid-cols-[1fr_1.2fr]">
-        <Panel className="p-5">
+      <div className="grid gap-4 lg:grid-cols-[1fr_1.15fr]">
+        <Panel className="p-4 sm:p-5">
           <KV
             items={[
               { k: "Capital", v: f.capital },
@@ -35,9 +36,11 @@ export function SummarySection({ c, d }: { c: ScoredCountry; d: CountryDetail })
           />
           <SourceFooter meta={f.meta} />
         </Panel>
-        <Panel className="p-5">
+        <Panel className="p-4 sm:p-5">
           <div className="label-stencil mb-2 text-neon-magenta/90">¿Por qué te iba a interesar este sitio?</div>
-          <p className="prose-dossier text-base text-concrete-100">{s.whyMe}</p>
+          <Clamp lines={6}>
+            <p className="prose-dossier max-w-prose text-base text-concrete-100">{s.whyMe}</p>
+          </Clamp>
         </Panel>
       </div>
     </section>
@@ -49,37 +52,39 @@ export function ScoresSection({ c }: { c: ScoredCountry }) {
   return (
     <section className="space-y-4">
       <SectionHeader id="puntuaciones" title="Notas para nuestra forma de viajar" kicker="02 · Con números y con palabras" />
-      <div className="grid gap-4 lg:grid-cols-[auto_1fr_1fr]">
-        <Panel className="flex flex-col items-center justify-center gap-2 p-5 text-center">
-          <ScoreRing value={c.circo.value} max={10} size={150} stroke={10} decimals={1} sub="/ 10" label="Circo Score" />
-          <p className="max-w-[12rem] text-sm font-medium text-concrete-100">{circoVoice(c.circo.value)}</p>
-          <WhyPopover title={`Circo Score ${fmtScore(c.circo.value)}`} breakdown={c.circo.breakdown} total={`${fmtScore(c.circo.value)} / 10`} />
-        </Panel>
-        <Panel className="p-5">
-          <div className="label-stencil mb-3">De qué está hecho el circo</div>
-          <div className="space-y-2.5">
-            {CIRCO_SUBS.map((k) => (
-              <ScoreBar key={k} label={CIRCO_SUB_LABEL[k]} value={c.subs[k]} size="sm" />
-            ))}
+      <Panel className="p-4 sm:p-5">
+        <div className="grid gap-5 lg:grid-cols-[auto_1fr_auto] lg:items-center">
+          <div className="flex flex-col items-center gap-2 text-center lg:w-44">
+            <ScoreRing value={c.circo.value} max={10} size={132} stroke={9} decimals={1} sub="/ 10" label="Circo Score" />
+            <p className="text-sm font-medium text-concrete-100">{circoVoice(c.circo.value)}</p>
+            <WhyPopover title={`Circo Score ${fmtScore(c.circo.value)}`} breakdown={c.circo.breakdown} total={`${fmtScore(c.circo.value)} / 10`} />
           </div>
-        </Panel>
-        <Panel className="flex items-center justify-center p-3">
-          <RadarChart axes={axes} series={[{ id: c.id, label: c.summary.name, values: CIRCO_SUBS.map((k) => c.subs[k]) }]} size={300} legend={false} />
-        </Panel>
-      </div>
-      <Panel className="p-5">
-        <div className="label-stencil mb-3">Logística y contexto, en cristiano</div>
-        <div className="grid gap-x-8 gap-y-4 md:grid-cols-2">
-          <MetricRow label="Transporte público" value={c.transport.value} breakdown={c.transport.breakdown} hint={transportVoice(c.transport.value)} />
-          <MetricRow label="Moverse sin coche" value={c.noCar.value} breakdown={c.noCar.breakdown} hint={noCarVoice(c.noCar.value)} />
-          <MetricRow label="Coste (10 = sangría)" value={c.cost.value} invert breakdown={c.cost.breakdown} hint={costVoice(c.cost.value)} />
-          <MetricRow label="Llegar desde Barcelona" value={c.bcn.value} breakdown={c.bcn.breakdown} hint={bcnVoice(c.bcn.value)} />
-          <MetricRow label="Seguridad" value={c.safety.value} breakdown={c.safety.breakdown} hint={safetyVoice(c.safety.value)} />
-          <MetricRow label="Idioma (10 = por señas)" value={c.language.value} invert breakdown={c.language.breakdown} hint={languageVoice(c.language.value)} />
-          <MetricRow label="Sobrevivir con el móvil" value={c.digital.value} breakdown={c.digital.breakdown} hint={digitalVoice(c.digital.value)} />
-          <MetricRow label="Estabilidad política" value={c.stability} hint={stabilityVoice(c.stability)} />
+          <div>
+            <div className="label-stencil mb-2">De qué está hecho el circo</div>
+            <div className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
+              {CIRCO_SUBS.map((k) => (
+                <ScoreBar key={k} label={CIRCO_SUB_LABEL[k]} value={c.subs[k]} size="sm" />
+              ))}
+            </div>
+          </div>
+          <div className="hidden justify-center lg:flex">
+            <RadarChart axes={axes} series={[{ id: c.id, label: c.summary.name, values: CIRCO_SUBS.map((k) => c.subs[k]) }]} size={240} legend={false} />
+          </div>
         </div>
       </Panel>
+      <div>
+        <div className="label-stencil mb-2">Logística y contexto, en cristiano</div>
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <ScoreTile label="Transporte público" value={c.transport.value} breakdown={c.transport.breakdown} voice={transportVoice(c.transport.value)} />
+          <ScoreTile label="Moverse sin coche" value={c.noCar.value} breakdown={c.noCar.breakdown} voice={noCarVoice(c.noCar.value)} />
+          <ScoreTile label="Coste (10 = sangría)" value={c.cost.value} invert breakdown={c.cost.breakdown} voice={costVoice(c.cost.value)} />
+          <ScoreTile label="Llegar desde Barcelona" value={c.bcn.value} breakdown={c.bcn.breakdown} voice={bcnVoice(c.bcn.value)} />
+          <ScoreTile label="Seguridad" value={c.safety.value} breakdown={c.safety.breakdown} voice={safetyVoice(c.safety.value)} />
+          <ScoreTile label="Idioma (10 = por señas)" value={c.language.value} invert breakdown={c.language.breakdown} voice={languageVoice(c.language.value)} />
+          <ScoreTile label="Sobrevivir con el móvil" value={c.digital.value} breakdown={c.digital.breakdown} voice={digitalVoice(c.digital.value)} />
+          <ScoreTile label="Estabilidad política" value={c.stability} voice={stabilityVoice(c.stability)} />
+        </div>
+      </div>
     </section>
   );
 }
@@ -100,11 +105,11 @@ export function DaysSection({ c }: { c: ScoredCountry }) {
     <section className="space-y-4">
       <SectionHeader id="dias" title="¿Cuántos días le echo?" kicker="03 · Ni de más ni de menos" />
       <div className="grid gap-4 lg:grid-cols-[1fr_auto]">
-        <Panel className="p-5">
-          <ol className="space-y-2">
+        <Panel className="p-4 sm:p-5">
+          <ol className="space-y-1.5">
             {ladder.map((step) => (
-              <li key={step.n} className={cn("flex items-center gap-3 rounded-sharp border px-3 py-2.5 sm:gap-4 sm:px-4", TONE_CLS[step.tone])}>
-                <span className="w-[4.5rem] shrink-0 whitespace-nowrap text-lg font-bold tabular sm:w-20 sm:text-xl">{step.n} días</span>
+              <li key={step.n} className={cn("flex items-center gap-3 rounded-sharp border px-3 py-2 sm:gap-4", TONE_CLS[step.tone])}>
+                <span className="w-[4.5rem] shrink-0 whitespace-nowrap text-lg font-bold tabular sm:w-20">{step.n} días</span>
                 <span className="shrink-0 text-lg" aria-hidden>
                   {step.emoji}
                 </span>
@@ -112,7 +117,7 @@ export function DaysSection({ c }: { c: ScoredCountry }) {
               </li>
             ))}
           </ol>
-          <div className="mt-4 grid gap-3 text-sm text-concrete-300 sm:grid-cols-3">
+          <div className="mt-3 grid gap-3 text-sm text-concrete-300 sm:grid-cols-3">
             <div>
               <div className="label-stencil">Rápido</div>
               {d.quick[0]}-{d.quick[1]} días · capital y lo gordo

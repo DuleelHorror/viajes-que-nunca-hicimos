@@ -44,6 +44,16 @@ coche y qué cosas raras hay?*
 react-leaflet 4 + Leaflet · MapLibre GL (base vectorial) · zustand · zod · vitest · **gráficas SVG propias** (sin
 recharts). Sin backend, sin login. UI en **español**.
 
+**Diseño "primero escanear, luego leer"** (2026-09-15): la ficha de país no oculta datos, los jerarquiza.
+Primitivas en `components/ui/Disclosure.tsx` (`Clamp` = prosa recortada con "leer más" solo si desborda;
+`Disclosure` = plegable con contador), `score/ScoreTile.tsx` (nota compacta) y `country/Ficha.tsx`
+(sección práctica con ancla, en `lg:columns-2` dentro de `CountryPage`). Corredores y festivales usan
+`<details>` nativo. Regla: lo estructurado a la vista, la prosa recortada, lo secundario plegado con
+contador. Medir la altura de la página antes y después de tocar la maquetación (ver audit del rediseño).
+
+**Logo:** el cráneo del usuario en `public/brand/` (rutas en `lib/brand.ts`, siempre con `BASE_URL`).
+Calavera sola en barra, pie y favicon; completo con el texto rojo solo en la home.
+
 Estética: "archivo de la Guerra Fría + neón vaporwave": base oscura (cemento, mono) con acentos
 cian/magenta, rejilla de horizonte y scanlines en `body::before/::after`, glow solo en números hero.
 Tokens en `tailwind.config.js` y clases `.panel`, `.panel-neon`, `.label-stencil`, `.chip`, `.glow-*` en
@@ -169,4 +179,5 @@ trailers de coautoría de Claude.
 - Mapa base rehecho: vectorial propio sin API key, con escala, botón "Encuadrar" y encuadre automático.
 - Italia completa (Duke 76, "Mucho", 16 días): 23 sitios, 6 festivales, 3 rutas. 30 tests en verde.
 - Etiquetas de ciudad del mapa con descarte de solapes (ver `CountryMap.tsx`).
+- Rediseño de la ficha de país (−33 % de alto en escritorio, −36 % en móvil, mismos datos) y logo del cráneo.
 - España y República Checa quedan fuera de la v1 por decisión del usuario: faltan Italia, Austria, Japón y Suecia.

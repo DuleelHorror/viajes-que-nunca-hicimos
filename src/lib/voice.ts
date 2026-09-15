@@ -112,7 +112,8 @@ export interface DayStep {
 export function daysLadder(d: DaysResult): DayStep[] {
   const steps = [3, 5, 8, 12, 15];
   return steps.map((n) => {
-    if (n < d.quick[0]) return { n, emoji: "🙅", text: "Ni te molestes. Verías la capital y poco más.", tone: "no" };
+    if (n < d.quick[0] - 2) return { n, emoji: "🙅", text: "Ni te molestes. Verías la capital y poco más.", tone: "no" };
+    if (n < d.quick[0]) return { n, emoji: "🫤", text: "Te quedas corto: la capital, una escapada y a casa con ganas de más.", tone: "no" };
     if (n <= d.quick[1]) return { n, emoji: "⚡", text: "Viaje rápido: lo gordo y a casa.", tone: "meh" };
     if (n < d.recommended[0]) return { n, emoji: "👍", text: "Ya empieza a tener sentido.", tone: "ok" };
     if (n <= d.recommended[1]) return { n, emoji: "🔥", text: "El punto dulce.", tone: "sweet" };

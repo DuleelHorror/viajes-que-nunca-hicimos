@@ -66,13 +66,19 @@ export function CountryPage() {
           <CountryMap d={d} selectedPlaceId={placeId} onSelectPlace={openPlace} />
         </Suspense>
       </section>
-      <CostSection c={c} d={d} />
-      <FlightsSection c={c} d={d} />
-      <DocsSection c={c} d={d} />
-      <SafetySection c={c} d={d} />
-      <PoliticsSection c={c} d={d} />
-      <DigitalSection c={c} d={d} />
-      <LanguageSection c={c} d={d} />
+      {/* Lo práctico: siete secciones en una rejilla de fichas. Cada una conserva su ancla. */}
+      <section className="space-y-4">
+        <SectionHeader title="Lo práctico" kicker="06-12 · Pasta, vuelos, papeles, seguridad, política, móvil e idioma, sin enrollarse" />
+        <div className="space-y-4 lg:columns-2 lg:gap-4 lg:space-y-0 [&>section]:mb-4 [&>section]:break-inside-avoid">
+          <CostSection c={c} d={d} />
+          <FlightsSection c={c} d={d} />
+          <DocsSection c={c} d={d} />
+          <SafetySection c={c} d={d} />
+          <PoliticsSection c={c} d={d} />
+          <DigitalSection c={c} d={d} />
+          <LanguageSection c={c} d={d} />
+        </div>
+      </section>
       <BestTimeSection c={c} />
       <EventsSection c={c} d={d} />
       <PlacesSection d={d} onOpen={openPlace} />

@@ -11,18 +11,26 @@ interface WhyPopoverProps {
   total?: string;
   align?: "left" | "right";
   className?: string;
+  /** Solo el icono "?": para cuando hay muchas notas juntas y el botón con texto se repite. */
+  compact?: boolean;
 }
 
 /** Desglose "¿por qué N?" a partir de Contribution[] (misma fuente que /metodologia). */
-export function WhyPopover({ title, breakdown, penalties, total, align = "left", className }: WhyPopoverProps) {
+export function WhyPopover({ title, breakdown, penalties, total, align = "left", className, compact }: WhyPopoverProps) {
   return (
     <Popover
       align={align}
       className={className}
       trigger={
-        <span className="inline-flex items-center gap-1 rounded-sharp border border-ink-600 px-2 py-0.5 text-xs font-medium text-concrete-300 hover:border-neon-cyan/50 hover:text-neon-cyan">
-          <HelpCircle size={12} /> ¿y esto por qué?
-        </span>
+        compact ? (
+          <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-ink-600 text-concrete-400 hover:border-neon-cyan/50 hover:text-neon-cyan" aria-label={`¿Por qué ${title}?`} title="¿y esto por qué?">
+            <HelpCircle size={11} />
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-1 rounded-sharp border border-ink-600 px-2 py-0.5 text-xs font-medium text-concrete-300 hover:border-neon-cyan/50 hover:text-neon-cyan">
+            <HelpCircle size={12} /> ¿y esto por qué?
+          </span>
+        )
       }
     >
       <div className="label-stencil mb-2">{title}</div>

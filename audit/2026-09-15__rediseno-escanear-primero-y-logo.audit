@@ -1,0 +1,75 @@
+# Rediseño "primero escanear, luego leer" y logo del cráneo
+
+## Fecha
+2026-09-15 21:30 (Europe/Madrid)
+
+## Contexto / origen del cambio
+Petición del usuario: "dale una vuelta al diseño que hay tanta información que cuesta verla sin
+ahogarte en texto, hazlo todo con la misma info pero más agradable". Y aparte: "te paso 2 cráneo
+nativo, úsalo como logo chulo, mételo donde encaja" (`C:\Users\Usuario\Pictures\Duke Recursos\2 Craneo Nativo.png`).
+
+## Diagnóstico (medido, no intuido)
+La ficha de Italia medía **18.768 px** en escritorio y **43.682 px** en móvil. Causas, por orden de peso:
+1. Dieciocho secciones a ancho completo, todas desplegadas, todas al mismo peso visual.
+2. Prosa larga sin recortar en cada panel; párrafos de 110 caracteres de ancho.
+3. Siete secciones "prácticas" cortas (pasta, vuelos, papeles, seguridad, política, móvil, idioma)
+   ocupando cada una una pantalla entera por tener dos columnas medio vacías.
+4. Ruido repetido: pie "Fuente · fecha · fiabilidad · esto cambia" en todos los paneles, nueve botones
+   "¿y esto por qué?" idénticos seguidos, el placeholder "sin foto todavía" ×23 en los sitios.
+5. Corredores y ciudades como tarjetas de cuatro líneas; festivales como tarjetas completas dentro de
+   la ficha, cuando ya tienen su explorador.
+
+## Archivos modificados
+- `src/components/ui/Disclosure.tsx` (nuevo): `Clamp` (recorta a N líneas y ofrece "leer más" solo si
+  de verdad desborda, medido con ResizeObserver) y `Disclosure` (plegable con contador).
+- `src/components/score/ScoreTile.tsx` (nuevo): nota compacta con "?" en icono.
+- `src/components/country/Ficha.tsx` (nuevo): sección práctica con ancla, cabecera con nota y voz.
+- `src/components/festivals/FestivalRow.tsx` (nuevo): festival en fila `<details>`.
+- `src/components/score/SourceFooter.tsx`: a una línea de 11 px; solo la pill "dato viejo" destaca.
+- `src/components/score/WhyPopover.tsx`: variante `compact` (icono).
+- `sections/Overview.tsx`: sub-notas en dos columnas, radar solo en escritorio, ocho `ScoreTile`.
+- `sections/Logistics.tsx`: corredores como `CorridorRow` (`<details>`), ciudades como `CityRow` en
+  dos columnas, prosa con `Clamp`; pasta/vuelos/papeles como `Ficha`; vuelos en filas de dos líneas.
+- `sections/Context.tsx`: seguridad (bloques a dos columnas), política, móvil e idioma como `Ficha`.
+- `sections/Time.tsx`: festivales como filas; rejilla de meses más prieta.
+- `sections/Places.tsx`: tarjeta compacta (sello de categoría en vez de banner, dos líneas, cuatro
+  cifras) y agrupación por tier con cabecera.
+- `pages/CountryPage.tsx`: capítulo "Lo práctico" con las siete fichas en `lg:columns-2`.
+- `lib/voice.ts`: los peldaños de 3 y 5 días ya no repiten la misma frase.
+- `CountryHeader.tsx`: "y 1 mes más" en singular.
+- Logo: `public/brand/` (webp y png generados con PIL desde el original de 1,8 MB), `lib/brand.ts`,
+  `TopNav.tsx`, `AppShell.tsx` (pie), `HomePage.tsx` (hero), `index.html` (favicon + apple-touch).
+
+## Decisiones de diseño
+- **Misma información, otra jerarquía.** No se ha quitado ningún dato: lo estructurado (cifras, tablas,
+  chips) queda a la vista; la prosa se recorta con "leer más"; lo secundario (trucos, apuntes, pasos,
+  frases) va en desplegables con contador para que se sepa qué hay dentro.
+- **Columnas, no rejilla, para "Lo práctico"**: las fichas tienen alturas muy distintas y `grid`
+  dejaba huecos; `columns-2` con `break-inside-avoid` las empaqueta y el orden de lectura sigue siendo
+  razonable (izquierda arriba-abajo, luego derecha).
+- **Radar solo en escritorio**: en móvil duplicaba las barras y ocupaba una pantalla.
+- **`<details>` nativo** para corredores y festivales: accesible, sin estado, sin JS.
+- **Cráneo**: dos recortes. La calavera sola (sin el texto rojo, que a 36 px era una mancha) en
+  barra, pie y favicon; el completo con el "Apología de lo evidente" en la home, donde hay sitio para
+  leerlo. WebP para no cargar 1,8 MB en cada visita. Rutas por `import.meta.env.BASE_URL` porque la app
+  vive bajo `/viajes-que-nunca-hicimos/`.
+
+## Resultado (medido)
+- Ficha de Italia en escritorio: 18.768 → **12.579 px** (−33 %). "Moverse": 2.980 → 1.790.
+- Móvil (390 px): 43.682 → **27.878 px** (−36 %).
+- Cero datos eliminados; 30 tests en verde.
+
+## Riesgos y cómo se mitigaron
+- `Clamp` depende de medir el DOM: si el texto cambia de tamaño (fuente que carga tarde), el
+  ResizeObserver vuelve a medir.
+- Las anclas de la navegación siguen siendo las 18 de siempre; las fichas prácticas llevan su `id`.
+
+## Pendiente
+- Página de festivales y comparador no se han tocado (no eran el problema).
+- Revisar en móvil real, no solo en captura, el comportamiento de `columns-2` al desplegar.
+
+## Cómo verificar que funciona
+1. `#/pais/it`: la página se lee de un vistazo; "leer más" solo aparece donde el texto desborda.
+2. "Lo práctico": siete fichas en dos columnas sin huecos; cada ancla del menú superior lleva a la suya.
+3. Sitios circo agrupados en "Justifican el viaje / Material bueno / Si pasas cerca".
+4. Cráneo en la barra superior, en la home (grande) y como favicon.

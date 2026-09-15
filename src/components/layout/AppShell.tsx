@@ -1,3 +1,4 @@
+import { BRAND } from "@/lib/brand";
 import { Suspense } from "react";
 import { Outlet, ScrollRestoration, useNavigation } from "react-router-dom";
 import { TopNav } from "./TopNav";
@@ -20,7 +21,10 @@ export function AppShell() {
         </Suspense>
       </main>
       <footer className="border-t border-ink-800 px-4 py-6 text-center">
-        <div className="text-sm text-concrete-400">Hecho a mano por gente que prefiere un búnker a una playa · sin backend, sin login, sin folletos</div>
+        <div className="flex items-center justify-center gap-2 text-sm text-concrete-400">
+          <img src={BRAND.skull} alt="" width={22} height={22} className="h-[22px] w-[22px] opacity-80" draggable={false} />
+          <span>Hecho a mano por gente que prefiere un búnker a una playa · sin backend, sin login, sin folletos</span>
+        </div>
       </footer>
       <ScrollRestoration />
     </div>

@@ -8,6 +8,7 @@ import { FestivalCard } from "@/components/festivals/FestivalCard";
 import { Panel, SectionHeader, Stat } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Flag } from "@/components/ui/Flag";
+import { BRAND } from "@/lib/brand";
 
 const QUICK: Tag[] = ["sin-coche", "barato", "sovietico", "oscuro", "festivales", "invierno", "poco-turismo", "facil-desde-bcn"];
 
@@ -22,6 +23,16 @@ export function HomePage() {
     <div className="space-y-12">
       <section className="relative overflow-hidden rounded-sharp border border-ink-700 bg-ink-900/40 px-6 py-12 sm:px-10 sm:py-16">
         <div className="pointer-events-none absolute inset-0 opacity-60" style={{ background: "radial-gradient(60% 80% at 80% 20%, rgba(232,121,249,.14), transparent 60%), radial-gradient(50% 60% at 10% 90%, rgba(34,211,238,.12), transparent 60%)" }} />
+        {/* El cráneo de la casa, con su "Apología de lo evidente": grande a la derecha en escritorio, discreto arriba en móvil. */}
+        <img
+          src={BRAND.full}
+          alt="Cráneo con cigarro: el logo de Apología de lo evidente"
+          width={640}
+          height={636}
+          className="pointer-events-none absolute right-6 top-1/2 hidden w-72 -translate-y-1/2 select-none drop-shadow-[0_0_28px_rgba(232,121,249,.35)] lg:block xl:w-80"
+          draggable={false}
+        />
+        <img src={BRAND.fullSmall} alt="" width={320} height={318} className="mb-4 w-28 select-none drop-shadow-[0_0_18px_rgba(232,121,249,.35)] lg:hidden" draggable={false} />
         <div className="relative max-w-3xl">
           <div className="label-stencil flex items-center gap-2 text-neon-cyan/90">
             <Radar size={13} className="animate-pulse-glow" /> Archivo de destinos · edición {now.getFullYear()}

@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
-import { BarChart3, BookOpen, Flame, Globe2, Menu, Radar, Scale, Search, X } from "lucide-react";
+import { BarChart3, BookOpen, Flame, Globe2, Menu, Scale, Search, X } from "lucide-react";
+import { BRAND } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 import { APP_SHORT } from "@/lib/constants";
 import { useUiStore } from "@/store/useUiStore";
@@ -42,9 +43,7 @@ export function TopNav() {
     <header className="sticky top-0 z-30 border-b border-ink-700 bg-ink-950/85 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4">
         <Link to="/" className="flex items-center gap-2.5" onClick={() => setNavOpen(false)}>
-          <div className="flex h-8 w-8 items-center justify-center rounded-sharp border border-neon-cyan/50 bg-neon-cyan/10 shadow-glow">
-            <Radar size={16} className="text-neon-cyan" />
-          </div>
+          <img src={BRAND.skull} alt="" width={36} height={36} className="h-9 w-9 select-none drop-shadow-[0_0_6px_rgba(34,211,238,.45)]" draggable={false} />
           <div className="leading-tight">
             <div className="label-stencil text-neon-cyan/80">Centro de control</div>
             <div className="text-sm font-semibold tracking-tight text-concrete-50">{APP_SHORT}</div>

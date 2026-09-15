@@ -15,12 +15,12 @@ import { SourceFooter } from "@/components/score/SourceFooter";
 import { cityName } from "./Logistics";
 
 const TIER_META = {
-  1: { label: "Justifica el viaje", cls: "border-neon-magenta/60 text-neon-magenta" },
-  2: { label: "Material bueno", cls: "border-neon-cyan/50 text-neon-cyan" },
-  3: { label: "Si pasas cerca", cls: "border-ink-600 text-concrete-300" },
+  1: { label: "Justifica el viaje", short: "🔥 Justifican el viaje", cls: "border-neon-magenta/60 text-neon-magenta" },
+  2: { label: "Material bueno", short: "👍 Material bueno", cls: "border-neon-cyan/50 text-neon-cyan" },
+  3: { label: "Si pasas cerca", short: "🤔 Si pasas cerca", cls: "border-ink-600 text-concrete-300" },
 } as const;
 
-/** Placeholder visual por categoría (sin fotos inventadas). */
+/** Placeholder visual por categoría (sin fotos inventadas). Solo en la ficha abierta. */
 export function PlaceArt({ p, className }: { p: Place; className?: string }) {
   const cat = CATEGORY_META[p.categories[0]];
   return (
@@ -37,42 +37,58 @@ export function PlaceArt({ p, className }: { p: Place; className?: string }) {
   );
 }
 
+/** Tarjeta compacta: sello de categoría, nombre, dos líneas y las cuatro cifras que deciden. El resto, en la ficha. */
 export function PlaceCard({ p, onOpen, cityLabel }: { p: Place; onOpen: (id: string) => void; cityLabel?: string }) {
+  const cat = CATEGORY_META[p.categories[0]];
   const tier = TIER_META[p.tier];
   const access = scoreTone(p.scores.accesoSinCoche);
+  const rare = scoreTone(p.scores.rareza);
+  const price = p.price.free ? "gratis" : p.price.eur != null ? fmtEur(p.price.eur) : p.price.note ?? "—";
   return (
-    <article className="panel group flex cursor-pointer flex-col p-3 transition-colors hover:border-ink-500" onClick={() => onOpen(p.id)}>
-      <PlaceArt p={p} className="h-28 w-full" />
-      <div className="mt-2 flex items-start justify-between gap-2">
-        <h3 className="text-lg leading-tight group-hover:text-neon-cyan">{p.name}</h3>
-        <Badge className={cn("shrink-0", tier.cls)}>{tier.label}</Badge>
+    <article className="panel group flex cursor-pointer gap-3 p-3 transition-colors hover:border-ink-500" onClick={() => onOpen(p.id)}>
+      <div
+        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sharp border border-ink-700 text-2xl"
+        style={{ background: `radial-gradient(120% 100% at 20% 0%, ${cat.color}40, #0e0f10 70%)` }}
+        aria-hidden
+      >
+        {cat.emoji}
       </div>
-      <div className="text-xs text-concrete-400">
-        {cityLabel ?? p.regionName}
-        {cityLabel && ` · ${p.regionName}`}
-      </div>
-      <div className="mt-1.5 flex flex-wrap gap-1">
-        {p.categories.map((c) => (
-          <CategoryBadge key={c} category={c} short={p.categories.length > 2} />
-        ))}
-      </div>
-      <p className="mt-2 line-clamp-3 text-sm text-concrete-200">{p.description}</p>
-      <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1">
-        <ScoreBar label="Rareza" value={p.scores.rareza} size="sm" />
-        <ScoreBar label="Impacto" value={p.scores.impactoVisual} size="sm" />
-        <ScoreBar label="Historia" value={p.scores.valorHistorico} size="sm" />
-        <ScoreBar label="Sin coche" value={p.scores.accesoSinCoche} size="sm" />
-      </div>
-      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-ink-800 pt-2 text-xs text-concrete-300">
-        <span>⏱ {p.timeNeeded}</span>
-        <span>💶 {p.price.free ? "gratis" : p.price.eur != null ? fmtEur(p.price.eur) : p.price.note ?? "—"}</span>
-        <span style={{ color: access.color }} title={noCarVoice(p.scores.accesoSinCoche)}>
-          {p.transport.modes.slice(0, 3).map((m) => MODE_META[m].emoji).join(" ")}
-          {p.transport.needsTour && " 🎟"}
-        </span>
-        <span className="ml-auto font-medium text-concrete-100">
-          {WORTH_DETOUR_META[p.worthDetour].emoji} {WORTH_DETOUR_META[p.worthDetour].label}
-        </span>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="text-base leading-tight group-hover:text-neon-cyan">{p.name}</h3>
+          <Badge className={cn("shrink-0", tier.cls)}>{tier.label}</Badge>
+        </div>
+        <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-concrete-400">
+          <span>
+            {cityLabel ?? p.regionName}
+            {cityLabel && ` · ${p.regionName}`}
+          </span>
+          <span className="flex gap-1">
+            {p.categories.map((c) => (
+              <span key={c} title={CATEGORY_META[c].label} aria-label={CATEGORY_META[c].label}>
+                {CATEGORY_META[c].emoji}
+              </span>
+            ))}
+          </span>
+        </div>
+        <p className="mt-1.5 line-clamp-2 text-sm leading-snug text-concrete-300">{p.description}</p>
+        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs tabular text-concrete-400">
+          <span title="Rareza">
+            raro <span style={{ color: rare.color }}>{fmtScore(p.scores.rareza)}</span>
+          </span>
+          <span title={noCarVoice(p.scores.accesoSinCoche)}>
+            sin coche <span style={{ color: access.color }}>{fmtScore(p.scores.accesoSinCoche)}</span>
+          </span>
+          <span className="font-sans">⏱ {p.timeNeeded}</span>
+          <span className="font-sans">💶 {price}</span>
+          <span className="font-sans" title={p.transport.modes.map((m) => MODE_META[m].label).join(", ")}>
+            {p.transport.modes.slice(0, 3).map((m) => MODE_META[m].emoji).join(" ")}
+            {p.transport.needsTour && " 🎟"}
+          </span>
+          <span className="ml-auto font-sans font-medium text-concrete-200">
+            {WORTH_DETOUR_META[p.worthDetour].emoji} {WORTH_DETOUR_META[p.worthDetour].label}
+          </span>
+        </div>
       </div>
     </article>
   );
@@ -166,19 +182,24 @@ export function PlacesSection({ d, onOpen }: { d: CountryDetail; onOpen: (id: st
     });
 
   const t1 = d.places.filter((p) => p.tier === 1).length;
+  // Agrupado por tier solo cuando el orden es "lo gordo primero": es la lectura natural de la lista.
+  const groups: Array<{ tier: 1 | 2 | 3; items: Place[] }> =
+    sort === "tier"
+      ? ([1, 2, 3] as const).map((tier) => ({ tier, items: list.filter((p) => p.tier === tier) })).filter((g) => g.items.length > 0)
+      : [{ tier: 1, items: list }];
 
   return (
     <section className="space-y-4">
       <SectionHeader id="sitios" title="Sitios circo" kicker={`15 · ${d.places.length} sitios raros, turbios o gigantes · ${t1} justifican el viaje por sí solos`} />
-      <Panel className="flex flex-wrap items-center gap-2 p-3">
+      <Panel className="flex flex-wrap items-center gap-1.5 p-2.5">
         {present.map((c) => (
           <Chip key={c} on={cats.has(c)} onClick={() => toggle(c)} title={CATEGORY_META[c].label}>
             <span aria-hidden>{CATEGORY_META[c].emoji}</span> {CATEGORY_META[c].label}
             <span className="tabular text-concrete-500">{d.places.filter((p) => p.categories.includes(c)).length}</span>
           </Chip>
         ))}
-        <div className="ml-auto flex items-center gap-1">
-          <span className="label-stencil mr-1">Ordenar por</span>
+        <div className="ml-auto flex flex-wrap items-center gap-1">
+          <span className="label-stencil mr-1">Ordenar</span>
           {(["tier", "rareza", "impacto", "acceso"] as SortKey[]).map((k) => (
             <Chip key={k} on={sort === k} onClick={() => setSort(k)}>
               {{ tier: "Lo gordo primero", rareza: "Más raro", impacto: "Más espectacular", acceso: "Más fácil sin coche" }[k]}
@@ -189,14 +210,23 @@ export function PlacesSection({ d, onOpen }: { d: CountryDetail; onOpen: (id: st
       {list.length === 0 ? (
         <EmptyState title="Con esos filtros no queda nada" description="Quita alguna categoría. Todos los sitios están ahí, solo los has escondido." />
       ) : (
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-          {list.map((p) => (
-            <PlaceCard key={p.id} p={p} onOpen={onOpen} cityLabel={p.cityId ? cityName(d, p.cityId) : undefined} />
-          ))}
-        </div>
+        groups.map((g) => (
+          <div key={g.tier} className="space-y-2">
+            {sort === "tier" && (
+              <div className="label-stencil">
+                {TIER_META[g.tier].short} <span className="tabular text-concrete-500">{g.items.length}</span>
+              </div>
+            )}
+            <div className="grid gap-2.5 md:grid-cols-2 2xl:grid-cols-3">
+              {g.items.map((p) => (
+                <PlaceCard key={p.id} p={p} onOpen={onOpen} cityLabel={p.cityId ? cityName(d, p.cityId) : undefined} />
+              ))}
+            </div>
+          </div>
+        ))
       )}
-      <p className="text-sm text-concrete-400">
-        Llegar sin coche: {fmtScore(d.summary.placeStats.accesoSinCocheMedio)}/10 de media (pesan más los sitios gordos) · {d.summary.placeStats.excursiones} son excursiones desde una ciudad base.
+      <p className="text-xs text-concrete-500">
+        Llegar sin coche: {fmtScore(d.summary.placeStats.accesoSinCocheMedio)}/10 de media (pesan más los sitios gordos) · {d.summary.placeStats.excursiones} son excursiones desde una ciudad base · pincha en cualquier tarjeta para la ficha completa.
       </p>
     </section>
   );

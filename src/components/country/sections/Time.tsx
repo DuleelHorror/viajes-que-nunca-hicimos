@@ -8,7 +8,7 @@ import { Panel, SectionHeader } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { WhyPopover } from "@/components/score/WhyPopover";
 import { MonthLegend, MonthStrip } from "@/components/charts/MonthStrip";
-import { FestivalCard } from "@/components/festivals/FestivalCard";
+import { FestivalRow } from "@/components/festivals/FestivalRow";
 
 export function BestTimeSection({ c }: { c: ScoredCountry }) {
   const s = c.summary;
@@ -71,16 +71,16 @@ export function EventsSection({ c, d }: { c: ScoredCountry; d: CountryDetail }) 
     <section className="space-y-4">
       <SectionHeader id="eventos" title="Qué pasa cada mes" kicker="14 · Fiestas, cierres y avisos" />
       <Panel className="p-5">
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-4">
           {MONTHS_ES.map((name, i) => (
-            <div key={name} className="rounded-sharp border border-ink-800 bg-ink-900/40 p-3">
+            <div key={name} className="rounded-sharp border border-ink-800 bg-ink-900/40 px-3 py-2">
               <div className="label-stencil mb-1">{name}</div>
               {byMonth[i].length === 0 ? (
                 <div className="text-sm text-concrete-500">Nada especial</div>
               ) : (
                 <ul className="space-y-1">
                   {byMonth[i].map((e, j) => (
-                    <li key={j} className="text-sm text-concrete-200">
+                    <li key={j} className="text-xs leading-snug text-concrete-200">
                       <span aria-hidden>{EVENT_KIND_META[e.kind].emoji}</span> {e.text}
                     </li>
                   ))}
@@ -91,14 +91,16 @@ export function EventsSection({ c, d }: { c: ScoredCountry; d: CountryDetail }) 
         </div>
       </Panel>
       {festivals.length > 0 && (
-        <div>
-          <div className="label-stencil mb-2">🔥 Los festivales que justifican mirar el calendario</div>
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-            {festivals.map((f) => (
-              <FestivalCard key={f.id} f={f} />
-            ))}
+        <Panel className="p-4 sm:p-5">
+          <div className="label-stencil mb-2">🔥 Los festivales que justifican mirar el calendario · pincha para leer qué pasa</div>
+          <div className="space-y-1.5">
+            {[...festivals]
+              .sort((a, b) => a.month - b.month)
+              .map((f) => (
+                <FestivalRow key={f.id} f={f} />
+              ))}
           </div>
-        </div>
+        </Panel>
       )}
     </section>
   );
