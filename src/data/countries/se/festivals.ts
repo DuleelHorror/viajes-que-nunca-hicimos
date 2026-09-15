@@ -1,0 +1,118 @@
+import type { Festival } from "@/lib/schema";
+import { meta } from "@/lib/schema";
+
+const PROPIO = { label: "Lo hemos escrito nosotros", kind: "propio" as const };
+const WIKI = (url: string) => ({ label: "Wikipedia", url, kind: "wiki" as const });
+const f = (notes?: string, confidence: "alta" | "media" | "baja" = "media") =>
+  meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence, sources: [PROPIO], notes });
+
+export const festivals: Festival[] = [
+  {
+    id: "se-kiruna-snofestival",
+    name: "Festival de la Nieve de Kiruna",
+    city: "Kiruna",
+    regionName: "Laponia",
+    coords: [67.8558, 20.2253],
+    month: 1,
+    dateApprox: "último fin de semana de enero",
+    durationDays: 3,
+    category: "weird",
+    whatHappens:
+      "Concurso internacional de escultura en nieve en la plaza, carreras de renos por la calle principal, motos de nieve, y todo a −25 °C con dos horas de luz. Es pequeño y muy local, en una ciudad que se está mudando por partes. La aurora suele aparecer de postre.",
+    scores: { rareza: 7, espectacularidad: 7, facilidadAcceso: 6, nivelTurismo: 4 },
+    planTripAround: false,
+    needsBooking: "Nocturno o vuelo desde Estocolmo; hoteles llenos de temporada de aurora",
+    links: [WIKI("https://sv.wikipedia.org/wiki/Kiruna_sn%C3%B6festival")],
+    meta: f(),
+  },
+  {
+    id: "se-jokkmokk-mercado",
+    name: "Mercado de invierno de Jokkmokk",
+    city: "Jokkmokk",
+    regionName: "Laponia",
+    coords: [66.6067, 19.8225],
+    month: 2,
+    dateApprox: "primer jueves, viernes y sábado de febrero",
+    durationDays: 3,
+    category: "folklore",
+    whatHappens:
+      "Desde 1605, el mercado sami: tres días en que un pueblo de 3.000 habitantes recibe a 40.000 personas a 30 bajo cero para vender pieles, cuchillos, artesanía y carne de reno, con desfile de renos por la calle, joik (el canto sami), y noches de −35 °C en que la aurora sale encima del mercado. Es el sitio donde ver la cultura sami sin decorado y una de las ferias más antiguas de Europa.",
+    scores: { rareza: 9, espectacularidad: 8, facilidadAcceso: 4, nivelTurismo: 5 },
+    planTripAround: true,
+    needsBooking: "Alojamiento con un año de antelación (mucha gente duerme en Gällivare o Boden); bus 44 desde Murjek, parada del nocturno",
+    links: [WIKI("https://en.wikipedia.org/wiki/Jokkmokk_Winter_Market")],
+    meta: f("Sin coche: nocturno a Murjek y bus de Länstrafiken; funciona, pero cuadra bien las horas"),
+  },
+  {
+    id: "se-valborg-uppsala",
+    name: "Valborg en Uppsala",
+    city: "Uppsala",
+    regionName: "Uppland",
+    coords: [59.8586, 17.6389],
+    month: 4,
+    dateApprox: "30 de abril",
+    durationDays: 1,
+    category: "festival",
+    whatHappens:
+      "La noche de Walpurgis: en todo el país hogueras y coros para quemar el invierno, pero en Uppsala es otra cosa. A las diez de la mañana los estudiantes bajan el río en balsas construidas a mano que se rompen a propósito, a las tres el rector saluda desde la biblioteca y 30.000 personas se ponen la gorra blanca de bachiller a la vez, y luego la ciudad entera, universitaria desde 1477, se emborracha en los parques de forma ordenada. Al anochecer, hoguera en Gamla Uppsala entre los túmulos.",
+    scores: { rareza: 7, espectacularidad: 8, facilidadAcceso: 10, nivelTurismo: 5 },
+    planTripAround: true,
+    needsBooking: "Sin entradas; dormir en Estocolmo y volver en el cercanías, que va toda la noche",
+    links: [WIKI("https://es.wikipedia.org/wiki/Noche_de_Walpurgis")],
+    meta: f(),
+  },
+  {
+    id: "se-midsommar",
+    name: "Midsommar en Dalarna",
+    city: "Leksand y los pueblos del lago Siljan",
+    regionName: "Dalarna",
+    coords: [60.7306, 14.9986],
+    month: 6,
+    dateApprox: "viernes entre el 19 y el 25 de junio",
+    durationDays: 2,
+    category: "folklore",
+    whatHappens:
+      "La fiesta más importante de Suecia, y en Dalarna la versión original: se levanta a mano un palo de mayo de 20 metros cubierto de hojas y flores, se baila alrededor la canción de las ranitas, se comen arenques y patatas nuevas, se bebe aguardiente con canciones que hay que saberse, y no se hace de noche. Las chicas ponen siete flores bajo la almohada para soñar con quien se casarán. Nada que ver con la película, salvo las coronas de flores.",
+    scores: { rareza: 8, espectacularidad: 8, facilidadAcceso: 7, nivelTurismo: 5 },
+    planTripAround: true,
+    needsBooking: "Tren a Leksand o Rättvik desde Estocolmo (3 h); alojamiento con meses; ese fin de semana el país entero cierra",
+    links: [WIKI("https://es.wikipedia.org/wiki/Midsommar")],
+    meta: f("Cada pueblo del Siljan levanta el palo un día distinto de la semana: se pueden encadenar"),
+  },
+  {
+    id: "se-medeltidsveckan-visby",
+    name: "Semana Medieval de Gotland",
+    city: "Visby",
+    regionName: "Gotland",
+    coords: [57.6348, 18.2948],
+    month: 8,
+    dateApprox: "semana 32, la primera de agosto entera",
+    durationDays: 7,
+    category: "festival",
+    whatHappens:
+      "Cuarenta mil personas en una ciudad medieval en ruinas, la mitad disfrazada y en serio: torneos a caballo en la playa, mercado con moneda propia, conferencias de historiadores, misas en latín en las iglesias arruinadas y un desfile que recrea la invasión danesa de 1361 con los cadáveres incluidos. Es un festival de cosplay histórico donde el decorado es real y la muralla de verdad.",
+    scores: { rareza: 8, espectacularidad: 9, facilidadAcceso: 6, nivelTurismo: 8 },
+    planTripAround: true,
+    needsBooking: "Ferry y alojamiento se agotan en primavera; hay camping y casas de particulares",
+    links: [WIKI("https://en.wikipedia.org/wiki/Medeltidsveckan")],
+    meta: f(),
+  },
+  {
+    id: "se-lucia",
+    name: "Santa Lucía",
+    city: "Todo el país (Estocolmo, Uppsala, Skansen)",
+    regionName: "Suecia",
+    coords: [59.3293, 18.0686],
+    month: 12,
+    dateApprox: "13 de diciembre, a las siete de la mañana",
+    durationDays: 1,
+    category: "folklore",
+    whatHappens:
+      "El día más oscuro del calendario antiguo, una chica de blanco con una corona de velas encendidas en la cabeza entra en la oscuridad cantando, seguida de un cortejo con velas y de chicos con gorros cónicos de estrellas. Se hace en cada colegio, empresa e iglesia del país a las siete de la mañana, con bollos de azafrán y vino caliente. La corona lleva velas de verdad y el pelo se chamusca cada año.",
+    scores: { rareza: 7, espectacularidad: 7, facilidadAcceso: 10, nivelTurismo: 3 },
+    planTripAround: false,
+    needsBooking: "Los conciertos de Lucía en catedrales (Uppsala, Storkyrkan) venden entradas; los de la calle son gratis",
+    links: [WIKI("https://es.wikipedia.org/wiki/Santa_Luc%C3%ADa_(festividad)")],
+    meta: f(),
+  },
+];

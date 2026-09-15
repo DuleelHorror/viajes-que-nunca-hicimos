@@ -12,8 +12,10 @@ import { summary as uz } from "./countries/uz/summary";
 import { summary as sco } from "./countries/sco/summary";
 import { summary as it } from "./countries/it/summary";
 import { summary as at } from "./countries/at/summary";
+import { summary as se } from "./countries/se/summary";
+import { summary as jp } from "./countries/jp/summary";
 
-const RAW: CountrySummary[] = [uz, sco, it, at];
+const RAW: CountrySummary[] = [uz, sco, it, at, se, jp];
 
 const DEV = import.meta.env.DEV;
 
@@ -43,6 +45,8 @@ const loaders: Record<string, () => Promise<{ default: CountryDetail }>> = {
   sco: () => import("./countries/sco"),
   it: () => import("./countries/it"),
   at: () => import("./countries/at"),
+  se: () => import("./countries/se"),
+  jp: () => import("./countries/jp"),
 };
 
 const cache = new Map<string, Promise<CountryDetail>>();

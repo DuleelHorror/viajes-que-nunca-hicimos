@@ -5,8 +5,10 @@ import uz from "../countries/uz";
 import sco from "../countries/sco";
 import ita from "../countries/it";
 import at from "../countries/at";
+import se from "../countries/se";
+import jp from "../countries/jp";
 
-const ALL: CountryDetail[] = [uz, sco, ita, at];
+const ALL: CountryDetail[] = [uz, sco, ita, at, se, jp];
 
 const VOLATILE_SECTIONS = ["docs", "safety", "flights", "cost", "politics", "events"] as const;
 

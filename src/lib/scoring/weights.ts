@@ -108,19 +108,29 @@ export const DAYS = {
   complete: { above: 2, factor: 1.5, cap: 21 },
 } as const;
 
+// ---------- Temporada ----------
+/** Meses "buenos equivalentes" (excelente = 1, bueno = 0,5) con los que la temporada vale 10. */
+export const SEASON_FULL_MONTHS = 6;
+
 // ---------- Duke Score (0-100): suma de puntos con máximos explícitos ----------
+// Recalibrado el 2026-09-15 con seis países (Uzbekistán, Escocia, Italia, Austria, Suecia, Japón).
+// Con los pesos originales todo quedaba entre 71 y 78 y cinco de seis salían "Mucho": los factores de
+// comodidad (BCN, idioma, móvil, estabilidad) separaban más que el circo, que es lo que más importa.
+// Cambios: circo de 35 a 40 y con curva convexa (DUKE_CIRCO_EXPONENT); comodidad recortada.
 export const DUKE_POINTS = {
-  circo: 35,
+  circo: 40,
   noCar: 15,
-  cost: 10,
+  cost: 9,
   transport: 8,
-  safety: 8,
-  bcn: 6,
-  season: 6,
+  safety: 7,
+  bcn: 5,
+  season: 5,
   language: 4,
   digital: 4,
-  stability: 4,
+  stability: 3,
 } as const;
+/** puntos de circo = máx × (circo/10)^exponente: un 9 vale bastante más que un 7, un 5 vale poco. */
+export const DUKE_CIRCO_EXPONENT = 1.3;
 export const DUKE_LABELS: Record<keyof typeof DUKE_POINTS, string> = {
   circo: "Circo Score",
   noCar: "Viabilidad sin coche",
@@ -137,8 +147,9 @@ export const DUKE_PENALTIES = {
   riskZone: { points: -8, threshold: 4, label: "Zona de riesgo (estabilidad o seguridad < 4)" },
   needsCar: { points: -5, label: "🔴 Sin coche prácticamente inviable" },
 } as const;
-// La suma realista de un país excelente ronda 80-85 (nadie puntúa 10 en todo), de ahí los umbrales.
-export const DUKE_VERDICT = { mucho: 72, si: 58, depende: 45 } as const;
+// La suma realista de un país excelente ronda 80-85 (nadie puntúa 10 en todo). Con seis países cargados
+// el rango real es 71-79: "Mucho" solo desde 76 para que el veredicto discrimine.
+export const DUKE_VERDICT = { mucho: 76, si: 62, depende: 48 } as const;
 
 // ---------- Tags ----------
 export const TAG_THRESHOLDS = {

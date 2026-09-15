@@ -9,7 +9,9 @@ import {
   DIGITAL_WEIGHTS,
   DUKE_LABELS,
   DUKE_PENALTIES,
+  DUKE_CIRCO_EXPONENT,
   DUKE_POINTS,
+  SEASON_FULL_MONTHS,
   DUKE_VERDICT,
   LANGUAGE_WEIGHTS,
   NO_CAR_LIGHTS,
@@ -61,7 +63,8 @@ export function MethodologyPage() {
           <SectionHeader title="Duke Score (0-100)" kicker="Suma de puntos" as="h3" />
           <p className="mt-2 text-xs text-concrete-400">
             Cada componente aporta como máximo los puntos indicados (proporcional a su valor 0-10). Coste e idioma van
-            invertidos: cuanto más barato / más fácil, más puntos.
+            invertidos: cuanto más barato / más fácil, más puntos. El circo entra con curva: puntos = máx × (circo/10)^{DUKE_CIRCO_EXPONENT},
+            así un 9 vale bastante más que un 7. La temporada llega a 10 con {SEASON_FULL_MONTHS} meses buenos equivalentes (excelente = 1, bueno = ½).
           </p>
           <div className="mt-3">
             <WeightTable rows={(Object.keys(DUKE_POINTS) as Array<keyof typeof DUKE_POINTS>).map((k) => [DUKE_LABELS[k], DUKE_POINTS[k]])} unit="máx. puntos" />

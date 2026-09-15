@@ -1,0 +1,142 @@
+import type { CountrySummary } from "@/lib/schema";
+import { meta } from "@/lib/schema";
+import { festivals } from "./festivals";
+
+const WIKI = { label: "Wikipedia", url: "https://es.wikipedia.org/wiki/Jap%C3%B3n", kind: "wiki" as const };
+const MAEC = { label: "MAEC · Recomendaciones de viaje", url: "https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Recomendaciones-de-viaje.aspx", kind: "oficial" as const };
+const SEAT61 = { label: "The Man in Seat 61 · Japan", url: "https://www.seat61.com/Japan.htm", kind: "blog" as const };
+const JRPASS = { label: "Japan Rail Pass", url: "https://japanrailpass.net", kind: "oficial" as const };
+const NUMBEO = { label: "Numbeo · Japón", url: "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Japan", kind: "blog" as const };
+const PROPIO = { label: "Lo hemos escrito nosotros", kind: "propio" as const };
+
+export const summary: CountrySummary = {
+  id: "jp",
+  name: "Japón",
+  nameLocal: "日本",
+  flag: "🇯🇵",
+  region: "asia-oriental",
+  iso: { alpha2: "JP" },
+  tagline: "Una catedral de hormigón bajo tierra, una isla acorazado y un cráter con médiums.",
+  whyMe:
+    "Porque es el país más raro del planeta por metro cuadrado y el que mejor se recorre sin coche: un Shinkansen cada cinco minutos y buses que llegan a la punta del hacha a su hora exacta. Lo tuyo aquí no es Kioto: es G-Cans, el templo de hormigón bajo Tokio hecho para tragar tifones; Gunkanjima, un bloque de pisos entero abandonado en el mar; Okunoshima, la fábrica secreta de gas venenoso invadida por conejos; Osorezan, el cráter del infierno budista con lago turquesa y médiums ciegas; y el tren normal que cruza la zona de exclusión de Fukushima. El calendario tiene santuarios ardiendo con gente encima y un festival del pene de hierro. Lo malo: sin directo desde Barcelona, Shinkansen caros y tres buses al día en las puntas.",
+  facts: {
+    capital: "Tokio",
+    population: 123_000_000,
+    areaKm2: 377_975,
+    languages: ["japonés (tres alfabetos, ninguno tuyo)", "inglés flojo fuera de hoteles y estaciones"],
+    currency: { code: "JPY", name: "yen", symbol: "¥" },
+    religions: "Sintoísmo y budismo a la vez y sin conflicto: se nace sintoísta, se casa cristiano y se muere budista",
+    timezone: "UTC+9, sin cambio de hora: 8 h más que en Barcelona en invierno, 7 en verano",
+    plugTypes: ["A", "B"],
+    drivingSide: "izquierda",
+    meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "alta", sources: [WIKI] }),
+  },
+  traits: { sovietico: false, brutalista: true, nieveFiable: true, distanciaCultural: 10, turismoMasivo: 8 },
+  inputs: {
+    circo: {
+      rareza: 9,
+      historia: 8,
+      oscuridad: 8,
+      arquitectura: 8,
+      naturaleza: 8,
+      folclore: 10,
+      festivales: 10,
+      aventura: 7,
+      fotografia: 10,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "media", sources: [PROPIO], notes: "Notas subjetivas para nuestra forma de viajar" }),
+    },
+    rail: {
+      calidad: 10,
+      cobertura: 9,
+      frecuencia: 10,
+      puntualidad: 10,
+      precio: 3,
+      facilidadBilletes: 6,
+      online: 6,
+      nocturnos: 3,
+      altaVelocidad: 10,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [SEAT61, JRPASS], notes: "El mejor tren del mundo y de los más caros; casi sin nocturnos; comprar online desde fuera es mejorable" }),
+    },
+    bus: { cobertura: 8, fiabilidad: 9, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "Puntuales al minuto; en las puntas, tres o cuatro al día" }) },
+    urban: { media: 9, meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "alta", sources: [PROPIO], notes: "Tokio y Osaka son un 10; Kioto va a bus lleno; los pueblos, a pie" }) },
+    apps: { cobertura: 8, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "Google Maps perfecto; Uber flojo; GO para taxis" }) },
+    cost: {
+      daily: { low: 70, normal: 110, comfortable: 200 },
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [NUMBEO, PROPIO], notes: "Con el yen débil, comer y dormir es barato; los Shinkansen no. Sin contar el vuelo" }),
+    },
+    flights: {
+      direct: false,
+      lowCostDirect: false,
+      oneStopMinHours: 15.5,
+      oneStopDailyOptions: 6,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "Sin directo desde BCN; el único directo español es Iberia Madrid–Narita" }),
+    },
+    docs: {
+      entry: "pasaporte",
+      maxStayDays: 90,
+      passportValidityMonths: 0,
+      insuranceMandatory: false,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [MAEC], notes: "Sin visado hasta 90 días; JESTA obligatorio desde abril de 2028" }),
+    },
+    safety: {
+      delincuencia: 10,
+      robos: 10,
+      timos: 9,
+      zonasConflicto: 10,
+      terrorismo: 9,
+      transporte: 10,
+      camaraEnCalle: 10,
+      noche: 10,
+      solo: 10,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [MAEC, PROPIO], notes: "El riesgo es geológico: terremotos, tifones y volcanes" }),
+    },
+    stability: { score: 9, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [MAEC, WIKI], notes: "Primeros ministros que duran un año y un país que no se entera" }) },
+    digital: {
+      googleMaps: 2,
+      googleTranslate: 2,
+      tarjetas: 7,
+      contactless: 7,
+      efectivoNecesario: 5,
+      esim: 2,
+      cobertura: 9,
+      wifi: 7,
+      bloqueos: [],
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "Suica en el móvil para todo lo pequeño; efectivo en templos, ryokan y Japón rural" }),
+    },
+    language: {
+      ingles: 3,
+      alfabetoDistinto: true,
+      maquinasEnIngles: 8,
+      senaleticaBilingue: 7,
+      traductorFunciona: 7,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "alta", sources: [PROPIO], notes: "Poco inglés, pero todo está diseñado para no necesitar hablar" }),
+    },
+  },
+  months: [
+    { month: 1, rating: "normal", tempMin: 1, tempMax: 10, precip: "baja", snow: true, daylightHours: 10, crowds: "bajo", prices: "bajo", reasons: ["🔥 Nozawa el 15: un santuario ardiendo con gente encima.", "☀️ Frío seco y cielos limpios en Tokio; el mes más barato.", "❄️ Osorezan cerrado por nieve; el norte, bajo dos metros."] },
+    { month: 2, rating: "normal", tempMin: 1, tempMax: 10, precip: "baja", snow: true, daylightHours: 11, crowds: "bajo", prices: "bajo", reasons: ["🩲 Hadaka Matsuri el tercer sábado: 10.000 hombres en taparrabos.", "🌸 Ciruelos en flor y precios de invierno."] },
+    { month: 3, rating: "bueno", tempMin: 5, tempMax: 14, precip: "media", snow: false, daylightHours: 12, crowds: "medio", prices: "medio", reasons: ["🌸 Empiezan los cerezos por Kyushu; Tokio a final de mes.", "👍 Temperatura de andar antes de la avalancha de abril."] },
+    { month: 4, rating: "excelente", tempMin: 10, tempMax: 19, precip: "media", snow: false, daylightHours: 13, crowds: "alto", prices: "alto", reasons: ["🏆 Cerezos y Kanamara el primer domingo.", "👥 El mes más lleno y más caro; los sitios de esta lista, no tanto.", "⚠️ Del 29 empieza la Golden Week: fuera."], weatherAdds: "Adashino y Kōya bajo los cerezos, sin la multitud de Kioto" },
+    { month: 5, rating: "bueno", tempMin: 15, tempMax: 24, precip: "media", snow: false, daylightHours: 14, crowds: "alto", prices: "alto", reasons: ["🚫 Golden Week hasta el día 5: el país bloqueado.", "🌿 A partir del 6, verde nuevo, buen tiempo y abre Osorezan."] },
+    { month: 6, rating: "normal", tempMin: 19, tempMax: 26, precip: "alta", snow: false, daylightHours: 14.5, crowds: "medio", prices: "medio", reasons: ["🌧 Tsuyu: llueve casi cada día durante tres semanas.", "👍 Hoteles baratos y hortensias; en Hokkaido no llueve."] },
+    { month: 7, rating: "malo", tempMin: 23, tempMax: 31, precip: "media", snow: false, daylightHours: 14.5, crowds: "medio", prices: "medio", reasons: ["💀 Calor húmedo de sauna en todo el país salvo el norte.", "🔮 A cambio, el festival de las itako en Osorezan del 20 al 24."] },
+    { month: 8, rating: "malo", tempMin: 24, tempMax: 32, precip: "media", snow: false, daylightHours: 13.5, crowds: "alto", prices: "alto", reasons: ["💀 Sigue la sauna y empiezan los tifones.", "🏮 Nebuta de Aomori del 2 al 7: el norte es la excepción que compensa.", "🚫 Obon a mediados: trenes llenos de japoneses volviendo al pueblo."] },
+    { month: 9, rating: "normal", tempMin: 20, tempMax: 28, precip: "alta", snow: false, daylightHours: 12.5, crowds: "medio", prices: "medio", reasons: ["🌀 El mes de más tifones: Gunkanjima se cancela más que nunca.", "🌤 A finales afloja el calor y vuelve a apetecer."] },
+    { month: 10, rating: "excelente", tempMin: 14, tempMax: 22, precip: "media", snow: false, daylightHours: 11.5, crowds: "medio", prices: "medio", reasons: ["🏆 El mes redondo: ni calor, ni lluvia, ni Golden Week.", "🔮 Osorezan abierto hasta el 31 y con el festival de otoño del 9 al 11.", "🍁 Los arces empiezan por el norte."], weatherAdds: "Osorezan con los primeros fríos y el lago turquesa sin turistas" },
+    { month: 11, rating: "excelente", tempMin: 8, tempMax: 17, precip: "baja", snow: false, daylightHours: 10.5, crowds: "alto", prices: "alto", reasons: ["🍁 Kōyō: arces rojos en Kioto y Kōya, y todo el mundo mirándolos.", "☀️ Seco y luminoso; el cementerio de Okunoin en rojo es otra cosa."] },
+    { month: 12, rating: "bueno", tempMin: 3, tempMax: 12, precip: "baja", snow: true, daylightHours: 10, crowds: "bajo", prices: "bajo", reasons: ["☀️ Frío seco, iluminaciones y precios de invierno.", "🚫 Del 29 al 3 de enero cierra casi todo por Año Nuevo."] },
+  ],
+  festivals,
+  // Generado con `npm run data:stats -- jp`; el test de deriva lo comprueba.
+  placeStats: {
+    total: 22,
+    byTier: { 1: 8, 2: 9, 3: 5 },
+    byCategory: { infrastructure: 1, war: 3, weird: 3, historical: 1, folklore: 2, nature: 2, industrial: 1, dark: 4, abandoned: 2, wtf: 1, disaster: 1, occult: 1 },
+    accesoSinCocheMedio: 7.7,
+    excursiones: 13,
+    regiones: 14,
+    spreadKm: 1400,
+  },
+  fx: { rate: 165, asOf: "2026-09-15", meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "Yen débil en 2025-26; a ojo, mira el cambio del día" }) },
+  map: { center: [37.5, 137.5], zoom: 5 },
+};

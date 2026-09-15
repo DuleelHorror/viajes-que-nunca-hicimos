@@ -1,0 +1,83 @@
+# Austria, Suecia y Japón, y recalibración del Duke con seis países
+
+## Fecha
+2026-09-15 23:30 (Europe/Madrid)
+
+## Contexto / origen del cambio
+"Mete los países que faltan y estudia bien lo que necesites". Con España y Chequia descartadas, la v1 se
+cierra con Austria, Suecia y Japón. Al tener seis países, toca la recalibración que `CLAUDE.md` dejaba
+pendiente desde que solo había dos.
+
+## Archivos modificados
+- `src/data/countries/at/`, `se/`, `jp/` (nuevos, 7 archivos cada uno): 22 + 21 + 22 sitios, 5 + 6 + 6
+  festivales, 3 rutas por país, 18 secciones.
+- `src/data/registry.ts`, `consistency.test.ts`, `scripts/print-scores.ts`: alta de los tres.
+- `src/lib/scoring/weights.ts`: `DUKE_POINTS` (circo 40, coste 9, seguridad 7, BCN 5, temporada 5,
+  estabilidad 3), `DUKE_CIRCO_EXPONENT = 1.3`, `SEASON_FULL_MONTHS = 6`, `DUKE_VERDICT` 76/62/48.
+- `src/lib/scoring/duke.ts`: el circo entra con curva `(circo/10)^1.3`, con nota en el desglose.
+- `src/lib/scoring/subscores.ts`: la temporada llega a 10 con 6 meses buenos equivalentes, con tope.
+- `src/lib/voice.ts`: umbrales de `seasonVoice` a la nueva escala; la escalera de días ya no repite frase
+  en los dos peldaños por debajo de "rápido".
+- `src/pages/MethodologyPage.tsx`: explica la curva del circo y la regla de temporada desde las constantes.
+- `CLAUDE.md`, `docs/BRIEF.md`, `docs/PLAN.md`: v1 completa; pesos nuevos.
+
+## Investigación previa (WebSearch, 2026-09-15)
+- **Japón**: sin directo desde Barcelona (Iberia solo Madrid–Narita); JESTA obligatorio desde abril de
+  2028, nada que tramitar en 2026-27; JR Pass de 7 días a 50.000 ¥, solo compensa con tres trayectos
+  largos; Gunkanjima abierto con cinco operadores y desembarco sujeto al oleaje; Kanamara el primer
+  domingo de abril (5 de abril de 2026).
+- **Suecia**: 17 directos semanales a Arlanda (Vueling, Norwegian, SAS, Ryanair); nocturno SJ/Vy
+  Estocolmo–Kiruna–Narvik operativo; la iglesia de Kiruna se movió en agosto de 2025 y reabre entre
+  finales de 2026 y 2027; la mudanza de la ciudad sigue hasta 2035.
+- **Austria**: cinco directos diarios a Viena (Austrian, Ryanair, Vueling); Salzburgo e Innsbruck solo
+  de temporada.
+
+## Criterio de selección de sitios (el mismo de Italia: nada del top 10)
+- **Austria**: Narrenturm, Flaktürme, Zentralfriedhof con museo funerario, Mauthausen (con el memorial
+  español), Hartheim, Seegrotte, cráneos pintados de Hallstatt, Eisriesenwelt, Bad Gastein abandonado,
+  el túnel de radón. Hallstatt entra por el osario, no por la postal.
+- **Suecia**: metro-cueva, Kiruna mudándose, Icehotel, Falun con el minero petrificado, la suite a
+  155 m de Sala, Aeroseum, Boden, Gammelstad, Ytterby (cuatro elementos de la tabla periódica), Ales
+  stenar, Visby en ruinas, Fårö. El Vasa entra como catástrofe del XVII aunque sea famoso.
+- **Japón**: G-Cans, Gunkanjima, Okunoshima, Osorezan, Futaba y la zona de exclusión (con el tren
+  normal que la cruza), Okunoin, Aokigahara (con respeto y por los senderos), Ashio, Nagoro, Ikeshima,
+  Torre del Sol, Yasukuni/Yūshūkan como contrapunto a Hiroshima. Hiroshima y Nagasaki entran porque no
+  entrar sería una pose.
+
+## Recalibración: qué pasaba y qué se ha hecho
+Con los pesos originales (calibrados con dos países) los seis quedaban entre 71 y 78 y cinco salían
+"Mucho". Desglosando: el circo (máx. 35) separaba 5,6 puntos entre países; los cinco factores de
+comodidad (BCN, idioma, móvil, estabilidad, seguridad; máx. 26) separaban 8. El ranking lo decidía lo
+fácil, no lo raro, y Austria (circo 7,8) quedaba por encima de Japón (8,9).
+
+Además la temporada daba 4,6/10 a un país con cuatro meses excelentes, porque el 10 exigía doce meses
+excelentes, que no existen.
+
+Cambios, todos en `weights.ts` y explicados en `/metodologia`:
+1. Circo de 35 a 40 puntos y con curva `(circo/10)^1.3`: un 9 vale 34,4 y un 7 vale 25. Es lo que más
+   le importa al perfil y ahora también es lo que más separa.
+2. Comodidad recortada: BCN 6→5, seguridad 8→7, estabilidad 4→3, coste 10→9, temporada 6→5.
+3. Temporada: 6 meses buenos equivalentes = 10 (con tope). Italia pasa de 4,6 a 10; Japón, a 7,5.
+4. Veredicto: 🔥 ≥ 76 · 👍 ≥ 62 · 🤔 ≥ 48 (antes 72/58/45).
+
+Resultado: Italia 78 🔥 · Austria 78 🔥 · Japón 77 🔥 · Escocia 75 👍 · Suecia 72 👍 · Uzbekistán 71 👍.
+Tres y tres. Uzbekistán sigue el último y es honesto: sin directo, cirílico, efectivo y verano de horno
+son costes reales para este viajero; el "Sí" de la app no es un desprecio. Si el usuario quiere que
+pese más lo soviético, el sitio para hacerlo es `CIRCO_WEIGHTS`, no el Duke.
+
+Lo que NO se ha tocado: los inputs de ningún país para que "cuadre". Primero se puntuó cada país con
+honestidad y después se miró el conjunto.
+
+## Verificación
+- 51 tests (tsc + vitest + vite) en verde, `placeStats` generados con el script para los tres países.
+- Fichas de Austria, Suecia y Japón y comparador a cuatro comprobados en navegador.
+
+## Pendiente
+- Radar: Georgia, Armenia y Bulgaria son los siguientes naturales; con ellos el Duke bajará de 70 en
+  alguno y se verá si los umbrales 62/48 tienen sentido.
+- Verificar sobre el terreno los accesos con confianza baja (Ikeshima, Nagoro, Consonno, Gibellina).
+
+## Cómo verificar que funciona
+1. `npx tsx scripts/print-scores.ts`: seis países, tres 🔥 y tres 👍.
+2. `#/metodologia`: la tabla del Duke suma 100 y explica la curva y la temporada.
+3. `#/comparar?ids=jp,at,uz,se`: radar y tabla con los cuatro.

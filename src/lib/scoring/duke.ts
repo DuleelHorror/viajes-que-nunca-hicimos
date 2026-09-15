@@ -1,7 +1,7 @@
 import type { Verdict } from "@/lib/constants";
 import { clamp, round } from "@/lib/utils";
 import type { Contribution, DukeResult } from "./types";
-import { DUKE_LABELS, DUKE_PENALTIES, DUKE_POINTS, DUKE_VERDICT } from "./weights";
+import { DUKE_CIRCO_EXPONENT, DUKE_LABELS, DUKE_PENALTIES, DUKE_POINTS, DUKE_VERDICT } from "./weights";
 
 export interface DukeInputs {
   circo: number;
@@ -26,7 +26,7 @@ export function verdictFor(value: number): Verdict {
 
 export function dukeScore(i: DukeInputs): DukeResult {
   const parts: Array<[keyof typeof DUKE_POINTS, number, string?]> = [
-    ["circo", i.circo / 10],
+    ["circo", Math.pow(i.circo / 10, DUKE_CIRCO_EXPONENT), `(${i.circo}/10)^${DUKE_CIRCO_EXPONENT}: premia el circo alto`],
     ["noCar", i.noCar / 10],
     ["cost", (10 - i.cost) / 10, `coste ${i.cost} → ${round(10 - i.cost)}`],
     ["transport", i.transport / 10],

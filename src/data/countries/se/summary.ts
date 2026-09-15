@@ -1,0 +1,143 @@
+import type { CountrySummary } from "@/lib/schema";
+import { meta } from "@/lib/schema";
+import { festivals } from "./festivals";
+
+const WIKI = { label: "Wikipedia", url: "https://es.wikipedia.org/wiki/Suecia", kind: "wiki" as const };
+const MAEC = { label: "MAEC · Recomendaciones de viaje", url: "https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Recomendaciones-de-viaje.aspx", kind: "oficial" as const };
+const SEAT61 = { label: "The Man in Seat 61 · Sweden", url: "https://www.seat61.com/Sweden.htm", kind: "blog" as const };
+const SJ = { label: "SJ", url: "https://www.sj.se", kind: "oficial" as const };
+const NUMBEO = { label: "Numbeo · Suecia", url: "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Sweden", kind: "blog" as const };
+const PROPIO = { label: "Lo hemos escrito nosotros", kind: "propio" as const };
+
+export const summary: CountrySummary = {
+  id: "se",
+  name: "Suecia",
+  nameLocal: "Sverige",
+  flag: "🇸🇪",
+  region: "europa-norte",
+  iso: { alpha2: "SE" },
+  tagline: "Cuevas en el metro, una ciudad que se muda, un hotel de hielo y un tren cama al Ártico.",
+  whyMe:
+    "Porque el viaje es el sitio: dieciséis horas de nocturno por la taiga para plantarte en Kiruna, una ciudad entera mudándose tres kilómetros porque la mina de hierro se la come, con la iglesia recién trasladada sobre ruedas. Antes, Estocolmo con el metro convertido en cuevas pintadas, un barco de guerra de 1628 entero, un cementerio patrimonio mundial y una plaza brutalista donde derribaron el casco viejo. Y por el camino, minas: el cráter de Falun con su minero petrificado y una suite a 155 metros bajo tierra en Sala. Todo con inglés perfecto, tarjeta en todo y trenes en los que se duerme. Lo malo: es cara, es enorme y hay que elegir entre la aurora y la luz.",
+  facts: {
+    capital: "Estocolmo",
+    population: 10_600_000,
+    areaKm2: 450_295,
+    languages: ["sueco", "inglés (lo habla todo el mundo, y bien)", "sami y finés en el norte"],
+    currency: { code: "SEK", name: "corona sueca", symbol: "kr" },
+    religions: "Luterano de tradición, ateo de práctica y pagano de calendario: Midsommar, Valborg y Lucía",
+    timezone: "UTC+1, verano UTC+2: la misma hora que en Barcelona",
+    plugTypes: ["C", "F"],
+    drivingSide: "derecha",
+    meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "alta", sources: [WIKI] }),
+  },
+  traits: { sovietico: false, brutalista: true, nieveFiable: true, distanciaCultural: 5, turismoMasivo: 3 },
+  inputs: {
+    circo: {
+      rareza: 7,
+      historia: 7,
+      oscuridad: 5,
+      arquitectura: 7,
+      naturaleza: 10,
+      folclore: 8,
+      festivales: 8,
+      aventura: 7,
+      fotografia: 8,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "media", sources: [PROPIO], notes: "Notas subjetivas para nuestra forma de viajar" }),
+    },
+    rail: {
+      calidad: 8,
+      cobertura: 7,
+      frecuencia: 6,
+      puntualidad: 6,
+      precio: 4,
+      facilidadBilletes: 8,
+      online: 9,
+      nocturnos: 9,
+      altaVelocidad: 6,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [SEAT61, SJ], notes: "Nocturnos excelentes; puntualidad en caída por obras; X2000 a 200 km/h no es alta velocidad de verdad" }),
+    },
+    bus: { cobertura: 7, fiabilidad: 8, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "Länstrafiken llega a todo, pero con dos o tres al día fuera de las ciudades" }) },
+    urban: { media: 8, meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "alta", sources: [PROPIO], notes: "Estocolmo y Gotemburgo, excelentes; Kiruna y Visby, a pie" }) },
+    apps: { cobertura: 9, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO] }) },
+    cost: {
+      daily: { low: 85, normal: 130, comfortable: 220 },
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [NUMBEO, PROPIO], notes: "El alcohol y los restaurantes de noche son lo que dispara la cuenta" }),
+    },
+    flights: {
+      direct: true,
+      directHours: 3.7,
+      directWeekly: 17,
+      lowCostDirect: true,
+      oneStopMinHours: 4.5,
+      oneStopDailyOptions: 8,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "Cuatro compañías a Arlanda; Gotemburgo y Malmö de temporada; Copenhague como puerta al sur" }),
+    },
+    docs: {
+      entry: "dni",
+      maxStayDays: 90,
+      insuranceMandatory: false,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [MAEC], notes: "Schengen y libre circulación UE; controles aleatorios en el puente de Öresund" }),
+    },
+    safety: {
+      delincuencia: 8.5,
+      robos: 8,
+      timos: 9,
+      zonasConflicto: 9,
+      terrorismo: 7.5,
+      transporte: 9,
+      camaraEnCalle: 9,
+      noche: 8.5,
+      solo: 9.5,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [MAEC, PROPIO], notes: "La violencia de bandas de la periferia no toca al que viaja; el frío ártico sí" }),
+    },
+    stability: { score: 9, meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [MAEC, WIKI], notes: "Gobierno de derechas con apoyo de la extrema derecha desde 2022; OTAN desde 2024; sin efecto en el viaje" }) },
+    digital: {
+      googleMaps: 2,
+      googleTranslate: 2,
+      tarjetas: 10,
+      contactless: 10,
+      efectivoNecesario: 1,
+      esim: 2,
+      cobertura: 9,
+      wifi: 9,
+      bloqueos: [],
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [PROPIO], notes: "El país sin efectivo: no cambies coronas, no las vas a usar" }),
+    },
+    language: {
+      ingles: 10,
+      alfabetoDistinto: false,
+      maquinasEnIngles: 10,
+      senaleticaBilingue: 8,
+      traductorFunciona: 10,
+      meta: meta({ lastUpdated: "2026-09-15", volatility: "estable", confidence: "alta", sources: [PROPIO], notes: "El mejor inglés del mundo fuera de los países anglófonos" }),
+    },
+  },
+  months: [
+    { month: 1, rating: "normal", tempMin: -4, tempMax: 0, precip: "media", snow: true, daylightHours: 6.5, crowds: "bajo", prices: "medio", reasons: ["🌌 El mes con más aurora y menos luz: 4 horas en Kiruna.", "🥶 −20 °C en el norte; el sur, gris y a cero.", "❄️ Festival de la Nieve de Kiruna a finales."], weatherAdds: "Kiruna con nieve azul a las dos de la tarde y aurora a las seis" },
+    { month: 2, rating: "bueno", tempMin: -4, tempMax: 0, precip: "media", snow: true, daylightHours: 9, crowds: "bajo", prices: "medio", reasons: ["🦌 Mercado de Jokkmokk el primer fin de semana.", "🌌 Aurora con días ya más largos; el Icehotel en su plenitud.", "🎿 Temporada alta en Laponia: reserva el nocturno."] },
+    { month: 3, rating: "bueno", tempMin: -2, tempMax: 4, precip: "baja", snow: true, daylightHours: 11.5, crowds: "bajo", prices: "medio", reasons: ["🏆 El mejor mes para Abisko: aurora, nieve y luz para ver el paisaje.", "🌤 Estocolmo empieza a despertar; sol frío y cielos limpios."] },
+    { month: 4, rating: "normal", tempMin: 1, tempMax: 9, precip: "media", snow: false, daylightHours: 14, crowds: "bajo", prices: "bajo", reasons: ["🔥 Valborg el 30 en Uppsala: la fiesta de la primavera.", "🟤 Deshielo y barro; el Icehotel se derrite."] },
+    { month: 5, rating: "bueno", tempMin: 6, tempMax: 16, precip: "baja", snow: false, daylightHours: 17, crowds: "bajo", prices: "medio", reasons: ["🌿 Luz hasta las diez y todo verde de golpe.", "⛴ Abren Birka y los barcos del archipiélago.", "👍 Antes de que los suecos se vayan de vacaciones."] },
+    { month: 6, rating: "excelente", tempMin: 11, tempMax: 21, precip: "media", snow: false, daylightHours: 18.5, crowds: "medio", prices: "alto", reasons: ["🌸 Midsommar: el país entero al campo con coronas de flores.", "☀️ Sol de medianoche en Kiruna: no anochece.", "🏆 El mes de la luz; cuesta dormir."], weatherAdds: "el nocturno al Ártico de día: no hay noche, ves la taiga entera" },
+    { month: 7, rating: "excelente", tempMin: 14, tempMax: 23, precip: "media", snow: false, daylightHours: 18, crowds: "medio", prices: "alto", reasons: ["☀️ Verano de verdad, 25 °C en Estocolmo y baño en el archipiélago.", "🏖 Los suecos de vacaciones: ciudades tranquilas, costa llena."] },
+    { month: 8, rating: "bueno", tempMin: 12, tempMax: 21, precip: "media", snow: false, daylightHours: 15.5, crowds: "medio", prices: "medio", reasons: ["🛡 Semana Medieval de Visby la primera semana.", "🦞 Fiesta de los cangrejos: gorros de papel y aguardiente.", "🌆 Vuelve la gente a las ciudades y bajan los precios."] },
+    { month: 9, rating: "bueno", tempMin: 8, tempMax: 16, precip: "media", snow: false, daylightHours: 12.5, crowds: "bajo", prices: "medio", reasons: ["🍂 Ruska: los colores de otoño en Laponia son de otro planeta.", "🌌 Vuelven las auroras con noches ya negras.", "👍 Precios de entretiempo y nadie."], weatherAdds: "Abisko en rojo y amarillo con las primeras auroras" },
+    { month: 10, rating: "normal", tempMin: 4, tempMax: 10, precip: "media", snow: true, daylightHours: 10, crowds: "bajo", prices: "bajo", reasons: ["🌫 Primera nieve en el norte, lluvia en el sur.", "🕯 Skogskyrkogården con niebla es media visita."] },
+    { month: 11, rating: "malo", tempMin: 0, tempMax: 5, precip: "alta", snow: true, daylightHours: 7.5, crowds: "bajo", prices: "bajo", reasons: ["💀 Oscuro, húmedo y sin nieve todavía: el peor mes con diferencia.", "🧊 Están construyendo el Icehotel: cerrado."] },
+    { month: 12, rating: "normal", tempMin: -3, tempMax: 1, precip: "media", snow: true, daylightHours: 6, crowds: "medio", prices: "medio", reasons: ["🕯 Lucía el 13 a las siete de la mañana, a oscuras.", "🧊 Abre el Icehotel.", "🎄 Mercados de Navidad y glögg; seis horas de luz en Estocolmo."] },
+  ],
+  festivals,
+  // Generado con `npm run data:stats -- se`; el test de deriva lo comprueba.
+  placeStats: {
+    total: 21,
+    byTier: { 1: 6, 2: 10, 3: 5 },
+    byCategory: { infrastructure: 1, disaster: 1, dark: 1, brutalism: 1, weird: 3, historical: 2, folklore: 3, industrial: 3, wtf: 1, nature: 2, war: 2, soviet: 1 },
+    accesoSinCocheMedio: 7.9,
+    excursiones: 12,
+    regiones: 11,
+    spreadKm: 1530,
+  },
+  fx: { rate: 11.3, asOf: "2026-09-15", meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [PROPIO], notes: "Corona sueca a ojo; mira el cambio del día, aunque no vas a tocar efectivo" }) },
+  map: { center: [62.5, 16.5], zoom: 5 },
+};

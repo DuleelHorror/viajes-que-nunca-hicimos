@@ -120,8 +120,8 @@ militares, futuristas ni mayúsculas constantes. ✅
 - **No inventar datos.** Separar datos permanentes de los que hay que actualizar (visados, seguridad,
   vuelos, cambio, precios, política, horarios, eventos, conexiones ferroviarias). Cada dato con `source`
   y `lastUpdated`. Arquitectura preparada para conectar APIs más adelante. ✅ (`meta` por sección)
-- **Países iniciales:** Italia ✅, Escocia ✅ (tratada aparte del Reino Unido), Austria ⏳, Japón ⏳,
-  Suecia ⏳, Uzbekistán ✅. **España y República Checa: descartadas por el usuario el 2026-09-15.**
+- **Países iniciales:** Italia ✅, Escocia ✅ (tratada aparte del Reino Unido), Austria ✅, Japón ✅,
+  Suecia ✅, Uzbekistán ✅. **España y República Checa: descartadas por el usuario el 2026-09-15.**
 - Uzbekistán: atención especial a Tashkent, Samarcanda, Bujará, Khiva, Nukus, Muynak, Mar de Aral, restos
   soviéticos, ferrocarril y posibilidad REAL de llegar sin conducir. ✅
 - Después, candidatos que encajen: Georgia, Armenia, Kazajistán, Rumanía, Albania, Bosnia, Serbia,

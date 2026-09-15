@@ -7,8 +7,10 @@ import { summary as uz } from "../src/data/countries/uz/summary";
 import { summary as sco } from "../src/data/countries/sco/summary";
 import { summary as it } from "../src/data/countries/it/summary";
 import { summary as at } from "../src/data/countries/at/summary";
+import { summary as se } from "../src/data/countries/se/summary";
+import { summary as jp } from "../src/data/countries/jp/summary";
 
-for (const s of [uz, sco, it, at]) {
+for (const s of [uz, sco, it, at, se, jp]) {
   const c = scoreCountry(s);
   console.log(`\n=== ${s.name}: DUKE ${c.duke.value}/100 (${c.duke.verdict}) · circo ${c.circo.value} · días ${c.days.ideal} (rápida ${c.days.quick.join("-")} · rec ${c.days.recommended.join("-")} · completa ${c.days.complete.join("-")})`);
   console.log(`  transporte ${c.transport.value} · rail ${c.rail.value} · sin coche ${c.noCar.value} ${c.noCar.light} · coste ${c.cost.value} · bcn ${c.bcn.value} · seguridad ${c.safety.value} · idioma ${c.language.value} · digital ${c.digital.value} · temporada ${c.season.value} · estabilidad ${c.stability}`);

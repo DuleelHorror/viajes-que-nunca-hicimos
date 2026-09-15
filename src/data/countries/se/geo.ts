@@ -1,0 +1,170 @@
+import type { Airport, City, MapRoute, RailCorridor } from "@/lib/schema";
+import { meta } from "@/lib/schema";
+
+const SEAT61 = { label: "The Man in Seat 61 · Sweden", url: "https://www.seat61.com/Sweden.htm", kind: "blog" as const };
+const SJ = { label: "SJ", url: "https://www.sj.se", kind: "oficial" as const };
+const railMeta = meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [SEAT61, SJ], notes: "Precios de SJ dinámicos: comprando con 2-3 meses cuestan la mitad" });
+
+export const cities: City[] = [
+  {
+    id: "se-estocolmo",
+    name: "Estocolmo",
+    coords: [59.3293, 18.0686],
+    isCapital: true,
+    population: 990_000,
+    urban: { modes: ["metro", "bus", "tranvia", "ferry", "a-pie"], score: 9, ticket: "≈ 4 € el sencillo de 75 min; 24 h por 16 €; se paga con la tarjeta del banco en el torno", app: "SL", note: "el metro es la visita; los ferris a las islas van con el mismo billete" },
+  },
+  {
+    id: "se-goteborg",
+    name: "Gotemburgo",
+    coords: [57.7089, 11.9746],
+    population: 600_000,
+    urban: { modes: ["tranvia", "bus", "ferry", "a-pie"], score: 8, ticket: "≈ 3,50 € / 90 min", app: "Västtrafik To Go", note: "tranvías azules a todas partes; ferris al archipiélago sur incluidos" },
+  },
+  {
+    id: "se-uppsala",
+    name: "Uppsala",
+    coords: [59.8586, 17.6389],
+    population: 240_000,
+    urban: { modes: ["bus", "a-pie"], score: 7, ticket: "≈ 3 € / 75 min", app: "UL", note: "40 minutos de Estocolmo en cercanías; el bus 2 va a los túmulos" },
+  },
+  {
+    id: "se-falun",
+    name: "Falun",
+    coords: [60.6065, 15.6355],
+    population: 40_000,
+    urban: { modes: ["a-pie", "bus"], score: 5, ticket: "la mina está a 20 minutos andando de la estación", note: "base para la mina y para Dalarna en Midsommar" },
+  },
+  {
+    id: "se-kiruna",
+    name: "Kiruna",
+    coords: [67.8558, 20.2253],
+    population: 18_000,
+    urban: { modes: ["bus", "taxi", "a-pie"], score: 5, ticket: "bus local ≈ 3 €; el 501 a Jukkasjärvi ≈ 6 €", note: "la estación está en las afueras (la vieja se la comió la mina); bus lanzadera al centro nuevo" },
+  },
+  {
+    id: "se-lulea",
+    name: "Luleå",
+    coords: [65.5848, 22.1567],
+    population: 80_000,
+    urban: { modes: ["bus", "a-pie"], score: 6, ticket: "≈ 3 € en bus; el 9 va a Gammelstad", note: "base para Boden y Gammelstad; a 30 min en tren de Boden" },
+  },
+  {
+    id: "se-visby",
+    name: "Visby",
+    coords: [57.6348, 18.2948],
+    population: 25_000,
+    urban: { modes: ["a-pie", "bus"], score: 5, ticket: "todo a pie dentro de la muralla; bus 20 a Fårösund ≈ 8 €", note: "ferry de 3 h desde Nynäshamn (bus desde Estocolmo incluido en el billete)" },
+  },
+  {
+    id: "se-malmo",
+    name: "Malmö",
+    coords: [55.605, 13.0038],
+    population: 360_000,
+    urban: { modes: ["bus", "tren", "a-pie"], score: 8, ticket: "≈ 3 € en bus; el tren a Copenhague cruza el puente en 35 min", app: "Skånetrafiken", note: "entrar por Copenhague suele ser más barato que por Malmö" },
+  },
+  {
+    id: "se-karlskrona",
+    name: "Karlskrona",
+    coords: [56.1612, 15.5869],
+    population: 66_000,
+    urban: { modes: ["a-pie", "bus", "ferry"], score: 6, ticket: "≈ 3 €; la ciudad es un archipiélago de islas unidas por puentes", note: "estación en el centro, final de la línea desde Malmö" },
+  },
+];
+
+export const airports: Airport[] = [
+  { code: "ARN", name: "Estocolmo Arlanda", cityId: "se-estocolmo", coords: [59.6519, 17.9186], international: true },
+  { code: "NYO", name: "Estocolmo Skavsta (a 100 km, de Ryanair)", cityId: "se-estocolmo", coords: [58.7886, 16.9122], international: true },
+  { code: "GOT", name: "Gotemburgo Landvetter", cityId: "se-goteborg", coords: [57.6628, 12.2798], international: true },
+  { code: "MMX", name: "Malmö Sturup", cityId: "se-malmo", coords: [55.5363, 13.3762], international: true },
+  { code: "KRN", name: "Kiruna", cityId: "se-kiruna", coords: [67.822, 20.3368], international: false },
+  { code: "LLA", name: "Luleå Kallax", cityId: "se-lulea", coords: [65.5436, 22.122], international: false },
+  { code: "VBY", name: "Visby", cityId: "se-visby", coords: [57.6628, 18.3462], international: false },
+];
+
+export const railCorridors: RailCorridor[] = [
+  {
+    id: "se-nocturno-norrland",
+    name: "El nocturno del Ártico: Estocolmo → Boden → Kiruna → Narvik",
+    stops: ["se-estocolmo", "se-kiruna"],
+    kind: "nocturno",
+    frequency: "diario (dos en verano)",
+    durationNote: "≈ 15-17 h hasta Kiruna; sigue a Abisko y a Narvik (Noruega) por la mañana, con las mejores vistas del viaje",
+    price: "de 50 € en asiento a 200 € en cabina privada con ducha",
+    operator: "SJ (con Vy en algunos tramos)",
+    booking: "sj.se con 2-3 meses; en invierno y en Midsommar se agota. Litera en compartimento de 6 es la opción lógica",
+    quality: 8,
+    meta: meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "media", sources: [SEAT61, SJ], notes: "El tren se parte en Boden: una mitad a Luleå y otra a Kiruna–Narvik. Mira en qué coche vas" }),
+  },
+  {
+    id: "se-x2000-goteborg",
+    name: "X2000 Estocolmo–Gotemburgo",
+    stops: ["se-estocolmo", "se-goteborg"],
+    kind: "alta-velocidad",
+    frequency: "cada hora",
+    durationNote: "3 h a 200 km/h con el tren basculante; MTRX es la competencia privada",
+    price: "de 25 € con antelación a 110 € el mismo día",
+    operator: "SJ y MTRX",
+    booking: "sj.se o mtrx.se; reserva obligatoria",
+    quality: 8,
+    meta: railMeta,
+  },
+  {
+    id: "se-x2000-malmo",
+    name: "X2000 Estocolmo–Malmö (y Copenhague)",
+    stops: ["se-estocolmo", "se-malmo"],
+    kind: "alta-velocidad",
+    frequency: "cada 1-2 h",
+    durationNote: "4 h 30; muchos siguen a Copenhague cruzando el puente de Öresund",
+    price: "de 30 € a 120 €",
+    operator: "SJ",
+    booking: "sj.se; también hay nocturno Estocolmo–Malmö si prefieres dormir",
+    quality: 8,
+    meta: railMeta,
+  },
+  {
+    id: "se-dalabanan",
+    name: "Dalabanan: Estocolmo–Uppsala–Sala–Falun",
+    stops: ["se-estocolmo", "se-uppsala", "se-falun"],
+    kind: "intercity",
+    frequency: "cada 1-2 h",
+    durationNote: "Estocolmo–Uppsala 40 min · Uppsala–Falun 1 h 45, parando en Sala",
+    price: "≈ 15-35 €",
+    operator: "SJ (Intercity y regionales)",
+    booking: "sj.se; los regionales a Uppsala, sin reserva",
+    quality: 7,
+    meta: railMeta,
+  },
+  {
+    id: "se-norrtag-lulea-kiruna",
+    name: "Norrtåg de día: Luleå–Boden–Gällivare–Kiruna",
+    stops: ["se-lulea", "se-kiruna"],
+    kind: "regional",
+    frequency: "2-3 al día",
+    durationNote: "≈ 3 h 30 por la taiga, con parada en Boden y Gällivare",
+    price: "≈ 25-40 €",
+    operator: "Norrtåg / Vy",
+    booking: "norrtag.se o en la app de SJ; sin reserva",
+    quality: 6,
+    meta: railMeta,
+  },
+  {
+    id: "se-oresundstag",
+    name: "Öresundståg: Gotemburgo–Malmö–Karlskrona",
+    stops: ["se-goteborg", "se-malmo", "se-karlskrona"],
+    kind: "regional",
+    frequency: "cada hora",
+    durationNote: "Gotemburgo–Malmö 2 h 40 · Malmö–Karlskrona 3 h por la costa",
+    price: "≈ 20-40 €",
+    operator: "Öresundståg (Skånetrafiken) y SJ",
+    booking: "app de Skånetrafiken o SJ; sin reserva en los regionales",
+    quality: 7,
+    meta: railMeta,
+  },
+];
+
+export const mapRoutes: MapRoute[] = [
+  { id: "se-ferry-visby", label: "Bus + ferry Estocolmo → Nynäshamn → Visby", from: "se-estocolmo", to: "se-visby", mode: "ferry", note: "3 h 15 de barco; el bus desde Cityterminalen va incluido en el billete de Destination Gotland" },
+  { id: "se-vuelo-kiruna", label: "Vuelo Estocolmo → Kiruna", from: "se-estocolmo", to: "se-kiruna", mode: "avion", note: "1 h 35 con SAS o Norwegian; la alternativa cuando el nocturno está lleno" },
+  { id: "se-vuelo-lulea", label: "Vuelo Luleå → Estocolmo", from: "se-lulea", to: "se-estocolmo", mode: "avion", note: "1 h 20, varios al día; para no rehacer el nocturno a la vuelta" },
+];

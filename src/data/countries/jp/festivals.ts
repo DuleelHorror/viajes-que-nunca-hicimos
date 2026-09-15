@@ -1,0 +1,118 @@
+import type { Festival } from "@/lib/schema";
+import { meta } from "@/lib/schema";
+
+const PROPIO = { label: "Lo hemos escrito nosotros", kind: "propio" as const };
+const WIKI = (url: string) => ({ label: "Wikipedia", url, kind: "wiki" as const });
+const f = (notes?: string, confidence: "alta" | "media" | "baja" = "media") =>
+  meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence, sources: [PROPIO], notes });
+
+export const festivals: Festival[] = [
+  {
+    id: "jp-nozawa-dosojin",
+    name: "Festival del fuego de Nozawa Onsen",
+    city: "Nozawa Onsen",
+    regionName: "Nagano",
+    coords: [36.9236, 138.4419],
+    month: 1,
+    dateApprox: "15 de enero, de noche",
+    durationDays: 1,
+    category: "folklore",
+    whatHappens:
+      "Los hombres del pueblo de 25 años construyen durante días un santuario de madera de 18 metros. Los de 42 se suben encima. Los de 25 lo defienden desde abajo con ramas de pino mientras el resto del pueblo, borracho de sake, intenta prenderle fuego con antorchas. Dos horas de batalla a −10 °C entre nieve, chispas y cánticos, hasta que el santuario arde entero con la gente encima bajándose a tiempo (más o menos). Es de las tres grandes fiestas del fuego de Japón y no se parece a nada.",
+    scores: { rareza: 10, espectacularidad: 10, facilidadAcceso: 6, nivelTurismo: 6 },
+    planTripAround: true,
+    needsBooking: "Shinkansen a Iiyama y bus 25 min; el pueblo es estación de esquí y se llena: ryokan con meses de antelación",
+    links: [WIKI("https://en.wikipedia.org/wiki/Nozawa_Onsen#Dosojin_Fire_Festival")],
+    meta: f(),
+  },
+  {
+    id: "jp-hadaka-matsuri-saidaiji",
+    name: "Hadaka Matsuri de Saidaiji",
+    city: "Okayama",
+    regionName: "Okayama",
+    coords: [34.6483, 134.0384],
+    month: 2,
+    dateApprox: "tercer sábado de febrero, de noche",
+    durationDays: 1,
+    category: "folklore",
+    whatHappens:
+      "Diez mil hombres en taparrabos, en pleno febrero, se pelean durante una hora en el patio de un templo por dos palos sagrados de 20 cm que un sacerdote lanza a oscuras desde una ventana. Quien saca uno de la masa y lo mete en un cubo de arroz tiene un año de suerte. Se empujan, se hunden, se pisan; hay heridos casi cada año y hace 500 que dura. Se ve desde gradas de pago alrededor. La versión de Inazawa (Nagoya) es aún más bruta.",
+    scores: { rareza: 10, espectacularidad: 9, facilidadAcceso: 8, nivelTurismo: 5 },
+    planTripAround: true,
+    needsBooking: "Okayama está en el Shinkansen; tren local a Saidaiji (20 min). Entradas de grada online",
+    links: [WIKI("https://en.wikipedia.org/wiki/Hadaka_Matsuri")],
+    meta: f(),
+  },
+  {
+    id: "jp-kanamara-matsuri",
+    name: "Kanamara Matsuri, el festival del pene de hierro",
+    city: "Kawasaki",
+    regionName: "Kanagawa",
+    coords: [35.5325, 139.7108],
+    month: 4,
+    dateApprox: "primer domingo de abril (5 de abril en 2026)",
+    durationDays: 1,
+    category: "festival",
+    whatHappens:
+      "Tres falos gigantes (uno de hierro negro, uno de madera y el rosa Elizabeth, que llevan los travestis de un bar de Tokio) desfilan a hombros por Kawasaki desde un santuario que las prostitutas del barrio usaban en el XVII para pedir protección contra la sífilis. Hoy recauda para la investigación del sida y vende caramelos, velas y rábanos tallados con la forma que te imaginas. Coincide con los cerezos. Va mucho guiri, pero es sincero y muy japonés en su normalidad.",
+    scores: { rareza: 10, espectacularidad: 8, facilidadAcceso: 10, nivelTurismo: 8 },
+    planTripAround: true,
+    needsBooking: "Sin entradas: tren Keikyu desde Shinagawa a Kawasaki-Daishi, 30 min; llega antes de las 10",
+    links: [WIKI("https://es.wikipedia.org/wiki/Kanamara_Matsuri")],
+    meta: f("Primer domingo de abril: comprobar cada año", "alta"),
+  },
+  {
+    id: "jp-onbashira",
+    name: "Onbashira: bajar troncos gigantes con gente encima",
+    city: "Suwa",
+    regionName: "Nagano",
+    coords: [36.0391, 138.1148],
+    month: 4,
+    dateApprox: "abril y mayo, solo cada seis años (el próximo, 2028)",
+    durationDays: 1,
+    category: "folklore",
+    whatHappens:
+      "Cada seis años cortan 16 abetos de 17 metros y 10 toneladas y los bajan a pulso desde la montaña hasta los santuarios de Suwa: el momento gordo es cuando lanzan cada tronco por una pendiente de 35 grados con decenas de hombres montados encima como en un rodeo, y luego los levantan en vertical con gente colgando de la punta. Muere alguien casi cada edición. Lleva 1.200 años haciéndose y no se va a parar.",
+    scores: { rareza: 10, espectacularidad: 10, facilidadAcceso: 6, nivelTurismo: 7 },
+    planTripAround: true,
+    needsBooking: "Solo 2028; expreso Azusa desde Shinjuku a Kami-Suwa (2 h 15); alojamiento con un año",
+    links: [WIKI("https://en.wikipedia.org/wiki/Onbashira")],
+    meta: f("Sexenal: la próxima edición es 2028"),
+  },
+  {
+    id: "jp-osorezan-taisai",
+    name: "Gran festival de Osorezan: las médiums itako",
+    city: "Mutsu",
+    regionName: "Aomori",
+    coords: [41.327, 141.092],
+    month: 7,
+    dateApprox: "del 20 al 24 de julio (y del 9 al 11 de octubre)",
+    durationDays: 5,
+    category: "occult",
+    whatHappens:
+      "Durante cinco días, en el templo del cráter del infierno, las itako (médiums tradicionalmente ciegas, quedan cuatro) se sientan bajo toldos y canalizan a los muertos de quien haga cola: por 3.000 yenes hablas con tu abuela. Hay procesiones de monjes con máscaras, gente lavando estatuas de Jizō con agua del lago del más allá y molinillos girando por todo el azufre. Turismo casi nulo y una atmósfera que no se olvida.",
+    scores: { rareza: 10, espectacularidad: 8, facilidadAcceso: 4, nivelTurismo: 2 },
+    planTripAround: true,
+    needsBooking: "Dormir en el templo (Bodaiji) o en Mutsu; el bus de Shimokita va lleno esos días",
+    links: [WIKI("https://es.wikipedia.org/wiki/Monte_Osore")],
+    meta: f("Las colas para las itako son de horas: a primera hora"),
+  },
+  {
+    id: "jp-nebuta-aomori",
+    name: "Nebuta Matsuri de Aomori",
+    city: "Aomori",
+    regionName: "Aomori",
+    coords: [40.8246, 140.7406],
+    month: 8,
+    dateApprox: "del 2 al 7 de agosto",
+    durationDays: 6,
+    category: "festival",
+    whatHappens:
+      "Carrozas de papel de nueve metros con guerreros y demonios iluminados desde dentro, arrastradas por la ciudad entre miles de bailarines saltando y gritando «rassera» con cascabeles en el traje. Cualquiera puede bailar si va vestido de haneto (se alquila el traje por 4.000 yenes). La última noche las carrozas salen al mar en barcazas con fuegos artificiales. Dos millones de personas en una ciudad de 270.000.",
+    scores: { rareza: 8, espectacularidad: 10, facilidadAcceso: 8, nivelTurismo: 8 },
+    planTripAround: true,
+    needsBooking: "Hoteles de Aomori agotados con un año; dormir en Hirosaki o Hachinohe y venir en tren. Combina con Osorezan, a dos horas",
+    links: [WIKI("https://es.wikipedia.org/wiki/Nebuta_Matsuri")],
+    meta: f(),
+  },
+];

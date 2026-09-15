@@ -99,9 +99,10 @@ trailers de coautoría de Claude.
   Todos los pesos viven en **`weights.ts`** (única fuente de verdad); cada función devuelve
   `{ value, breakdown }` y el desglose se renderiza en `WhyPopover` y en `/metodologia`.
   - Circo Score 0-10 (10 sub-scores; "cantidad de lugares" se calcula de `placeStats`).
-  - Duke Score 0-100 = suma de puntos con máximos (circo 35, sin coche 15, coste 10, transporte 8,
-    seguridad 8, BCN 6, temporada 6, idioma 4, digital 4, estabilidad 4) − penalizaciones.
-    Veredicto 🔥 ≥ 72 · 👍 ≥ 58 · 🤔 ≥ 45. Calibrado con 2 países: **recalibrar cuando haya 8**.
+  - Duke Score 0-100 = suma de puntos con máximos (circo 40 con curva `^1.3`, sin coche 15, coste 9,
+    transporte 8, seguridad 7, BCN 5, temporada 5, idioma 4, digital 4, estabilidad 3) − penalizaciones.
+    Veredicto 🔥 ≥ 76 · 👍 ≥ 62 · 🤔 ≥ 48. Recalibrado el 2026-09-15 con seis países (ver audit); volver a
+    mirar cuando entren los del radar, que bajarán de 70.
   - Días ideales: fórmula en `days.ts` (base + sitios por tier + km/transporte + excursiones +
     regiones + festival + coste), acotada 5-18. Calibrada: Uzbekistán 13, Escocia 12.
 - **Buscador** (`src/lib/finder/rank.ts`): puro, explica cada componente; 🔴 sin coche se excluye si
@@ -164,17 +165,17 @@ trailers de coautoría de Claude.
 
 ## Pendiente conocido
 
-- Países restantes de v1: Austria, Japón y Suecia (el usuario descartó España y República Checa);
-  después los del radar
+- v1 completa (Uzbekistán, Escocia, Italia, Austria, Suecia, Japón; España y Chequia descartadas). Siguientes:
+  los del radar
   (`src/data/candidates.ts`). Objetivo por país: 12-22 sitios, 3-6 festivales, 2-3 rutas, todo con la voz de `docs/TONO.md`.
 - Verificar con fuentes web los bloques volátiles (visados, vuelos directos, cambio) antes de fiarse.
-- Recalibrar pesos del Duke y de los días con los 8 países cargados (`npx tsx scripts/print-scores.ts`).
+- Volver a mirar los pesos cuando entren países del radar (`npx tsx scripts/print-scores.ts`).
 - Fotos de sitios solo con licencia y crédito verificados (campo `image` de `Place`).
 
 ## Estado al cierre de la última sesión (2026-09-15)
 
 - Publicado en https://duleelhorror.github.io/viajes-que-nunca-hicimos/ (Pages por Actions, `build_type=workflow`).
-- Uzbekistán (Duke 71, "Sí", 13 días), Escocia (Duke 75, "Mucho", 12 días) e Italia (Duke 76, "Mucho", 16 días).
+- Seis países: Italia 78 🔥, Austria 78 🔥, Japón 77 🔥, Escocia 75 👍, Suecia 72 👍, Uzbekistán 71 👍. 51 tests.
 - Voz, tipografía (Inter + Manrope), banderas por imagen, escalera de días y sala de gráficas implementadas.
 - Mapa base rehecho: vectorial propio sin API key, con escala, botón "Encuadrar" y encuadre automático.
 - Italia completa (Duke 76, "Mucho", 16 días): 23 sitios, 6 festivales, 3 rutas. 30 tests en verde.

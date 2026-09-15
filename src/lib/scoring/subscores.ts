@@ -18,6 +18,7 @@ import {
   RAIL_WEIGHTS,
   SAFETY_COMPOSITE,
   SAFETY_WEIGHTS,
+  SEASON_FULL_MONTHS,
   TIER_WEIGHTS,
   TRANSPORT_WEIGHTS,
 } from "./weights";
@@ -269,12 +270,14 @@ export function digitalEase(d: ScoreInputs["digital"]): ScoreResult {
 export function seasonScore(months: MonthRating[]): ScoreResult {
   const exc = months.filter((m) => m.rating === "excelente").length;
   const good = months.filter((m) => m.rating === "bueno").length;
-  const value = ((exc + 0.5 * good) / 12) * 10;
+  // Con SEASON_FULL_MONTHS meses buenos equivalentes ya vale 10: nadie tiene doce meses excelentes.
+  const value = clamp(((exc + 0.5 * good) / SEASON_FULL_MONTHS) * 10, 0, 10);
   return {
     value: round(value),
     breakdown: [
-      row("exc", "Meses excelentes (×1)", (exc / 12) * 10, 10, { input: exc }),
-      row("good", "Meses buenos (×0,5)", ((0.5 * good) / 12) * 10, 10, { input: good }),
+      row("exc", "Meses excelentes (×1)", (exc / SEASON_FULL_MONTHS) * 10, 10, { input: exc }),
+      row("good", "Meses buenos (×0,5)", ((0.5 * good) / SEASON_FULL_MONTHS) * 10, 10, { input: good }),
+      row("cap", `${SEASON_FULL_MONTHS} meses buenos equivalentes = 10`, 0, 0),
     ],
   };
 }
