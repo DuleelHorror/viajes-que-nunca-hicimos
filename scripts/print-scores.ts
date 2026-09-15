@@ -9,8 +9,10 @@ import { summary as it } from "../src/data/countries/it/summary";
 import { summary as at } from "../src/data/countries/at/summary";
 import { summary as se } from "../src/data/countries/se/summary";
 import { summary as jp } from "../src/data/countries/jp/summary";
+import { summary as ge } from "../src/data/countries/ge/summary";
+import { summary as am } from "../src/data/countries/am/summary";
 
-for (const s of [uz, sco, it, at, se, jp]) {
+for (const s of [uz, sco, it, at, se, jp, ge, am]) {
   const c = scoreCountry(s);
   console.log(`\n=== ${s.name}: DUKE ${c.duke.value}/100 (${c.duke.verdict}) · circo ${c.circo.value} · días ${c.days.ideal} (rápida ${c.days.quick.join("-")} · rec ${c.days.recommended.join("-")} · completa ${c.days.complete.join("-")})`);
   console.log(`  transporte ${c.transport.value} · rail ${c.rail.value} · sin coche ${c.noCar.value} ${c.noCar.light} · coste ${c.cost.value} · bcn ${c.bcn.value} · seguridad ${c.safety.value} · idioma ${c.language.value} · digital ${c.digital.value} · temporada ${c.season.value} · estabilidad ${c.stability}`);

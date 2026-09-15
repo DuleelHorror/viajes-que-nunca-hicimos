@@ -11,8 +11,6 @@ export interface Candidate {
 }
 
 export const CANDIDATES: Candidate[] = [
-  { id: "ge", name: "Georgia", flag: "🇬🇪", why: "Sanatorios soviéticos abandonados en Tskaltubo, teleféricos oxidados en Chiatura, el museo de Stalin en Gori y monasterios colgados de acantilados. Mucha mandanga.", hooks: ["soviet", "abandoned", "nature"] },
-  { id: "am", name: "Armenia", flag: "🇦🇲", why: "Brutalismo de Ereván, un radiotelescopio soviético tirado en el monte, monasterios en gargantas y la memoria del genocidio. Pequeño, denso y barato.", hooks: ["soviet", "brutalism", "dark"] },
   { id: "kz", name: "Kazajistán", flag: "🇰🇿", why: "Baikonur, el polígono nuclear de Semipalátinsk, el otro lado del Aral, Astaná futurista y estepa hasta aburrir. Enorme: sin coche va a ser un circo.", hooks: ["soviet", "disaster", "wtf"] },
   { id: "ro", name: "Rumanía", flag: "🇷🇴", why: "Drácula y folclore de verdad, el Palacio del Parlamento, el cementerio alegre de Săpânța y minas de sal como catedrales. Tren lento pero llega.", hooks: ["folklore", "brutalism", "occult"] },
   { id: "al", name: "Albania", flag: "🇦🇱", why: "173.000 búnkeres de Hoxha, Bunk'Art bajo Tirana, pueblos de piedra medio vacíos y playas sin masificar. Buses raros, pero funcionan.", hooks: ["soviet", "dark", "abandoned"] },
