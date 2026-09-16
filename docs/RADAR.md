@@ -253,3 +253,11 @@ tarjeta de llegada digital (e-Arrival) obligatoria. Pasaporte.
    con Kazajistán y Uzbekistán. 3. Hungría + Eslovaquia como pareja (Budapest–Bratislava en 2 h 30 de
    tren). 4. Macedonia + Montenegro como pareja balcánica (Skopje–Podgorica en bus). 5. Corea, cuando
    se sepa qué pasa con el JSA.
+
+---
+
+## Estado
+Los ocho tienen ficha completa desde el 2026-09-16 (commits `21a3b24`, `2286f52`, `877eaff` y `70f3992`).
+Lo marcado como `baja` aquí (JSA, SeMA Bunker, permisos) está en `meta.notes` de cada sitio. El tercer
+radar (Alemania del Este, Grecia, Eslovenia, Croacia, Finlandia, Chipre) está en `src/data/candidates.ts`
+sin investigar todavía.

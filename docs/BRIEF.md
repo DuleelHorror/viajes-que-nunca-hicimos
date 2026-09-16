@@ -126,8 +126,10 @@ militares, futuristas ni mayúsculas constantes. ✅
   soviéticos, ferrocarril y posibilidad REAL de llegar sin conducir. ✅
 - Después, candidatos que encajen: Georgia ✅, Armenia ✅, Kazajistán ✅, Rumanía ✅, Albania ✅,
   Bosnia ✅, Serbia ✅, Moldavia ✅, Bulgaria ✅, Estonia ✅, Letonia ✅, Lituania ✅, Mongolia ✅,
-  China ✅ (los catorce con ficha completa el 2026-09-16). Nuevo radar: Kirguistán, Turquía, Polonia,
-  Hungría, Eslovaquia, Macedonia del Norte, Montenegro, Corea del Sur. ⏳
+  China ✅ (los catorce con ficha completa el 2026-09-16). Segundo radar: Kirguistán ✅, Turquía ✅,
+  Polonia ✅, Hungría ✅, Eslovaquia ✅, Macedonia del Norte ✅, Montenegro ✅, Corea del Sur ✅ (los ocho
+  con ficha el 2026-09-16). Tercer radar: Alemania (el Este), Grecia, Eslovenia, Croacia, Finlandia,
+  Chipre. ⏳
 
 ## 9. Otras reglas del usuario
 

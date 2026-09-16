@@ -1,0 +1,65 @@
+# Las ocho fichas del segundo radar
+
+## Fecha
+2026-09-16 (Europe/Madrid)
+
+## Contexto / origen del cambio
+Tras cerrar los catorce países del primer radar, el usuario pidió "pues investiga" (dossier en
+`docs/RADAR.md`, commit `7e6e67b`) y después "sigue con lo que toca hacer de la app": escribir las fichas
+de los ocho candidatos en el orden que el propio dossier proponía. Cuatro commits: Polonia y Turquía
+(`21a3b24`), Kirguistán (`2286f52`), Hungría y Eslovaquia (`877eaff`), Macedonia del Norte, Montenegro y
+Corea del Sur (`70f3992`). Esta auditoría cubre los ocho y el cierre (radar nuevo, docs).
+
+## Archivos modificados
+- `src/data/countries/{pl,tr,kg,hu,sk,mk,me,kr}/*` (nuevos): 7 archivos por país.
+- `src/data/registry.ts`, `src/data/__tests__/consistency.test.ts`, `scripts/print-scores.ts`,
+  `src/lib/geo/archiveMap.ts`: registro (script de sesión `register.py`, el mismo de la tanda anterior).
+- `src/data/candidates.ts`: vacío tras el traspaso; se siembra un tercer radar de seis (Alemania del Este,
+  Grecia, Eslovenia, Croacia, Finlandia, Chipre) con sus ISO numéricos en `CANDIDATE_NUMERIC`, para que
+  la home y el mapa sigan contando el estado real del proyecto. Sin investigar aún: los ganchos son lo
+  que sabemos con seguridad y llevan su "lo malo".
+- `src/pages/HomePage.tsx`: la sección "En el radar" se oculta si no hay candidatos (antes pintaba un
+  título con una rejilla vacía).
+- `docs/RADAR.md` (estado al final), `CLAUDE.md` y `docs/BRIEF.md` (estado: 28 fichas, 6 en el radar).
+
+## Volumen
+8 países · 96 sitios circo (12 por país) · 32 festivales · 24 rutas (noches = días) · 80 secciones.
+205 tests en verde; `tsc` y `npm run build` limpios.
+
+## Decisiones de contenido (lo verificado en la investigación y cómo se ha usado)
+- **Polonia**: el corredor Białogard–Podborsko (búnkeres nucleares) se escribe como corredor
+  Varsovia–Białogard con el ramal en el texto porque el esquema exige dos paradas. Nowa Huta, Wolfsschanze
+  y Gdańsk con el tren PKP Intercity en app.
+- **Turquía**: DNI no vale (pasaporte, sin visado 90 días); YHT Ankara–Estambul; Kayaköy, Ani (bus
+  desde Kars) y el Doğu Ekspresi como corredor estrella. Precios en liras marcados como volátiles.
+- **Kirguistán**: 30 días en 60 desde el 31/12/2025 (corregido en el dossier y en la ficha); un único
+  corredor ferroviario (el tren de verano Bishkek–Balykchy); todo lo demás en marshrutka. Score 67.
+- **Hungría / Eslovaquia**: pareja Budapest–Bratislava; rutas de 4 días con la misma ciudad en dos
+  paradas porque el esquema exige dos; `mapRoutes` transfronterizos eliminados por engañosos.
+- **Macedonia del Norte**: Skopje 2014 parado en 2018 y "en retirada lenta" (`alta`, con nota);
+  Correos de Konstantinov sin techo desde el incendio de 2013; un solo tren útil (Skopje–Bitola, 4 al
+  día desde las 14:30); Kruševo con 3 buses; Galičnik solo con los buses de la boda.
+- **Montenegro**: el hotel Fjord se cuenta como perdido (demolido en 2018) y Mamula como hotel de
+  lujo (Banyan Tree): el sitio se llama "donde estuvo el hotel Fjord" y lo dice. DNI 30 días, no 90.
+  Vueling a Tivat solo julio-septiembre. Trenes Bar–Podgorica 2,40 € y ramal a Nikšić.
+- **Corea del Sur**: el JSA sigue cerrado a civiles desde julio de 2023 y la ficha lo repite en el
+  sitio de la DMZ, en política y en el veredicto; el SeMA Bunker va con `confidence: "baja"` y cerrado
+  desde el 13/01/2025; Seodaemun con la nota de obras. K-ETA exenta hasta el 31/12/2026 (`entry:
+  "pasaporte"`; el esquema no tiene "sin visado"). Google Maps se declara bloqueado para rutas.
+- Taglines recortadas a ≤ 90 en mk y me; `nights` corregidas en la ruta de 8 días de Corea.
+
+## Puntuaciones (Duke) tras la tanda
+Polonia 79 🔥 · Turquía 76 🔥 · Eslovaquia 75 · Corea del Sur 74 · Hungría 73 · Macedonia del Norte 69
+· Montenegro 69 · Kirguistán 67. Ninguno baja de 62: los pesos de 2026-09-15 aguantan con 28 países;
+no se han tocado.
+
+## Verificación
+- `npx tsc --noEmit`, `npx vitest run` (205), `npm run build`: en verde tras cada commit.
+- Sitio publicado: comprobación con Playwright (Edge) de la home (mapa con 28 fichas y 6 en el radar,
+  clic en un país nuevo) y de la ficha de Corea del Sur tras el push. El resultado va en el mensaje de
+  cierre de la sesión.
+
+## Pendiente
+- Investigar el tercer radar antes de escribirlo (mismo método que `docs/RADAR.md`).
+- Revisar los `confidence: "baja"` cuando haya novedades: JSA, SeMA Bunker, permisos de Semipalátinsk y
+  Baikonur, exenciones de visado temporales (China, Mongolia, Corea).

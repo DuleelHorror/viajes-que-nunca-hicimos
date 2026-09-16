@@ -42,6 +42,12 @@ export const FICHA_NUMERIC: Record<string, string> = {
 
 /** Los del radar (`data/candidates.ts`), por su alpha-2. */
 export const CANDIDATE_NUMERIC: Record<string, string> = {
+  de: "276",
+  gr: "300",
+  si: "705",
+  hr: "191",
+  fi: "246",
+  cy: "196",
 };
 
 export type MapFeature = Feature<Geometry, { name?: string }>;

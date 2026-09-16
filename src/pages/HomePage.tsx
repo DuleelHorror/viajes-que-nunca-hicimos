@@ -194,6 +194,7 @@ export function HomePage() {
         </section>
       )}
 
+      {CANDIDATES.length > 0 && (
       <section className="space-y-4">
         <SectionHeader
           title="En el radar"
@@ -230,6 +231,7 @@ export function HomePage() {
           de caducidad a la vista.
         </p>
       </section>
+      )}
     </div>
   );
 }
