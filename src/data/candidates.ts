@@ -11,12 +11,9 @@ export interface Candidate {
 }
 
 export const CANDIDATES: Candidate[] = [
-  { id: "ro", name: "Rumanía", flag: "🇷🇴", why: "Drácula y folclore de verdad, el Palacio del Parlamento, el cementerio alegre de Săpânța y minas de sal como catedrales. Tren lento pero llega.", hooks: ["folklore", "brutalism", "occult"] },
   { id: "al", name: "Albania", flag: "🇦🇱", why: "173.000 búnkeres de Hoxha, Bunk'Art bajo Tirana, pueblos de piedra medio vacíos y playas sin masificar. Buses raros, pero funcionan.", hooks: ["soviet", "dark", "abandoned"] },
   { id: "ba", name: "Bosnia y Herzegovina", flag: "🇧🇦", why: "Sarajevo y el túnel de la guerra, la pista de bobsleigh abandonada de los Juegos del 84, Mostar y spomeniks yugoslavos. Historia turbia reciente.", hooks: ["war", "abandoned", "brutalism"] },
-  { id: "rs", name: "Serbia", flag: "🇷🇸", why: "Spomeniks, brutalismo de Novi Beograd, edificios bombardeados por la OTAN aún en pie y la Casa de las Flores de Tito.", hooks: ["brutalism", "war", "soviet"] },
   { id: "md", name: "Moldavia", flag: "🇲🇩", why: "Transnistria: un país que no existe con la URSS intacta, más bodegas subterráneas del tamaño de una ciudad. Rareza pura.", hooks: ["soviet", "wtf", "weird"] },
-  { id: "bg", name: "Bulgaria", flag: "🇧🇬", why: "Buzludzha (el platillo volante comunista), el museo del socialismo, los Kukeri (demonios de invierno) y ruinas tracias. Barato y raro.", hooks: ["brutalism", "folklore", "abandoned"] },
   { id: "ee", name: "Estonia", flag: "🇪🇪", why: "La prisión de Patarei, la cantera sumergida de Rummu, bases soviéticas en Paldiski y un Tallin medieval y digital. Todo a tiro de bus.", hooks: ["soviet", "abandoned", "dark"] },
   { id: "lv", name: "Letonia", flag: "🇱🇻", why: "Karosta y su cárcel donde puedes dormir, una base de radar soviética, Riga modernista y bosques con leyendas.", hooks: ["soviet", "dark", "folklore"] },
   { id: "lt", name: "Lituania", flag: "🇱🇹", why: "La Colina de las Cruces, Grūtas Park (estatuas soviéticas en un parque), un silo nuclear en Plokštinė y el museo del KGB.", hooks: ["soviet", "occult", "dark"] },
