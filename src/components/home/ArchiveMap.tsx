@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -68,15 +68,6 @@ export default function ArchiveMap() {
     moved: boolean;
   } | null>(null);
 
-  /** Coordenadas del ratón en unidades del viewBox. */
-  const toSvg = (clientX: number, clientY: number): [number, number] => {
-    const r = svgRef.current?.getBoundingClientRect();
-    if (!r) return [0, 0];
-    return [
-      ((clientX - r.left) / r.width) * W,
-      ((clientY - r.top) / r.height) * H,
-    ];
-  };
   const zoomAt = (factor: number, px: number, py: number) =>
     setView((v) => {
       const k = Math.min(8, Math.max(1, v.k * factor));
@@ -84,12 +75,24 @@ export default function ArchiveMap() {
       const ratio = k / v.k;
       return { k, x: px - (px - v.x) * ratio, y: py - (py - v.y) * ratio };
     });
-  const onWheel = (e: React.WheelEvent<SVGSVGElement>) => {
-    if (!unlocked) return;
-    e.preventDefault();
-    const [px, py] = toSvg(e.clientX, e.clientY);
-    zoomAt(e.deltaY < 0 ? 1.2 : 1 / 1.2, px, py);
-  };
+  // React registra onWheel como listener pasivo, así que preventDefault no
+  // frena el scroll de la página: se engancha a mano, no pasivo, solo con el
+  // mapa desbloqueado.
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg || !unlocked) return;
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const r = svg.getBoundingClientRect();
+      const px = ((e.clientX - r.left) / r.width) * W;
+      const py = ((e.clientY - r.top) / r.height) * H;
+      zoomAt(e.deltaY < 0 ? 1.2 : 1 / 1.2, px, py);
+    };
+    svg.addEventListener("wheel", onWheel, { passive: false });
+    return () => svg.removeEventListener("wheel", onWheel);
+    // zoomAt solo usa setView, estable entre renders
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [unlocked]);
   const onPointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
     if (!unlocked) return;
     e.currentTarget.setPointerCapture(e.pointerId);
@@ -183,7 +186,6 @@ export default function ArchiveMap() {
           )}
           role="img"
           aria-label="Mapa de los países del archivo"
-          onWheel={onWheel}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
