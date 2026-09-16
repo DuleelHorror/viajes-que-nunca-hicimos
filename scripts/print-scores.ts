@@ -11,8 +11,11 @@ import { summary as se } from "../src/data/countries/se/summary";
 import { summary as jp } from "../src/data/countries/jp/summary";
 import { summary as ge } from "../src/data/countries/ge/summary";
 import { summary as am } from "../src/data/countries/am/summary";
+import { summary as kz } from "../src/data/countries/kz/summary";
+import { summary as mn } from "../src/data/countries/mn/summary";
+import { summary as cn } from "../src/data/countries/cn/summary";
 
-for (const s of [uz, sco, it, at, se, jp, ge, am]) {
+for (const s of [uz, sco, it, at, se, jp, ge, am, kz, mn, cn]) {
   const c = scoreCountry(s);
   console.log(`\n=== ${s.name}: DUKE ${c.duke.value}/100 (${c.duke.verdict}) · circo ${c.circo.value} · días ${c.days.ideal} (rápida ${c.days.quick.join("-")} · rec ${c.days.recommended.join("-")} · completa ${c.days.complete.join("-")})`);
   console.log(`  transporte ${c.transport.value} · rail ${c.rail.value} · sin coche ${c.noCar.value} ${c.noCar.light} · coste ${c.cost.value} · bcn ${c.bcn.value} · seguridad ${c.safety.value} · idioma ${c.language.value} · digital ${c.digital.value} · temporada ${c.season.value} · estabilidad ${c.stability}`);

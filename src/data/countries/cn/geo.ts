@@ -1,0 +1,166 @@
+import type { Airport, City, MapRoute, RailCorridor } from "@/lib/schema";
+import { meta } from "@/lib/schema";
+
+const SEAT61 = { label: "The Man in Seat 61 · China", url: "https://www.seat61.com/China.htm", kind: "blog" as const };
+const RAIL12306 = { label: "China Railway 12306", url: "https://www.12306.cn/en/", kind: "oficial" as const };
+const railMeta = meta({ lastUpdated: "2026-09-15", volatility: "volatil", confidence: "alta", sources: [SEAT61, RAIL12306], notes: "Alta velocidad a todas partes; se compra en 12306 (web en inglés) o Trip.com con el pasaporte como billete" });
+
+export const cities: City[] = [
+  {
+    id: "cn-pekin",
+    name: "Pekín",
+    coords: [39.9042, 116.4074],
+    isCapital: true,
+    population: 21_500_000,
+    urban: { modes: ["metro", "bus", "taxi", "a-pie"], score: 9, ticket: "metro 0,40-1 € por tramos; se paga con Alipay (QR) en los tornos", app: "Amap / Didi", note: "27 líneas de metro, todo en inglés; las distancias son de capital imperial" },
+  },
+  {
+    id: "cn-datong",
+    name: "Datong",
+    coords: [40.0768, 113.3001],
+    population: 1_500_000,
+    urban: { modes: ["bus", "taxi", "a-pie"], score: 6, ticket: "bus 0,15 €; Didi 2-3 €", app: "Didi", note: "ciudad del carbón con una muralla Ming reconstruida entera en 2010; base para las grutas y el templo colgante" },
+  },
+  {
+    id: "cn-hohhot",
+    name: "Hohhot",
+    coords: [40.8414, 111.7519],
+    population: 3_000_000,
+    urban: { modes: ["metro", "bus", "taxi"], score: 6, ticket: "metro 0,30 €; Didi", app: "Didi", note: "capital de Mongolia Interior; base para Kangbashi, la ciudad fantasma" },
+  },
+  {
+    id: "cn-shanghai",
+    name: "Shanghái",
+    coords: [31.2304, 121.4737],
+    population: 26_000_000,
+    urban: { modes: ["metro", "bus", "taxi", "ferry", "a-pie"], score: 9, ticket: "metro 0,40-1 € con Alipay; el maglev, 6 €", app: "Amap / Didi", note: "20 líneas de metro; ferry del Bund a Pudong por 0,25 €" },
+  },
+  {
+    id: "cn-hangzhou",
+    name: "Hangzhou",
+    coords: [30.2741, 120.1551],
+    population: 12_000_000,
+    urban: { modes: ["metro", "bus", "taxi"], score: 8, ticket: "metro 0,30-0,80 €", app: "Didi", note: "a 45 min de Shanghái en alta velocidad; base para Tianducheng, el París falso" },
+  },
+  {
+    id: "cn-chongqing",
+    name: "Chongqing",
+    coords: [29.5647, 106.5507],
+    population: 32_000_000,
+    urban: { modes: ["metro", "bus", "taxi", "a-pie"], score: 8, ticket: "metro y monorraíl 0,30-0,90 €", app: "Didi", note: "la ciudad de las 3D: el monorraíl atraviesa un edificio y la calle de abajo es el piso 22 de la de arriba" },
+  },
+  {
+    id: "cn-xian",
+    name: "Xi'an",
+    coords: [34.3416, 108.9398],
+    population: 13_000_000,
+    urban: { modes: ["metro", "bus", "taxi", "a-pie"], score: 8, ticket: "metro 0,30-0,80 €; bus 306 a los guerreros, 1 €", app: "Didi", note: "muralla intacta de 14 km que se recorre en bici; capital de trece dinastías" },
+  },
+];
+
+export const airports: Airport[] = [
+  { code: "PEK", name: "Pekín Capital", cityId: "cn-pekin", coords: [40.0799, 116.6031], international: true },
+  { code: "PKX", name: "Pekín Daxing", cityId: "cn-pekin", coords: [39.5098, 116.4105], international: true },
+  { code: "PVG", name: "Shanghái Pudong", cityId: "cn-shanghai", coords: [31.1443, 121.8083], international: true },
+  { code: "CKG", name: "Chongqing Jiangbei", cityId: "cn-chongqing", coords: [29.7192, 106.6417], international: true },
+  { code: "XIY", name: "Xi'an Xianyang", cityId: "cn-xian", coords: [34.4471, 108.7516], international: true },
+];
+
+export const railCorridors: RailCorridor[] = [
+  {
+    id: "cn-av-pekin-datong",
+    name: "Alta velocidad Pekín–Datong",
+    stops: ["cn-pekin", "cn-datong"],
+    kind: "alta-velocidad",
+    frequency: "cada hora",
+    durationNote: "≈ 1 h 50 (antes eran 6 h); desde Pekín Norte, la estación del metro de la Dinastía",
+    price: "≈ 20 €",
+    operator: "China Railway (CR)",
+    booking: "12306 en inglés o Trip.com con pasaporte; el pasaporte es el billete en los tornos",
+    quality: 9,
+    meta: railMeta,
+  },
+  {
+    id: "cn-av-datong-hohhot",
+    name: "Alta velocidad Datong–Hohhot",
+    stops: ["cn-datong", "cn-hohhot"],
+    kind: "alta-velocidad",
+    frequency: "varios al día",
+    durationNote: "≈ 1 h 40 por la estepa de Mongolia Interior; Hohhot–Ordos (Kangbashi), otra hora y media",
+    price: "≈ 15 €",
+    operator: "China Railway",
+    booking: "12306 o Trip.com",
+    quality: 8,
+    meta: railMeta,
+  },
+  {
+    id: "cn-av-pekin-shanghai",
+    name: "Alta velocidad Pekín–Shanghái",
+    stops: ["cn-pekin", "cn-shanghai"],
+    kind: "alta-velocidad",
+    frequency: "cada 10-20 minutos",
+    durationNote: "≈ 4 h 30 para 1.318 km a 350 km/h; los Fuxing tienen enchufe y wifi que no sirve para nada sin VPN",
+    price: "≈ 75 € en segunda",
+    operator: "China Railway",
+    booking: "12306 o Trip.com; hay también un nocturno de literas de 12 h por el mismo precio",
+    quality: 10,
+    meta: railMeta,
+  },
+  {
+    id: "cn-av-shanghai-hangzhou",
+    name: "Alta velocidad Shanghái–Hangzhou",
+    stops: ["cn-shanghai", "cn-hangzhou"],
+    kind: "alta-velocidad",
+    frequency: "cada 10 minutos",
+    durationNote: "≈ 45 min a 1 h; es prácticamente cercanías",
+    price: "≈ 10 €",
+    operator: "China Railway",
+    booking: "12306 o Trip.com, incluso el mismo día",
+    quality: 10,
+    meta: railMeta,
+  },
+  {
+    id: "cn-av-hangzhou-chongqing",
+    name: "Alta velocidad Hangzhou–Chongqing",
+    stops: ["cn-hangzhou", "cn-chongqing"],
+    kind: "alta-velocidad",
+    frequency: "varios al día",
+    durationNote: "≈ 7-8 h atravesando media China; la alternativa es el nocturno de literas (16 h) o el vuelo de 2 h 30",
+    price: "≈ 90 €",
+    operator: "China Railway",
+    booking: "12306 o Trip.com con días de antelación",
+    quality: 8,
+    meta: railMeta,
+  },
+  {
+    id: "cn-av-chongqing-xian",
+    name: "Alta velocidad Chongqing–Xi'an",
+    stops: ["cn-chongqing", "cn-xian"],
+    kind: "alta-velocidad",
+    frequency: "cada hora",
+    durationNote: "≈ 4-5 h por las montañas Qinling, la mitad en túnel",
+    price: "≈ 45 €",
+    operator: "China Railway",
+    booking: "12306 o Trip.com",
+    quality: 9,
+    meta: railMeta,
+  },
+  {
+    id: "cn-av-xian-pekin",
+    name: "Alta velocidad Xi'an–Pekín",
+    stops: ["cn-xian", "cn-pekin"],
+    kind: "alta-velocidad",
+    frequency: "cada 30 minutos",
+    durationNote: "≈ 4 h 30 para 1.200 km; cierra el círculo",
+    price: "≈ 70 €",
+    operator: "China Railway",
+    booking: "12306 o Trip.com",
+    quality: 9,
+    meta: railMeta,
+  },
+];
+
+export const mapRoutes: MapRoute[] = [
+  { id: "cn-transmongoliano", label: "Transmongoliano Pekín → Ulán Bator", from: "cn-pekin", to: "cn-hohhot", mode: "tren", note: "el K3/K23 sale de Pekín y cruza a Mongolia por Erenhot; 30 h a Ulán Bator, ≈ 150 €. Aquí lo dibujamos hasta Mongolia Interior" },
+  { id: "cn-vuelo-hangzhou-chongqing", label: "Vuelo Hangzhou → Chongqing", from: "cn-hangzhou", to: "cn-chongqing", mode: "avion", note: "2 h 30 y 60-100 €; la alternativa a 8 h de alta velocidad" },
+];
