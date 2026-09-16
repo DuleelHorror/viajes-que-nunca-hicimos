@@ -10,8 +10,8 @@ Convención: BCN = Barcelona-El Prat salvo que se diga Girona. "DNI" = los espa�
 
 ## Kirguistán (kg · 417) — prioridad alta
 
-**Entrada.** Sin visado hasta 60 días con pasaporte (la fuente dice hasta 180 para una lista en la que
-está España; el MAEC dice 60: usar 60 y `media`). Pasaporte, no DNI.
+**Entrada.** Sin visado, pero **desde el 31/12/2025 solo 30 días dentro de cualquier periodo de 60**
+(Resolución 855; antes eran 60 en 120). Pasaporte, no DNI. Fuentes viejas siguen diciendo 60: no fiarse.
 
 **Vuelos.** Sin directo. Pegasus por Estambul (Sabiha) y Turkish por Estambul, ≈ 9-10 h; ida y vuelta
 desde ≈ 650 €. Aterrizaje en Manas (Biskek) de madrugada.
