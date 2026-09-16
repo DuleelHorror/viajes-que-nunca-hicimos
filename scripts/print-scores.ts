@@ -20,8 +20,11 @@ import { summary as rs } from "../src/data/countries/rs/summary";
 import { summary as ba } from "../src/data/countries/ba/summary";
 import { summary as al } from "../src/data/countries/al/summary";
 import { summary as md } from "../src/data/countries/md/summary";
+import { summary as ee } from "../src/data/countries/ee/summary";
+import { summary as lv } from "../src/data/countries/lv/summary";
+import { summary as lt } from "../src/data/countries/lt/summary";
 
-for (const s of [uz, sco, it, at, se, jp, ge, am, kz, mn, cn, ro, bg, rs, ba, al, md]) {
+for (const s of [uz, sco, it, at, se, jp, ge, am, kz, mn, cn, ro, bg, rs, ba, al, md, ee, lv, lt]) {
   const c = scoreCountry(s);
   console.log(`\n=== ${s.name}: DUKE ${c.duke.value}/100 (${c.duke.verdict}) · circo ${c.circo.value} · días ${c.days.ideal} (rápida ${c.days.quick.join("-")} · rec ${c.days.recommended.join("-")} · completa ${c.days.complete.join("-")})`);
   console.log(`  transporte ${c.transport.value} · rail ${c.rail.value} · sin coche ${c.noCar.value} ${c.noCar.light} · coste ${c.cost.value} · bcn ${c.bcn.value} · seguridad ${c.safety.value} · idioma ${c.language.value} · digital ${c.digital.value} · temporada ${c.season.value} · estabilidad ${c.stability}`);

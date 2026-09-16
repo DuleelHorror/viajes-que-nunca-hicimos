@@ -1,0 +1,91 @@
+# Las catorce fichas del radar, y tres arreglos del mapa de la home
+
+## Fecha
+2026-09-16 (Europe/Madrid)
+
+## Contexto / origen del cambio
+Petición del usuario: "pero mete todos los paises que prometiste". Los catorce países que la v1 dejó
+"en el radar" (Georgia, Armenia, Kazajistán, Mongolia, China, Rumanía, Bulgaria, Serbia, Bosnia, Albania,
+Moldavia, Estonia, Letonia, Lituania) pasan a ficha completa. Georgia y Armenia se hicieron en
+`62b2993`; esta auditoría cubre los doce restantes (cuatro tandas, cuatro commits) y tres incidencias
+del mapa de la home que el usuario fue reportando entre tanda y tanda.
+
+## Archivos modificados
+- `src/data/countries/{kz,mn,cn,ro,bg,rs,ba,al,md,ee,lv,lt}/*` (nuevos): 7 archivos por país
+  (summary, geo, places, festivals, routes, sections, index).
+- `src/data/registry.ts`, `src/data/__tests__/consistency.test.ts`, `scripts/print-scores.ts`,
+  `src/lib/geo/archiveMap.ts`: registro de los doce (`register.py`, script de sesión).
+- `src/data/candidates.ts`: vacío tras el traspaso; se siembran ocho candidatos nuevos con ISO numérico
+  en `CANDIDATE_NUMERIC` (Kirguistán, Turquía, Polonia, Hungría, Eslovaquia, Macedonia del Norte,
+  Montenegro, Corea del Sur) para que "En el radar" y el mapa sigan contando el estado del proyecto.
+- `src/components/home/ArchiveMap.tsx`: tres arreglos (abajo).
+- `CLAUDE.md`, `docs/BRIEF.md`: estado.
+
+## Volumen
+12 países · 178 sitios circo · 46 festivales · 36 rutas (todas con noches que cuadran con los días)
+· 120 secciones. 149 tests en verde; `tsc` y `npm run build` limpios.
+
+## Decisiones de contenido
+- **Investigación previa por tanda** (WebSearch) de los datos volátiles, y el resultado va en el texto o
+  en `meta.notes` con `confidence` acorde. Lo verificado y usado:
+  - Kazajistán: Talgo Astaná–Almaty ≈12 h; Polígono de Semipalátinsk con permiso de semanas y museo
+    de Kurchatov irregular (`baja`); Baikonur permiso Roscosmos 45 días; el cementerio de barcos de
+    Aralsk se desguazó en 2017 (se dice explícitamente: los barcos están en Muynak).
+  - Mongolia: Naadam 11-13 julio; Tsagaan Sar 18-20 feb 2026; exención de visado temporal (`baja`).
+  - China: sin visado 30 días hasta 31/12/2026; Air China BCN–Pekín 3/sem; Alipay con tarjeta
+    extranjera; lista de bloqueos; 12306 con pasaporte.
+  - Rumanía/Bulgaria: Schengen completo desde 2025; **Bulgaria en euros desde 1/1/2026**; nocturno
+    Bucarest–Cluj 21:20→07:10; Bucarest–Sofía diario estacional; Buzludzha cerrado por dentro.
+  - Serbia: Soko Belgrado–Subotica 80 min desde oct 2025; Belgrado–Bar solo en taquilla con 60 días;
+    transporte urbano de Belgrado gratis; Estado Mayor bombardeado en venta (`media`, puede desaparecer).
+  - Bosnia: Talgo Sarajevo–Mostar 2 diarios (07:15 y 16:46); búnker de Tito 21 €, ma-do 9/12/15, solo
+    con la agencia de Konjic; **el directo desde BCN es Ryanair Girona–Sarajevo**, no El Prat.
+  - Albania: **sin trenes hasta 2027 como pronto** (`railCorridors: []`, rail a 0); Bunk'Art 1 en bus 11;
+    Spaç sin transporte (se lista como "solo tour", `accesoSinCoche: 1`).
+  - Moldavia: Prietenia diario 16:50→06:38 con cambio de bogies en Ungheni; Transnistria sin tren desde
+    2022, tarjeta de 10 h, solo efectivo (Visa/MC no funcionan); Wizz BCN–Chișinău (`media`).
+  - Bálticos: Vilnius–Riga directo diario; **Riga–Tallin directo desde el 12/1/2026**; Patarei abre
+    como museo el 14/6/2026 (`media`: comprobar qué se visita); **Skrunda-1 cerrado por el ejército
+    desde 2018** (se incluye para decir que no se visita); Karosta 8 € con guía; Salaspils en cercanías
+    hasta Dārziņi; Plokštinė solo con taxi desde Plungė.
+- **DNI**: Serbia, Albania y Moldavia 90 días; Bosnia 30. Se dice, y se recomienda pasaporte para
+  fronteras terrestres.
+- **Honestidad sobre lo que no se puede hacer sin coche**: cada ficha tiene `hardWithoutCar` con lo
+  que se cae (Kaindy, Kokaral, Spaç, Irbene, Tjentište como apuesta de horario) en vez de esconderlo.
+- Rutas transfronterizas: el modelo no cruza fronteras, así que la ruta China→Mongolia acaba en la
+  noche del Transmongoliano "hasta Mongolia Interior" con nota, en vez de inventar noches.
+- Un sitio circo que es un circo: el Circo de Chișinău, brutalista y abandonado. Había que ponerlo.
+
+## Arreglos del mapa (reportados por el usuario en mitad del trabajo)
+1. **Panel de la ficha desbordado** ("el botón de abrir ficha se sale de la pantalla y aparece un
+   scroll"): la columna del panel tenía la altura exacta del mapa y la ficha no cabía a 1370 px.
+   Solución: `lg:min-h-[29rem]` en la fila (móvil `h-[27rem]`), ficha más compacta (p-4, anillo 72,
+   márgenes) y el mapa centrado en vertical con `flex items-center`. Medido con Playwright en 1024,
+   1280, 1370, 1600 y 400 px: `scrollHeight == clientHeight` en todos.
+2. **La rueda hacía zoom y además scroll de página**: React registra `onWheel` como listener pasivo y
+   `preventDefault` no frena nada. Solución: `useEffect` que engancha un `wheel` nativo con
+   `{ passive: false }` al SVG solo mientras está desbloqueado. Medido: `scrollY` no cambia al hacer
+   zoom desbloqueado (802→802) y sí bloqueado (802→502, scroll normal).
+3. **Desbloqueado, pinchar un país no abría su tarjeta**: `setPointerCapture` en `pointerdown` hacía
+   que el `click` se despachara al `<svg>` y no al `<path>`. Solución: capturar el puntero solo cuando
+   el arrastre supera 4 px. Medido con clics reales de ratón: Kazajistán y Mongolia se seleccionan,
+   un arrastre sobre China no cambia la selección y mueve el mapa, y bloqueado sigue igual.
+
+## Scores resultantes (Duke)
+Lituania 80 (mucho) · Estonia 78 (mucho) · Serbia 77 (mucho) · Rumanía 75 · Letonia 75 · Bulgaria 74 ·
+Bosnia 74 · China 71 · Georgia 71 · Armenia 69 · Albania 68 · Moldavia 68 · Kazajistán 66 · Mongolia 66.
+Coherente con el perfil: los tres bálticos y Serbia puntúan alto por transporte y facilidad; Asia
+Central y Mongolia bajan por vuelo, distancia y jeeps aunque el circo sea mayor. No se han tocado los
+pesos: con veinte países la escala sigue separando bien (66-80 en esta tanda, 71-78 en la v1).
+
+## Verificación
+- `npx tsc --noEmit`, `npx vitest run` (149), `npm run build` en verde en cada tanda.
+- Mapa de la home en navegador: 20 países "con ficha" y 8 "en el radar", sin errores de consola.
+- Los tres arreglos del mapa, medidos con Playwright (scripts `panelfit.mjs`, `wheel.mjs`,
+  `unlockclick.mjs` en el scratchpad de la sesión).
+
+## Pendiente
+- Verificar la web publicada tras el push (GitHub Pages).
+- Los ocho candidatos nuevos son la siguiente tanda; sus "por qué" son de memoria y hay que
+  investigarlos antes de escribir.
+- Cuando Patarei abra del todo y Albania estrene trenes (2027), actualizar `ee` y `al`.

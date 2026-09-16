@@ -124,8 +124,10 @@ militares, futuristas ni mayúsculas constantes. ✅
   Suecia ✅, Uzbekistán ✅. **España y República Checa: descartadas por el usuario el 2026-09-15.**
 - Uzbekistán: atención especial a Tashkent, Samarcanda, Bujará, Khiva, Nukus, Muynak, Mar de Aral, restos
   soviéticos, ferrocarril y posibilidad REAL de llegar sin conducir. ✅
-- Después, candidatos que encajen: Georgia, Armenia, Kazajistán, Rumanía, Albania, Bosnia, Serbia,
-  Moldavia, Bulgaria, Estonia, Letonia, Lituania, Mongolia, China. ⏳ (listados en "En el radar")
+- Después, candidatos que encajen: Georgia ✅, Armenia ✅, Kazajistán ✅, Rumanía ✅, Albania ✅,
+  Bosnia ✅, Serbia ✅, Moldavia ✅, Bulgaria ✅, Estonia ✅, Letonia ✅, Lituania ✅, Mongolia ✅,
+  China ✅ (los catorce con ficha completa el 2026-09-16). Nuevo radar: Kirguistán, Turquía, Polonia,
+  Hungría, Eslovaquia, Macedonia del Norte, Montenegro, Corea del Sur. ⏳
 
 ## 9. Otras reglas del usuario
 

@@ -25,8 +25,11 @@ npm run build      # debe quedar en verde antes de tocar nada
 npm run dev        # http://localhost:5173/#/
 ```
 
-Siguiente tarea natural: añadir países (ver "Añadir un país" más abajo) siguiendo `docs/TONO.md`, y
-después verificar en web los datos volátiles y recalibrar pesos con los 8 países.
+Estado (2026-09-16): **20 países con ficha completa** (Italia, Escocia, Austria, Suecia, Japón,
+Uzbekistán, Georgia, Armenia, Kazajistán, Mongolia, China, Rumanía, Bulgaria, Serbia, Bosnia, Albania,
+Moldavia, Estonia, Letonia, Lituania) y 8 en el radar (`src/data/candidates.ts`). Siguiente tarea
+natural: investigar y escribir los del radar (ver "Añadir un país") siguiendo `docs/TONO.md`, y
+revisar los datos volátiles marcados con `confidence: "baja"` o `"media"` en `meta.notes`.
 
 ---
 
