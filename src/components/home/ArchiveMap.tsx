@@ -95,7 +95,8 @@ export default function ArchiveMap() {
   }, [unlocked]);
   const onPointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
     if (!unlocked) return;
-    e.currentTarget.setPointerCapture(e.pointerId);
+    // La captura del puntero se activa solo cuando hay arrastre de verdad: si se
+    // captura ya aquí, el click acaba en el <svg> y el país pulsado nunca lo recibe.
     drag.current = {
       id: e.pointerId,
       sx: e.clientX,
@@ -111,8 +112,11 @@ export default function ArchiveMap() {
     const r = e.currentTarget.getBoundingClientRect();
     const dx = ((e.clientX - d.sx) / r.width) * W;
     const dy = ((e.clientY - d.sy) / r.height) * H;
-    if (Math.abs(e.clientX - d.sx) + Math.abs(e.clientY - d.sy) > 4)
+    if (!d.moved && Math.abs(e.clientX - d.sx) + Math.abs(e.clientY - d.sy) > 4) {
       d.moved = true;
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
+    if (!d.moved) return;
     setView((v) => ({ ...v, x: d.x + dx, y: d.y + dy }));
   };
   const onPointerUp = () => {
