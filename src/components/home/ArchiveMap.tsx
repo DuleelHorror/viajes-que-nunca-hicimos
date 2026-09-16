@@ -173,7 +173,7 @@ export default function ArchiveMap() {
 
   return (
     <div className="grid gap-4 lg:grid-cols-[1.55fr_1fr]">
-      <div className="panel relative overflow-hidden p-2 sm:p-3">
+      <div className="panel relative flex items-center overflow-hidden p-2 sm:p-3">
         <svg
           ref={svgRef}
           viewBox={`0 0 ${W} ${H}`}
@@ -402,7 +402,7 @@ export default function ArchiveMap() {
 
       {/* El panel ocupa exactamente la altura del mapa (absoluto dentro de la columna) y hace scroll si no cabe:
           así elegir un país nunca estira la fila ni mueve el resto de la página. */}
-      <div className="relative h-[22rem] lg:h-auto">
+      <div className="relative h-[27rem] lg:h-auto lg:min-h-[29rem]">
         <div className="absolute inset-0 overflow-y-auto">
           {active ? (
             <div key={active.id} className="animate-slide-in-right h-full">
@@ -436,7 +436,7 @@ function FichaPanel({ id }: { id: string }) {
   const s = c.summary;
   const light = LIGHT_META[c.noCar.light];
   return (
-    <article className="panel-neon flex h-full flex-col p-5">
+    <article className="panel-neon flex h-full flex-col p-4">
       <div className="flex items-start gap-3">
         <div className="min-w-0 flex-1">
           <div className="label-stencil text-neon-cyan/90">
@@ -449,15 +449,15 @@ function FichaPanel({ id }: { id: string }) {
           </h3>
           <p className="mt-2 text-sm text-concrete-200">{s.tagline}</p>
         </div>
-        <ScoreRing value={c.duke.value} size={84} stroke={7} sub="Duke" />
+        <ScoreRing value={c.duke.value} size={72} stroke={6} sub="Duke" />
       </div>
-      <div className="mt-3 flex flex-wrap items-center gap-2">
+      <div className="mt-2 flex flex-wrap items-center gap-2">
         <VerdictBadge verdict={c.duke.verdict} size="sm" />
         <span className="text-sm text-concrete-200">
           {VERDICT_META[c.duke.verdict].phrase}
         </span>
       </div>
-      <dl className="mt-4 grid grid-cols-2 gap-2 text-sm">
+      <dl className="mt-3 grid grid-cols-2 gap-1.5 text-sm">
         <Kpi k="Yo me quedaría" v={`${c.days.ideal} días`} />
         <Kpi k="Nivel de circo" v={`${fmtScore(c.circo.value)} / 10`} />
         <Kpi
@@ -467,7 +467,7 @@ function FichaPanel({ id }: { id: string }) {
         />
         <Kpi k="Precios" v={`${fmtScore(c.cost.value)} / 10`} />
       </dl>
-      <div className="mt-3 flex flex-wrap gap-1">
+      <div className="mt-2 flex flex-wrap gap-1">
         {c.tags.slice(0, 4).map((t) => (
           <span
             key={t}
@@ -477,7 +477,7 @@ function FichaPanel({ id }: { id: string }) {
           </span>
         ))}
       </div>
-      <div className="mt-auto flex items-center justify-between gap-3 pt-4 text-xs text-concrete-400">
+      <div className="mt-auto flex items-center justify-between gap-3 pt-3 text-xs text-concrete-400">
         <span>
           {s.placeStats.total} sitios circo · {s.festivals.length} festivales
         </span>
@@ -495,7 +495,7 @@ function RadarPanel({ id }: { id: string }) {
   const c = CANDIDATES.find((x) => x.id === id);
   if (!c) return null;
   return (
-    <article className="panel flex h-full flex-col border-neon-magenta/40 p-5">
+    <article className="panel flex h-full flex-col border-neon-magenta/40 p-4">
       <div className="label-stencil text-neon-magenta/90">
         En el radar · todavía sin ficha
       </div>
