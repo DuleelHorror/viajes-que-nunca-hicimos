@@ -15,8 +15,11 @@ import cnx from "../countries/cn";
 import rox from "../countries/ro";
 import bgx from "../countries/bg";
 import rsx from "../countries/rs";
+import bax from "../countries/ba";
+import alx from "../countries/al";
+import mdx from "../countries/md";
 
-const ALL: CountryDetail[] = [uz, sco, ita, at, se, jp, gex, amx, kzx, mnx, cnx, rox, bgx, rsx];
+const ALL: CountryDetail[] = [uz, sco, ita, at, se, jp, gex, amx, kzx, mnx, cnx, rox, bgx, rsx, bax, alx, mdx];
 
 const VOLATILE_SECTIONS = ["docs", "safety", "flights", "cost", "politics", "events"] as const;
 
