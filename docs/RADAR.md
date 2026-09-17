@@ -498,3 +498,10 @@ en 2024; el más caro del radar (90-120 €/día).
    ganchos). 2. **Eslovenia + Croacia** como pareja (tren Liubliana–Zagreb, Goli Otok y la línea Rupnik).
 3. **Alemania del Este** (Deutschlandticket, todo en regional). 4. **Finlandia** (cuando se acepte que
 es caro).
+
+---
+
+## Estado del tercer radar
+Los seis tienen ficha completa desde el 2026-09-17 (commits `0bb462a`, `5ad0d78` y el de Alemania y
+Finlandia). Lo marcado como `baja` o `media` aquí (Franja, Galeb, Spreepark, Museo Nootti, el tren a
+Meteora, Varosha) está en `meta.notes` de cada sitio. El radar queda vacío: 34 países con ficha.

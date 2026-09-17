@@ -25,13 +25,14 @@ npm run build      # debe quedar en verde antes de tocar nada
 npm run dev        # http://localhost:5173/#/
 ```
 
-Estado (2026-09-16): **28 países con ficha completa** (Italia, Escocia, Austria, Suecia, Japón,
+Estado (2026-09-17): **34 países con ficha completa** (Italia, Escocia, Austria, Suecia, Japón,
 Uzbekistán, Georgia, Armenia, Kazajistán, Mongolia, China, Rumanía, Bulgaria, Serbia, Bosnia, Albania,
 Moldavia, Estonia, Letonia, Lituania, Polonia, Turquía, Kirguistán, Hungría, Eslovaquia, Macedonia del
-Norte, Montenegro, Corea del Sur) y 6 en el radar (`src/data/candidates.ts`). La investigación previa de
-cada tanda del radar va en `docs/RADAR.md`. Siguiente tarea natural: investigar y escribir los del radar
-(ver "Añadir un país") siguiendo `docs/TONO.md`, y revisar los datos volátiles marcados con
-`confidence: "baja"` o `"media"` en `meta.notes`.
+Norte, Montenegro, Corea del Sur, Chipre, Grecia, Eslovenia, Croacia, Alemania del Este, Finlandia) y
+**radar vacío** (`src/data/candidates.ts`; la home oculta la sección y la estadística cuando no hay
+candidatos). La investigación previa de cada tanda va en `docs/RADAR.md`. Siguiente tarea natural: si
+se quieren más países, investigar primero y sembrar el radar después (ver "Añadir un país"), y revisar
+los datos volátiles marcados con `confidence: "baja"` o `"media"` en `meta.notes`.
 
 ---
 

@@ -122,12 +122,14 @@ export function HomePage() {
             value={FESTIVALS.length}
             accent="lime"
           />
-          <Stat
-            label="En el radar"
-            value={CANDIDATES.length}
-            accent="violet"
-            hint="pendientes de ficha"
-          />
+          {CANDIDATES.length > 0 && (
+            <Stat
+              label="En el radar"
+              value={CANDIDATES.length}
+              accent="violet"
+              hint="pendientes de ficha"
+            />
+          )}
         </div>
       </section>
 

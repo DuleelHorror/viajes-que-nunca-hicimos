@@ -1,0 +1,70 @@
+# Las seis fichas del tercer radar
+
+## Fecha
+2026-09-17 (Europe/Madrid)
+
+## Contexto / origen del cambio
+Al cerrar el segundo radar quedó sembrado un tercero (Alemania del Este, Grecia, Eslovenia, Croacia,
+Finlandia, Chipre) sin investigar. El usuario dijo "pues dale" y después "cuando termines commit y
+push". Se ha seguido el mismo método que con el segundo radar: investigación previa con WebSearch
+(`docs/RADAR.md`, sección "Tercer radar", commit `7cedeae`) y fichas por parejas en el orden que el
+dossier proponía: Chipre y Grecia (`0bb462a`), Eslovenia y Croacia (`5ad0d78`), Alemania del Este y
+Finlandia (commit siguiente).
+
+## Archivos modificados
+- `src/data/countries/{cy,gr,si,hr,de,fi}/*` (nuevos): 7 archivos por país.
+- `src/data/registry.ts`, `src/data/__tests__/consistency.test.ts`, `scripts/print-scores.ts`,
+  `src/lib/geo/archiveMap.ts`: registro con `register.py` (script de sesión). `candidates.ts` queda
+  vacío y `CANDIDATE_NUMERIC` también.
+- `src/pages/HomePage.tsx`: la tarjeta de estadística "En el radar" se oculta si no hay candidatos
+  (la sección ya se ocultaba desde el cierre anterior). No se siembra un cuarto radar: no lo ha pedido
+  el usuario y sembrarlo sin investigar sería inventar promesas.
+- `docs/RADAR.md` (estado del tercer radar), `CLAUDE.md` y `docs/BRIEF.md` (estado: 34 fichas, radar
+  vacío).
+
+## Volumen
+6 países · 72 sitios circo (12 por país) · 24 festivales · 18 rutas (noches = días) · 60 secciones.
+247 tests en verde; `tsc` y `npm run build` limpios tras cada commit.
+
+## Decisiones de contenido (lo verificado y cómo se ha usado)
+- **Chipre**: sin ferrocarril (`railCorridors: []`, `rail` a cero); todo en InterCity y buses del norte
+  (İtimat cada hora hasta las 18:00, VirgoBus cada 30 min). Varosha abierta a medias desde 2020, gratis,
+  con bici; el aeropuerto de Nicosia se cuenta como "lo que no se ve" (solo con permiso de la ONU).
+  Entrar por el norte se desaconseja explícitamente. Sin directo BCN–Pafos: solo Larnaca.
+- **Grecia**: el tren Atenas–Tesalónica funciona con cortes (tramos en bus, vía única desde septiembre
+  de 2026) y el ramal a Kalambaka sigue cerrado: Meteora va en bus y se dice. El cremallera de
+  Kalavryta es el corredor bonito. Makronisos y Gyaros van con `baja` y "sin ferry". Spinalonga a 20 €.
+- **Eslovenia**: Vueling vuela hasta el 19 de noviembre, no en invierno (alternativa: Trieste + bus).
+  Franja **cerrado** por daños de tormenta (`baja`). Goli vrh solo el primer sábado de mes a las 10.
+  El bus directo Liubliana–Kobarid es solo viernes y domingo: la ruta va por la línea de Bohinj y
+  Nova Gorica.
+- **Croacia**: Goli Otok solo con barcos de temporada (mayo-octubre, 30-55 €). El nocturno
+  Zagreb–Split es diario solo del 22/6 al 30/8 de 2026 (domingos el resto). Petrova Gora sin bus y en
+  ruina progresiva (`media`, con aviso); el Galeb de Rijeka con `baja` (obras de años). Vukovar con la
+  torre (2020) y Ovčara (gratis, 10-17).
+- **Alemania (el Este)**: ficha limitada a la antigua RDA (Berlín, Brandeburgo, Sajonia, Turingia,
+  Sajonia-Anhalt, Rügen), y se dice en `facts.capital`. Deutschlandticket a 63 €/mes desde enero de
+  2026 como eje del transporte. Beelitz 17 € (pasarela), Teufelsberg 12 €, Wünsdorf 20 € en efectivo
+  con reserva, Stasi-Museum 12 €, Prora con centro de documentación y paseos gratuitos. Spreepark con
+  `baja` (en obras, visitas irregulares).
+- **Finlandia**: se dice claro que es el más caro del radar (110 €/día normal). El Santa Claus Express
+  es el sitio circo central (cabina 49-89 € dinámico). Frontera con Rusia cerrada desde 12/2023 y
+  prorrogada; Lappeenranta se cuenta como "donde acaba Europa". La Línea Salpa y el museo del frente
+  de Hanko con aviso de taxi. El museo de Lenin de Tampere pasó a ser Museo Nootti en 2024 (`media`,
+  "verificar"). El castillo de nieve de Kemi con precio de 2024 (`media`).
+- Taglines recortadas a ≤ 90 y whyMe a ≤ 800 en cy, gr, si, hr, de y fi (el esquema lo exige).
+
+## Puntuaciones (Duke) tras la tanda
+Alemania del Este 78 🔥 · Grecia 73 · Croacia 73 · Eslovenia 72 · Finlandia 72 · Chipre 65. Todos
+por encima de 62; los pesos de 2026-09-15 siguen sin tocarse con 34 países.
+
+## Verificación
+- `npx tsc --noEmit`, `npx vitest run` (247), `npm run build`: en verde tras cada commit.
+- Sitio publicado tras el push: comprobación con Playwright (Edge) de la home (mapa con 34 fichas y
+  0 en el radar, sección y tarjeta del radar ocultas, clic en Alemania) y de dos fichas nuevas. El
+  resultado va en el mensaje de cierre.
+
+## Pendiente
+- Un cuarto radar, si el usuario quiere más países: sembrar solo tras investigar.
+- Revisar los `confidence: "baja"`/`"media"` cuando haya novedades: Franja, Galeb, Spreepark, Museo
+  Nootti, el tren a Meteora, Varosha, Vueling a Liubliana en invierno.

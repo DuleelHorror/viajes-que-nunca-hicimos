@@ -128,8 +128,8 @@ militares, futuristas ni mayúsculas constantes. ✅
   Bosnia ✅, Serbia ✅, Moldavia ✅, Bulgaria ✅, Estonia ✅, Letonia ✅, Lituania ✅, Mongolia ✅,
   China ✅ (los catorce con ficha completa el 2026-09-16). Segundo radar: Kirguistán ✅, Turquía ✅,
   Polonia ✅, Hungría ✅, Eslovaquia ✅, Macedonia del Norte ✅, Montenegro ✅, Corea del Sur ✅ (los ocho
-  con ficha el 2026-09-16). Tercer radar: Alemania (el Este), Grecia, Eslovenia, Croacia, Finlandia,
-  Chipre. ⏳
+  con ficha el 2026-09-16). Tercer radar: Alemania (el Este) ✅, Grecia ✅, Eslovenia ✅, Croacia ✅,
+  Finlandia ✅, Chipre ✅ (los seis con ficha el 2026-09-17). Radar vacío: 34 países con ficha.
 
 ## 9. Otras reglas del usuario
 
