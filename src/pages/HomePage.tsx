@@ -134,7 +134,7 @@ export function HomePage() {
       </section>
 
       <section className="space-y-4">
-        <SectionHeader title="El mapa del archivo" kicker="Pincha un país: los de cian tienen ficha, los de magenta están en el radar" />
+        <SectionHeader title="El mapa del archivo" kicker={CANDIDATES.length > 0 ? "Pincha un país: los de cian tienen ficha, los de magenta están en el radar" : "Pincha un país para ver su ficha resumida"} />
         <Suspense fallback={<LoadingScreen label="Desplegando el mapa" />}>
           <ArchiveMap />
         </Suspense>

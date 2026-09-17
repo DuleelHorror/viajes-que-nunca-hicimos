@@ -393,16 +393,18 @@ export default function ArchiveMap() {
             />{" "}
             con ficha ({COUNTRIES.length})
           </span>
-          <span className="inline-flex items-center gap-1.5">
-            <span
-              className="inline-block h-2.5 w-2.5 rounded-sharp"
-              style={{
-                background: `${MAGENTA}33`,
-                boxShadow: `0 0 0 1px ${MAGENTA}`,
-              }}
-            />{" "}
-            en el radar ({CANDIDATES.length})
-          </span>
+          {CANDIDATES.length > 0 && (
+            <span className="inline-flex items-center gap-1.5">
+              <span
+                className="inline-block h-2.5 w-2.5 rounded-sharp"
+                style={{
+                  background: `${MAGENTA}33`,
+                  boxShadow: `0 0 0 1px ${MAGENTA}`,
+                }}
+              />{" "}
+              en el radar ({CANDIDATES.length})
+            </span>
+          )}
         </div>
       </div>
 
