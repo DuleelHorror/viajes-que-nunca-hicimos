@@ -11,6 +11,8 @@ import scotland from "@/data/geo/scotland.json";
 
 /** ISO 3166-1 numérico (como lo usa world-atlas) de cada país con ficha. Escocia va aparte. */
 export const FICHA_NUMERIC: Record<string, string> = {
+  hr: "191",
+  si: "705",
   gr: "300",
   cy: "196",
   kr: "410",
@@ -45,8 +47,6 @@ export const FICHA_NUMERIC: Record<string, string> = {
 /** Los del radar (`data/candidates.ts`), por su alpha-2. */
 export const CANDIDATE_NUMERIC: Record<string, string> = {
   de: "276",
-  si: "705",
-  hr: "191",
   fi: "246",
 };
 

@@ -38,8 +38,10 @@ import { summary as me } from "./countries/me/summary";
 import { summary as kr } from "./countries/kr/summary";
 import { summary as cy } from "./countries/cy/summary";
 import { summary as gr } from "./countries/gr/summary";
+import { summary as si } from "./countries/si/summary";
+import { summary as hr } from "./countries/hr/summary";
 
-const RAW: CountrySummary[] = [uz, sco, it, at, se, jp, ge, am, kz, mn, cn, ro, bg, rs, ba, al, md, ee, lv, lt, pl, tr, kg, hu, sk, mk, me, kr, cy, gr];
+const RAW: CountrySummary[] = [uz, sco, it, at, se, jp, ge, am, kz, mn, cn, ro, bg, rs, ba, al, md, ee, lv, lt, pl, tr, kg, hu, sk, mk, me, kr, cy, gr, si, hr];
 
 const DEV = import.meta.env.DEV;
 
@@ -95,6 +97,8 @@ const loaders: Record<string, () => Promise<{ default: CountryDetail }>> = {
   kr: () => import("./countries/kr"),
   cy: () => import("./countries/cy"),
   gr: () => import("./countries/gr"),
+  si: () => import("./countries/si"),
+  hr: () => import("./countries/hr"),
 };
 
 const cache = new Map<string, Promise<CountryDetail>>();
