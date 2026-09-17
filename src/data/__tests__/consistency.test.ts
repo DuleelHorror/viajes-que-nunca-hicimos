@@ -29,8 +29,10 @@ import skx from "../countries/sk";
 import mkx from "../countries/mk";
 import mex from "../countries/me";
 import krx from "../countries/kr";
+import cyx from "../countries/cy";
+import grx from "../countries/gr";
 
-const ALL: CountryDetail[] = [uz, sco, ita, at, se, jp, gex, amx, kzx, mnx, cnx, rox, bgx, rsx, bax, alx, mdx, eex, lvx, ltx, plx, trx, kgx, hux, skx, mkx, mex, krx];
+const ALL: CountryDetail[] = [uz, sco, ita, at, se, jp, gex, amx, kzx, mnx, cnx, rox, bgx, rsx, bax, alx, mdx, eex, lvx, ltx, plx, trx, kgx, hux, skx, mkx, mex, krx, cyx, grx];
 
 const VOLATILE_SECTIONS = ["docs", "safety", "flights", "cost", "politics", "events"] as const;
 
