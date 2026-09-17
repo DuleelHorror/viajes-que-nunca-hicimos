@@ -261,3 +261,240 @@ Los ocho tienen ficha completa desde el 2026-09-16 (commits `21a3b24`, `2286f52`
 Lo marcado como `baja` aquí (JSA, SeMA Bunker, permisos) está en `meta.notes` de cada sitio. El tercer
 radar (Alemania del Este, Grecia, Eslovenia, Croacia, Finlandia, Chipre) está en `src/data/candidates.ts`
 sin investigar todavía.
+
+
+---
+---
+
+# Tercer radar: investigación previa de los seis candidatos
+
+Fecha de la investigación: **2026-09-17** (WebSearch; todo lo volátil caduca a los seis meses). Mismo
+método y convenciones que arriba. Los seis son UE (menos la mitad norte de Chipre) y entran con el DNI.
+
+---
+
+## Chipre (cy · 196) — prioridad alta
+
+**Entrada.** UE: DNI. Para cruzar la Línea Verde al norte vale el DNI de la UE (se enseña en el paso; el
+cruce es gratis y tarda 15 min). Ir por el sur (Larnaca) es lo legal para la República; entrar por Ercan
+(norte) y pasar al sur puede dar problemas: no hacerlo.
+
+**Vuelos.** BCN–Larnaca directo con Vueling, Ryanair, Wizz, Aegean y SKY express (varios al día entre
+todas, 4 h). **A Pafos no hay directo desde BCN** (sí desde otras ciudades españolas con Ryanair).
+
+**Transporte.**
+- Sin tren. **InterCity Buses** une todas las ciudades a diario: Nicosia–Larnaca (≈ 45 min), Nicosia–
+  Limassol, Nicosia–Pafos, Larnaca–Ayia Napa; 4-9 € el billete, mínimo 3 €. Buses urbanos por ciudad
+  (Pafos Buses, OSEL en Nicosia, EMEL en Limassol).
+- Norte: desde Nicosia norte (Lefkoşa) bus **İtimat** a Famagusta (Gazimağusa) **cada hora de 07:00 a
+  18:00**, ≈ 1 h; a Kyrenia (Girne) **VirgoBus cada 30 min**, 45-55 min. De Kyrenia a Bellapais, taxi.
+  Se paga en liras turcas o euros.
+- Cruces peatonales en Nicosia: **Ledra Street** (en el centro) y Ledra Palace.
+
+**Sitios circo verificados.**
+- **Varosha (Famagusta)**: el barrio fantasma cerrado desde 1974, **abierto a medias desde 2020**: se
+  entra gratis, en verano 08:00-20:00 (en invierno cierra antes), por calles marcadas; **se alquilan
+  bicis dentro** (tasa pequeña); prohibido salirse de los carriles y entrar en los edificios. Sigue
+  siendo zona militar turca con vallas y carteles; la mayoría de bloques a la vista.
+- **Nicosia**: la última capital dividida; la Línea Verde con sacos terreros y barriles en el casco
+  viejo; **tours guiados de la zona tampón** (Ledra Palace, muralla veneciana, puerta de Famagusta)
+  funcionando en 2026, 2-3 h. El **aeropuerto abandonado de Nicosia** está en la zona de la ONU: **no se
+  visita** salvo permiso de la ONU para investigadores; hay un paseo virtual del Cyprus Institute.
+  Decirlo en la ficha como "lo que no se ve".
+- Kyrenia (castillo, museo del pecio de 2.300 años), Bellapais, Salamina (ruinas junto a Famagusta),
+  las bases británicas (Akrotiri, Dhekelia: se cruzan en bus, no se visitan), Choirokoitia (neolítico,
+  bus Nicosia–Limassol para en la carretera), el pecio Zenobia (buceo, Larnaca).
+
+**Riesgos de datos.** Horarios de Varosha cambian sin aviso; el norte cobra en liras (volátil); en
+verano 40 °C.
+
+---
+
+## Grecia (gr · 300) — prioridad alta
+
+**Entrada.** UE: DNI.
+
+**Vuelos.** BCN–Atenas directo con **Aegean (≈ 15/semana) y Vueling (≈ 14/semana)**, 3 h 15. Ryanair
+solo con escala. Desde ≈ 85 € por trayecto.
+
+**Transporte.**
+- **Atenas–Tesalónica en tren (Hellenic Train)**: funciona, 4-6 al día, ≈ 5 h, 25-35 € en turista;
+  pero la línea sigue en obras tras la tormenta Daniel (2023) y el accidente de Tempi: cortes de
+  semanas (junio-julio de 2026), tramos en bus y **vía única en Agios Stefanos–Afidnai desde
+  septiembre de 2026**. Comprobar en hellenictrain.gr antes.
+- **Meteora sin tren directo**: el tramo Palaiofarsalos–Kalambaka sigue cerrado (previsto para finales
+  de 2026 o 2027). Opciones: tren a Palaiofarsalos + bus de Hellenic Train (5-6 h en total) o **bus
+  exprés Atenas–Kalambaka 4 h 30**. En la ficha, Meteora va en bus.
+- Ferris de Pireo y Rafina a todo; metro de Atenas al Pireo y al aeropuerto; KTEL a lo demás.
+
+**Sitios circo verificados.**
+- **Spinalonga (Creta)**: la leprosería en la isla-fortaleza veneciana; barcos desde Plaka (12 € ida y
+  vuelta, primer barco 10:00 y último desde Plaka a las 17:00) y desde Elounda cada 30 min;
+  **entrada 20 €** (gratis para menores de 25 de la UE). Bus KTEL Heraklion–Agios Nikolaos–Elounda–Plaka.
+- **Parque de la Libertad (Atenas)**: el antiguo cuartel de la policía militar de la Junta (EAT-ESA)
+  con el **Museo de la Resistencia Antidictatorial** dentro de las celdas de tortura (martes-sábado
+  10-13 y 17-21, domingo 10-13; gratis). Metro Megaro Mousikis.
+- **Politécnico de Atenas**: la verja retorcida por el tanque del 17 de noviembre de 1973 y la cabeza
+  de bronce de Markis, en Patission; en la calle, sin horario.
+- **Makronisos y Gyaros** (las islas-prisión de la guerra civil y la Junta): **sin ferry**; Makronisos
+  solo con barco alquilado desde Lavrio; Gyaros solo con las visitas de la PEAEA o la plataforma
+  digital Gyaros Story. En la ficha: se cuentan y se dice que no se llega sin barco propio. `baja`.
+- Atenas brutalista y de la Junta (Hilton, la torre de Atenas, el Politécnico), Tesalónica (el Muro
+  Blanco), el Museo de la Guerra, Delfos en KTEL, Nafplio y el Peloponeso en bus.
+
+**Riesgos de datos.** El tren, cada mes distinto; Meteora puede recuperar el tren; Spinalonga cierra
+en invierno (los barcos).
+
+---
+
+## Eslovenia (si · 705) — prioridad media (pareja con Croacia)
+
+**Entrada.** UE: DNI.
+
+**Vuelos.** **Vueling BCN–Liubliana** en 2026 vuela varios días a la semana **hasta el 19 de
+noviembre** (VY1156, 2 h 05; desde ≈ 31-70 €); en invierno, no. Alternativas: Trieste (Ryanair) y bus
+de 1 h 30, o Venecia y tren-bus, o Zagreb.
+
+**Transporte.**
+- Tren Liubliana–Zagreb: 9 al día, ≈ 2 h 30, desde ≈ 10-30 €. Liubliana–Postojna: cada hora, 1 h 20,
+  con bus urbano gratuito (Furman, línea 2) de la estación a la cueva. Liubliana–Bled (Lesce) en tren
+  o bus.
+- Bus Liubliana–Kobarid: **Nomago solo viernes y domingo**, 2 h 30 (más buses vía Tolmin o desde Nova
+  Gorica); Liubliana–Cerkno y Liubliana–Idrija (bus 6, 1 h) a diario.
+
+**Sitios circo verificados.**
+- **Museo de Kobarid** (Caporetto, la Gran Guerra): 8 €, ≈ 1 h con vídeo de 20 min. El **Hospital
+  partisano Franja (Cerkno) sigue cerrado por daños de tormenta y reforma**; hay exposición en el
+  museo de Cerkno. En la ficha, `baja` y "cerrado".
+- **Línea Rupnik**: los búnkeres yugoslavos de los 30 contra Italia. Los tres de **Zaplana** (sendero de
+  3 km desde Vrhnika, se entra, gratis) y el fuerte de **Goli vrh**, el único abierto con regularidad:
+  **visita guiada el primer sábado de cada mes a las 10:00, 5 € en efectivo, sin reserva**. Bus
+  Liubliana–Vrhnika.
+- **Mina de mercurio de Idrija** (UNESCO): el pozo de Antonio, visita de 1 h 30 con casco y abrigo,
+  ≈ 14 €, bus 6 desde Liubliana.
+- **Postojna**: cueva con tren, 30-33 €, visitas cada hora de 9 a 18, abierta los 365 días.
+- Liubliana: Plečnik, **Metelkova** (los cuarteles austrohúngaros okupados desde 1993), el búnker de
+  Ježica (sin visitas, se mira por las troneras), el Museo de Historia Contemporánea.
+
+**Riesgos de datos.** Franja puede reabrir; Vueling en invierno no vuela; el bus de Kobarid es de fin de
+semana.
+
+---
+
+## Croacia (hr · 191) — prioridad media (pareja con Eslovenia)
+
+**Entrada.** UE, Schengen y euro: DNI.
+
+**Vuelos.** BCN–Zagreb directo **Croatia Airlines y TAP, ≈ 7/semana**, 2 h; Vueling y Ryanair a Zagreb
+por temporadas (verificar), y a Split, Zadar y Dubrovnik en verano. Girona–Zadar con Ryanair.
+
+**Transporte.**
+- **Nocturno Zagreb–Split** (HŽPP 821/820): 22:06 → 06:53, 8 h 44; **diario del 22 de junio al 30 de
+  agosto de 2026, los domingos el resto del año**. Diurno ≈ 6 h.
+- **Vukovar**: 13 conexiones al día con Zagreb, ≈ 5-6 h con cambio en Vinkovci, desde ≈ 19 €. En verano
+  (27 de junio–29 de agosto de 2026) nocturno Vukovar–Osijek–Zagreb–Split.
+- Liubliana–Zagreb 2 h 30 en tren (ver arriba). Buses a todo (FlixBus, Arriva).
+
+**Sitios circo verificados.**
+- **Goli Otok**: el gulag de Tito en una isla; **barcos desde Rab** de 9 h (Zavratnica, Goli Otok con
+  tiempo libre, Sveti Grgur, comida a bordo) **desde ≈ 30-55 €**, solo de mayo a octubre. Rab se llega
+  en bus desde Rijeka o Zagreb.
+- **Vukovar**: la **torre de agua** (memorial abierto en 2020, con ascensor; entrada de pago, precios en
+  vukovarskivodotoranj.hr), la **Casa Memorial de Ovčara** (a 5 km, 10-17, gratis, taxi), el hospital y
+  el cementerio. Ciudad entera como sitio de la guerra de 1991.
+- **Petrova Gora**: el espomenik de acero inoxidable de Bakić (1981) **en ruina, sin plan ni dinero
+  desde hace 30 años, con los paneles desapareciendo**; sin transporte público (taxi desde Vojnić o
+  Karlovac). En la ficha: se cuenta con `media` y se avisa.
+- **Jasenovac**: el campo ustacha con la Flor de Piedra de Bogdanović; **9-17, gratis** (marzo-
+  noviembre); bus desde Zagreb (Novska en tren + taxi, o bus directo con pocas frecuencias).
+- **Brijuni**: la isla de Tito, barco del parque desde Fažana (**30 €** el pasajero) o excursiones desde
+  15 €; bus Pula–Fažana.
+- **Galeb (Rijeka)**: el yate de Tito, convertido en museo-hostal por el Museo de la Ciudad de Rijeka;
+  estado de apertura al público **sin verificar** (obras de años; ha tenido incidentes en puerto).
+  `baja`.
+- Zagreb (bloques de Novi Zagreb, el museo de los 80, túnel Grič), Pula (arena y búnkeres austriacos),
+  Željava (la base aérea subterránea en la frontera bosnia: sin bus, fuera de ficha).
+
+**Riesgos de datos.** Galeb; Goli Otok fuera de temporada; Petrova Gora puede acabar de caer.
+
+---
+
+## Alemania, el Este (de · 276) — prioridad media
+
+**Entrada.** UE: DNI.
+
+**Vuelos.** BCN–Berlín (BER) directo: **Vueling ≈ 21/semana, Ryanair ≈ 10, easyJet ≈ 10**, 2 h 30.
+Desde ≈ 40 €. Leipzig y Dresde con escala o tren desde Berlín.
+
+**Transporte.**
+- **Deutschlandticket: 63 € al mes desde enero de 2026** (todo el regional, S-Bahn, metro y bus del
+  país; no ICE/IC). Se compra como suscripción mensual cancelable; vale para casi toda esta ficha.
+- ICE Berlín–Leipzig 1 h 15, Berlín–Dresde 2 h, Leipzig–Chemnitz 1 h (regional). Beelitz-Heilstätten
+  tiene estación propia del RE7 (45 min desde Berlín). Prora: tren a Binz y parada Prora. Wünsdorf:
+  RE desde Berlín, 40 min.
+
+**Sitios circo verificados.**
+- **Beelitz-Heilstätten**: el sanatorio abandonado (Hitler convaleció en 1916, hospital soviético hasta
+  1994); **pasarela por las copas (Baumkronenpfad) 17 €**, marzo y octubre 10-18, abril-septiembre 10-19,
+  invierno fines de semana 10-16; los edificios **solo con visita guiada de pago** aparte.
+- **Teufelsberg**: la estación de escucha de la NSA sobre la montaña de escombros; **12 €**, todos los
+  días de 11:00 al atardecer.
+- **Wünsdorf**: la "ciudad prohibida" del mando soviético; **Casa de los Oficiales 20 € (solo efectivo)
+  con reserva por teléfono o mail**; tour 1 (búnkeres Maybach y Zeppelin) martes-viernes 14:00 y fines
+  de semana 11, 13 y 15 h.
+- **Prora**: el coloso KdF de 4,5 km en Rügen, hoy casi todo pisos y hotel; **Centro de Documentación**
+  marzo-octubre 10-18 (febrero y noviembre hasta 16), paseos guiados gratuitos cada hora de 11 a 16;
+  tours en bici de mayo a julio.
+- **Stasi-Museum (Lichtenberg)**: 12 €, lunes-viernes 10-18, fines de semana 11-18 (el despacho de
+  Mielke intacto). Hohenschönhausen (la prisión) con visita guiada.
+- **Chemnitz**: el Nischel, la cabeza de Marx de Kerbel (1971, 7,10 m, 40 t), en la calle; la ciudad fue
+  Capital Europea de la Cultura 2025.
+- **Eisenhüttenstadt**: la primera ciudad socialista de la RDA (Stalinstadt) con el **Museo Utopía y
+  Vida Cotidiana** (170.000 objetos de la RDA); regional desde Berlín 1 h 15.
+- **Spreepark**: el parque de atracciones abandonado, en obras de reapertura como parque de arte;
+  visitas guiadas puntuales (precio 2026 sin verificar). Ferropolis (las excavadoras gigantes) con tren a
+  Gräfenhainichen. Leipzig (Völkerschlachtdenkmal, la Runde Ecke de la Stasi).
+
+**Riesgos de datos.** Spreepark cambia cada temporada; Beelitz tiene precios distintos por tour;
+Wünsdorf pide reserva.
+
+---
+
+## Finlandia (fi · 246) — prioridad baja (caro)
+
+**Entrada.** UE: DNI.
+
+**Vuelos.** BCN–Helsinki directo **Finnair 7/semana y Norwegian 5/semana**, 4 h. Desde ≈ 60-120 €.
+
+**Transporte.**
+- **VR** con billetes dinámicos: Helsinki–Tampere desde 6,90 €; **Santa Claus Express** (nocturno
+  Helsinki–Rovaniemi, 12 h, dos pisos): cabina desde ≈ 49-89 € según demanda, con ducha desde ≈ 74 €,
+  reservable con meses; en Navidad se agota.
+- **Frontera con Rusia cerrada** a pasajeros desde diciembre de 2023, prorrogada sin fecha (junio de
+  2026); Rusia cerró además los pasos ferroviarios el 1 de julio de 2026. Karelia se ve desde este lado.
+- HSL en Helsinki: billete AB 3,30 € (80 min) que incluye el **ferry a Suomenlinna** (15 min).
+
+**Sitios circo verificados.**
+- **Suomenlinna**: la fortaleza-isla sueca-rusa con búnkeres, el submarino Vesikko y el museo; ferry de
+  HSL.
+- **Museo de la Línea Salpa (Miehikkälä)**: los 1.200 km de búnkeres de 1940-44 contra la URSS; la
+  parada de bus más cercana está a 3 km (Miehikkälä) o 10 km (Virojoki): **difícil sin coche**, se avisa.
+- **Museo del Frente de Hanko**: la línea del frente de 1941 en la península que la URSS arrendó;
+  10 €, junio-agosto martes-domingo 11-18 y fuera de temporada un día a la semana; tren a Hanko.
+- **Sanatorio de Paimio** (Aalto, 1933): visitas guiadas 20 €; bus desde Turku.
+- **Castillo de nieve de Kemi**: enero-marzo, 15 € (2024); tren Helsinki–Kemi en la línea de Rovaniemi.
+  **Arktikum (Rovaniemi)**: 30 €.
+- Helsinki brutalista (Merihaka, la iglesia de la roca, Itäkeskus), el búnker de la Guerra Fría bajo el
+  parque de Kaisaniemi, Tampere (Lenin Museum: el único museo de Lenin fuera de Rusia, cerrado en 2024 y
+  reabierto como Museo Nootti: **verificar**), el ferry a Tallin para encadenar con Estonia.
+
+**Riesgos de datos.** Precios de VR dinámicos; el museo de Lenin de Tampere cambió de nombre y enfoque
+en 2024; el más caro del radar (90-120 €/día).
+
+---
+
+## Orden sugerido para escribir (tercer radar)
+1. **Chipre + Grecia** como pareja mediterránea (DNI, directos diarios, Varosha y Spinalonga como
+   ganchos). 2. **Eslovenia + Croacia** como pareja (tren Liubliana–Zagreb, Goli Otok y la línea Rupnik).
+3. **Alemania del Este** (Deutschlandticket, todo en regional). 4. **Finlandia** (cuando se acepte que
+es caro).
